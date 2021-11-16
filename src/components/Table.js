@@ -2,19 +2,29 @@ import React, { useState } from "react";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import CreateModal from "./Modal";
 import Search from "./SearchTable";
+import { Ctable } from "../style/styled-compo";
 
 function Table({ columns, data }) {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, setGlobalFilter } = useTable({ columns, data }, useGlobalFilter, useSortBy);
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    setGlobalFilter,
+  } = useTable({ columns, data }, useGlobalFilter, useSortBy);
   const [modalOpen, setmodalOpen] = useState(false);
   return (
     <>
       <Search onSubmit={setGlobalFilter} />
-      <table {...getTableProps()}>
+      <Ctable {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>{column.render("Header")}</th>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                </th>
               ))}
             </tr>
           ))}
@@ -32,7 +42,7 @@ function Table({ columns, data }) {
             );
           })}
         </tbody>
-      </table>
+      </Ctable>
     </>
   );
 }

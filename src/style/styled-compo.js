@@ -42,3 +42,30 @@ export const Showmenu = styled.nav`
   transition: 3s;
   z-index: 40;
 `;
+
+export const Gdiv = styled.div`
+  position: fixed;
+  right: 0;
+  top: 15%;
+  height: 40%;
+  width: 85%;
+  background-color: #fbdddd;
+`;
+
+export const Tdiv = styled.div`
+  position: fixed;
+  right: 0;
+  top: 55%;
+  height: 45%;
+  width: 85%;
+  background-color: #fbdddd;
+`;
+
+export const Ctable = styled.table`
+  margin-left: auto;
+  margin-right: auto;
+  width: 800px;
+  height: 200px;
+  border: 3px solid black;
+  text-align: center;
+`;
