@@ -79,7 +79,7 @@ export const Ctable = styled.table`
 export const Div1 = styled.div`
   position: fixed;
   right: 0;
-  top: 15%;
+  top: 20%;
   height: 42.5%;
   width: 42.5%;
   background-color: #fbdddd;
@@ -88,7 +88,7 @@ export const Div1 = styled.div`
 export const Div2 = styled.div`
   position: fixed;
   left: 15%;
-  top: 15%;
+  top: 20%;
   height: 42.5%;
   width: 42.5%;
   background-color: #fbdddd;
@@ -97,8 +97,8 @@ export const Div2 = styled.div`
 export const Div3 = styled.div`
   position: fixed;
   left: 15%;
-  top: 57.5%;
-  height: 42.5%;
+  top: 62.5%;
+  height: 37.5%;
   width: 42.5%;
   background-color: #fbdddd;
 `;
@@ -106,8 +106,8 @@ export const Div3 = styled.div`
 export const Div4 = styled.div`
   position: fixed;
   right: 0;
-  top: 57.5%;
-  height: 42.5%;
+  top: 62.5%;
+  height: 37.5%;
   width: 42.5%;
   background-color: #fbdddd;
 `;
@@ -117,4 +117,13 @@ export const Title = styled.h2`
   font-size: 15px;
   font-weight: 400;
   margin: 0;
+`;
+
+export const SDiv = styled.div`
+  position: fixed;
+  left: 15%;
+  top: 20%;
+  height: 42.5%;
+  width: 85%;
+  background-color: #fbdddd;
 `;
