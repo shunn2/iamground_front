@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import { SDiv, Header } from "../style/styled-compo";
 import Table from "../components/module/Table";
 import faker from "faker/locale/ko";
 
@@ -46,10 +45,7 @@ function ScanningPer() {
 
   return (
     <>
-      <Header />
-      <SDiv>
         <Table columns={columns} data={data} />
-      </SDiv>
     </>
   );
 }

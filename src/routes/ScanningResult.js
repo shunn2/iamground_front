@@ -19,31 +19,50 @@ function ScanningResult() {
 
   return (
     <>
-      <Header />
       <Div>
-        <div>
+        <div style={{height:'25px', display:'flex', }}>
           <span
             style={{
-              backgroundColor: tab === 0 ? "white" : "pink",
+              backgroundColor: "#FBDDDD",
+              border:'1px solid black',
+              borderBottom: tab === 0 ? 'none' : '1px solid black',
+              width: "150px",
+              textAlign:'center'
             }}
             onClick={handleTabClick(0)}
           >
             요약
           </span>
           <span
-            style={{ backgroundColor: tab === 1 ? "white" : "pink" }}
+            style={{ backgroundColor: "#FBDDDD",
+            border:'1px solid black',
+            borderBottom: tab === 1 ? 'none' : '1px solid black',
+            width: "150px",
+            textAlign:'center'
+            }}
             onClick={handleTabClick(1)}
           >
             권한 분리 추천
           </span>
           <span
-            style={{ backgroundColor: tab === 2 ? "white" : "pink" }}
+            style={{ backgroundColor: "#FBDDDD",
+            border:'1px solid black',  
+            borderBottom: tab === 2 ? 'none' : '1px solid black',
+            width: "150px",
+            textAlign:'center'
+          }}
             onClick={handleTabClick(2)}
           >
             올바른 구성 추천
           </span>
+          <span
+            style={{ backgroundColor: "#FBDDDD",
+            borderBottom:'1px solid black', 
+            flex: 1 
+          }}
+          ></span>
         </div>
-        <div>
+        <div style={{width:'100%', height:'calc(100% - 30px)'}}>
           {tab === 0 && <Overview />}
           {tab === 1 && <Permission />}
           {tab === 2 && <Config />}
