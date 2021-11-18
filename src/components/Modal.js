@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "react-modal";
+import ModalInfo from "./ModalInfo";
 
-const CreateModal = ({ onOpen }) => {
+const CreateModal = ({ onOpen, modalClose }) => {
   return (
     <>
-      {/* <button onClick={() => setmodalOpen(true)}>Open</button> */}
-      <Modal isOpen={onOpen}>
-        modal is Open
-        <button>close</button>
+      <Modal isOpen={onOpen} onRequestClose={() => modalClose()}>
+        <button onClcik={modalClose} style={{ float: "right" }}>
+          close
+        </button>
+        <ModalInfo />
       </Modal>
     </>
   );

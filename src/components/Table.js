@@ -6,10 +6,23 @@ import Search from "./SearchTable";
 function Table({ columns, data }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, setGlobalFilter } = useTable({ columns, data }, useGlobalFilter, useSortBy);
   const [modalOpen, setmodalOpen] = useState(false);
+  const modalClose = () => {
+    setmodalOpen(!modalOpen);
+  };
+  const tableStyle = {
+    position: "relative",
+    top: "20px",
+    left: "30px",
+    width: "1000px",
+    height: "500px",
+    border: "1px solid black",
+  };
   return (
     <>
       <Search onSubmit={setGlobalFilter} />
-      <table {...getTableProps()}>
+      <br />
+      <br />
+      <table {...getTableProps()} style={tableStyle}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -23,11 +36,11 @@ function Table({ columns, data }) {
           {rows.map((row) => {
             prepareRow(row);
             return (
-              <tr onClick={() => setmodalOpen(true)} {...row.getRowProps()}>
+              <tr onClick={modalClose} {...row.getRowProps()}>
                 {row.cells.map((cell) => (
                   <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 ))}
-                <CreateModal onOpen={modalOpen} />
+                {modalOpen && <CreateModal onOpen={modalOpen} modalClose={modalClose} />}
               </tr>
             );
           })}

@@ -14,6 +14,7 @@ export const Div = styled.div`
   bottom: 0;
   width: 85%;
   background-color: #fbdddd;
+  overflow: scroll;
 `;
 
 export const Nav = styled.nav`
@@ -41,4 +42,18 @@ export const Showmenu = styled.nav`
   left: 15%;
   transition: 3s;
   z-index: 40;
+`;
+
+export const Spanstyle = styled.span`
+  font-size: 20px;
+`;
+
+export const Transtable = styled.table`
+  transform: rotate(90deg);
+`;
+export const Transth = styled.th`
+  transform: rotate(-90deg);
+`;
+export const Transtd = styled.td`
+  transform: rotate(-90deg);
 `;

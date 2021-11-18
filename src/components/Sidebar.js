@@ -19,10 +19,16 @@ const Sidebar = () => (
         </Link>
       </li>
       <li>
-        <Link to="/monitoring">
-          <MonIcon />
-          monitoring
-        </Link>
+        <MonIcon />
+        Monitoring
+        <ul>
+          <li>
+            <Link to="/monitoring/log">monitoring-log</Link>
+          </li>
+          <li>
+            <Link to="/monitoring/user">monitoring-user</Link>
+          </li>
+        </ul>
       </li>
       <li>
         <Link to="/visualization">

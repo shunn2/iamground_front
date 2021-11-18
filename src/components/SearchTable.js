@@ -1,5 +1,12 @@
 import React from "react";
 
+const searchStyle = {
+  position: "relative",
+  top: "30px",
+  left: "30px",
+  width: "300px",
+};
+
 function Search({ onSubmit }) {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -7,7 +14,7 @@ function Search({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={searchStyle}>
       <input name="filter" />
       <button>Search</button>
     </form>

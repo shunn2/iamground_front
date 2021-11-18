@@ -1,8 +1,13 @@
 import React from "react";
-import ToggleSide from "../components/ScanSide";
+import { Header, Div } from "../style/styled-compo";
 
 const Test = () => {
-  return <ToggleSide />;
+  return (
+    <>
+      <Header />
+      <Div></Div>
+    </>
+  );
 };
 
 export default Test;

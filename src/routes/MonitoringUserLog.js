@@ -1,23 +1,13 @@
 import { useMemo, useState } from "react";
+import qs from "qs";
 import faker from "faker/locale/ko";
-import Table from "../components/Table";
-import Switch from "@mui/material/Switch";
 import { Div, Header } from "../style/styled-compo";
+import ToggleSide from "../components/ScanSide";
+import Table from "../components/Table";
 
 faker.seed(100);
 
-const labelStyle = {
-  position: "relative",
-  top: "50px",
-  left: "850px",
-};
-
-function Monitoring() {
-  const [checked, setChecked] = useState(true);
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-    console.log(event.target.checked);
-  };
+const MonitoringUserLog = ({ group, user, poweruser }) => {
   const columns = useMemo(
     () => [
       {
@@ -67,21 +57,17 @@ function Monitoring() {
         })),
     []
   );
-
   return (
     <>
       <Header />
       <Div>
-        <form>
-          <label style={labelStyle}>
-            <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
-            <strong>위험한 변경사항</strong>
-          </label>
-        </form>
-        {checked && <Table columns={columns} data={data} />}
+        <ToggleSide />
+        <Table columns={columns} data={data} />
       </Div>
     </>
   );
-}
+};
 
-export default Monitoring;
+export default MonitoringUserLog;
+
+//location으로
