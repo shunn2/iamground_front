@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { SDiv, Header } from "../style/styled-compo";
-import Table from "../components/Table";
+import Table from "../components/module/Table";
 import faker from "faker/locale/ko";
 
 function ScanningPer() {
