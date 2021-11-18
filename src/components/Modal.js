@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import ModalInfo from "./ModalInfo";
+import ModalJson from "./ModalJson";
 
 const CreateModal = ({ onOpen, modalClose }) => {
   return (

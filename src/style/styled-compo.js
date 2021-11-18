@@ -126,3 +126,11 @@ export const Row = styled.div`
   width: 100%;
   height: 50%;
 `
+export const SDiv = styled.div`
+  position: fixed;
+  left: 15%;
+  top: 20%;
+  height: 42.5%;
+  width: 85%;
+  background-color: #fbdddd;
+`;
