@@ -14,6 +14,7 @@ const AppRouter = () => {
   const user = ["user1", "user2", "user3", "user4", "user5", "user6"];
   const poweruser = ["p-user1", "p-user2", "p-user3", "p-user4"];
   const group = ["group1", "group2", "group3", "group4"];
+  const accesskey = ["accesskey1", "accesskey2", "accesskey3", "accesskey4", "accesskey5"];
 
   return (
     <Router>
@@ -27,7 +28,7 @@ const AppRouter = () => {
           <Route path="/scan" element={<Scanning />} />
           <Route path="/scan/report/summary" element={<ScanningSummary />} />
           <Route path="/monitoring" element={<Monitoring />} />
-          <Route path="/visualization" element={<Visualization />} />
+          <Route path="/visualization" element={<Visualization user={user} group={group} poweruser={poweruser} accesskey={accesskey} />} />
           <Route path="/test" element={<Test />} />
         </>
       </Routes>
