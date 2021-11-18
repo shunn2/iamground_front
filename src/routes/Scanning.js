@@ -4,6 +4,8 @@ import faker from "faker/locale/ko";
 import Table from "../components/Table";
 import { Gdiv, Tdiv, Header } from "../style/styled-compo";
 import { ResponsiveLine } from "@nivo/line";
+import { Link } from "react-router-dom";
+import DescriptionIcon from "@mui/icons-material/Description";
 
 faker.seed(100);
 
@@ -179,7 +181,11 @@ function Scanning() {
           per: faker.datatype.number(50),
           config: faker.datatype.number(50),
           scan: <button>Scan</button>,
-          result: <button>View</button>,
+          result: (
+            <Link to="/scan/report/summary">
+              <DescriptionIcon />
+            </Link>
+          ),
         })),
     []
   );

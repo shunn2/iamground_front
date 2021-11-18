@@ -13,7 +13,7 @@ const Sidebar = () => (
         </Link>
       </li>
       <li>
-        <Link to="/scanning">
+        <Link to="/scan">
           <ScanIcon />
           Scanning
         </Link>

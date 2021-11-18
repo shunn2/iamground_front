@@ -6,6 +6,7 @@ import Monitoring from "../routes/Monitoring";
 import Visualization from "../routes/Visualization";
 import Sidebar from "./Sidebar";
 import Test from "../routes/Test";
+import ScanningSummary from "../routes/ScanningSummary";
 
 const AppRouter = () => {
   return (
@@ -14,7 +15,8 @@ const AppRouter = () => {
       <Routes>
         <>
           <Route exact path="/" element={<Home />} />
-          <Route path="/scanning" element={<Scanning />} />
+          <Route path="/scan" element={<Scanning />} />
+          <Route path="/scan/report/summary" element={<ScanningSummary />} />
           <Route path="/monitoring" element={<Monitoring />} />
           <Route path="/visualization" element={<Visualization />} />
           <Route path="/test" element={<Test />} />

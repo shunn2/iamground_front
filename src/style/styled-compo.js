@@ -69,3 +69,47 @@ export const Ctable = styled.table`
   border: 3px solid black;
   text-align: center;
 `;
+
+// 순서대로 1,2,3,4분면 배치용 div
+export const Div1 = styled.div`
+  position: fixed;
+  right: 0;
+  top: 15%;
+  height: 42.5%;
+  width: 42.5%;
+  background-color: #fbdddd;
+`;
+
+export const Div2 = styled.div`
+  position: fixed;
+  left: 15%;
+  top: 15%;
+  height: 42.5%;
+  width: 42.5%;
+  background-color: #fbdddd;
+`;
+
+export const Div3 = styled.div`
+  position: fixed;
+  left: 15%;
+  top: 57.5%;
+  height: 42.5%;
+  width: 42.5%;
+  background-color: #fbdddd;
+`;
+
+export const Div4 = styled.div`
+  position: fixed;
+  right: 0;
+  top: 57.5%;
+  height: 42.5%;
+  width: 42.5%;
+  background-color: #fbdddd;
+`;
+
+export const Title = styled.h2`
+  text-align: center;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 0;
+`;
