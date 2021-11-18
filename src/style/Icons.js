@@ -3,30 +3,28 @@ import HomeIcon from "@material-ui/icons/Home";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
 import DvrIcon from "@mui/icons-material/Dvr";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { IconButton } from "@material-ui/core";
 import { pink } from "@mui/material/colors";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { HiOutlineUserGroup } from "react-icons/hi";
 
 export const Homeicon = () => {
-  return <HomeIcon />;
+  return <HomeIcon style={{marginRight:"6px"}}/>;
 };
 export const ScanIcon = () => {
-  return <DocumentScannerIcon />;
+  return <DocumentScannerIcon style={{marginRight:"6px"}}/>;
 };
 export const MonIcon = () => {
-  return <DvrIcon />;
+  return <DvrIcon style={{marginRight:"6px"}}/>;
 };
 export const VisIcon = () => {
-  return <VisibilityIcon />;
+  return <VisibilityIcon style={{marginRight:"6px"}}/>;
 };
 export const Personbutton = () => {
-  return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} />;
+  return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{marginRight:"6px"}}/>;
 };
 export const Groupbutton = () => {
-  return <PeopleOutlineIcon sx={{ fontSize: 80 }} />;
+  return <PeopleOutlineIcon sx={{ fontSize: 80 }} style={{marginRight:"6px"}}/>;
 };
 export const PowerPbutton = () => {
-  return <AccountCircleOutlinedIcon sx={({ color: pink[500] }, { fontSize: 80 })} />;
+  return <AccountCircleOutlinedIcon sx={({ color: pink[500] }, { fontSize: 80 })} style={{marginRight:"6px"}}/>;
 };

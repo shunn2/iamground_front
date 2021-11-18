@@ -6,7 +6,7 @@ import Monitoring from "../routes/Monitoring";
 import MonitoringUser from "../routes/MonitoringUser";
 import MonitoringUserLog from "../routes/MonitoringUserLog";
 import Visualization from "../routes/Visualization";
-import Sidebar from "./Sidebar";
+import Layout from "./layout";
 import Test from "../routes/Test";
 import ScanningSummary from "../routes/ScanningSummary";
 
@@ -17,9 +17,8 @@ const AppRouter = () => {
 
   return (
     <Router>
-      <Sidebar />
-      <Routes>
-        <>
+      <Layout>
+        <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/monitoring/log" element={<Monitoring />} />
           <Route path="/monitoring/user" element={<MonitoringUser user={user} group={group} poweruser={poweruser} />} />
@@ -29,8 +28,8 @@ const AppRouter = () => {
           <Route path="/monitoring" element={<Monitoring />} />
           <Route path="/visualization" element={<Visualization />} />
           <Route path="/test" element={<Test />} />
-        </>
-      </Routes>
+        </Routes>
+      </Layout>
     </Router>
   );
 };

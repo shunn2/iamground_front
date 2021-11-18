@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
-import CreateModal from "./Modal";
-import Search from "./SearchTable";
-import { Ctable } from "../style/styled-compo";
+import CreateModal from "../Modal";
+import Search from "../SearchTable";
+import { Ctable } from "../../style/styled-compo";
 
 function Table({ columns, data }) {
   const {

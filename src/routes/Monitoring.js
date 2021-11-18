@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import faker from "faker/locale/ko";
-import Table from "../components/Table";
+import Table from "../components/module/Table";
 import Switch from "@mui/material/Switch";
-import { Div, Header } from "../style/styled-compo";
+import { Div } from "../style/styled-compo";
 
 faker.seed(100);
 
@@ -70,7 +70,6 @@ function Monitoring() {
 
   return (
     <>
-      <Header />
       <Div>
         <form>
           <label style={labelStyle}>

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Header, Div, Spanstyle } from "../style/styled-compo";
+import { Div, Spanstyle } from "../style/styled-compo";
 import { Personbutton, Groupbutton, PowerPbutton } from "../style/Icons";
 
 const MonitoringUser = ({ group, user, poweruser }) => {
   const [clicked, setClicked] = useState(false);
+
   return (
     <>
-      <Header />
       <Div>
         <div>
           {group.map((group, index) => (

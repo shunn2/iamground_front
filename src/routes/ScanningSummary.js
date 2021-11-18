@@ -1,5 +1,5 @@
 import React from "react";
-import { Div1, Div2, Div3, Div4, Header, Title } from "../style/styled-compo";
+import { Div1, Div2, Div3, Div4, Row, SummaryWrapper, Title } from "../style/styled-compo";
 import { ResponsivePie } from "@nivo/pie";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveBullet } from "@nivo/bullet";
@@ -276,34 +276,38 @@ const ScanningSummary = () => {
   };
 
   return (
-    <>
-      <Header />
-      <Div2>
-        <Title>Permission</Title>
-        <div style={{ height: "90%" }}>
-          <MyResponsivePie data={data1}></MyResponsivePie>
-        </div>
-        <MyResponsiveBullet data={data_bar1}></MyResponsiveBullet>
-      </Div2>
-      <Div1>
-        <Title>Config</Title>
-        <div style={{ height: "90%" }}>
-          <MyResponsivePie data={data2}></MyResponsivePie>
-        </div>
-        <MyResponsiveBullet data={data_bar2}></MyResponsiveBullet>
-      </Div1>
-      <Div3>
-        <MyResponsiveChart data={data_chart}></MyResponsiveChart>
-      </Div3>
-      <Div4>
-        {/* br, center수정 */}
-        <br />
-        <br />
-        <center>
-          <MyTable />
-        </center>
-      </Div4>
-    </>
+    <SummaryWrapper>
+      <Row>
+        <Div2>
+          <Title>Permission</Title>
+          <div style={{width:"100%", height:'calc(100% - 80px)'}}>
+            <MyResponsivePie data={data1}></MyResponsivePie>
+          </div>
+          <div style={{width:"100%", height:'60px'}}>
+            <MyResponsiveBullet data={data_bar1}></MyResponsiveBullet>
+          </div>
+        </Div2>
+        <Div1>
+          <Title>Config</Title>
+          <div style={{width:"100%", height:'calc(100% - 80px)'}}>
+            <MyResponsivePie data={data2}></MyResponsivePie>
+          </div>
+          <div style={{width:"100%", height:'60px'}}>
+            <MyResponsiveBullet data={data_bar2}></MyResponsiveBullet>
+          </div>
+        </Div1>
+      </Row>
+      <Row>
+        <Div3>
+          <MyResponsiveChart data={data_chart}></MyResponsiveChart>
+        </Div3>
+        <Div4>
+          <center>
+            <MyTable />
+          </center>
+        </Div4>
+      </Row>
+    </SummaryWrapper>
   );
 };
 

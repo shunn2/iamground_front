@@ -1,13 +1,20 @@
 import { useMemo, useState } from "react";
+
 import qs from "qs";
+import { useLocation } from "react-router";
 import faker from "faker/locale/ko";
-import { Div, Header } from "../style/styled-compo";
+import { Div } from "../style/styled-compo";
 import ToggleSide from "../components/ScanSide";
-import Table from "../components/Table";
+import Table from "../components/module/Table";
 
 faker.seed(100);
 
 const MonitoringUserLog = ({ group, user, poweruser }) => {
+  const location = useLocation()
+  const query = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+  });
+
   const columns = useMemo(
     () => [
       {
@@ -59,7 +66,6 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
   );
   return (
     <>
-      <Header />
       <Div>
         <ToggleSide />
         <Table columns={columns} data={data} />

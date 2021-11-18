@@ -1,10 +1,9 @@
 import React from "react";
-import { Header, Div } from "../style/styled-compo";
+import { Div } from "../style/styled-compo";
 
 const Test = () => {
   return (
     <>
-      <Header />
       <Div></Div>
     </>
   );

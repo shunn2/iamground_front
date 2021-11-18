@@ -1,8 +1,8 @@
 import React from "react";
 import { useMemo } from "react";
 import faker from "faker/locale/ko";
-import Table from "../components/Table";
-import { Gdiv, Tdiv, Header } from "../style/styled-compo";
+import Table from "../components/module/Table";
+import { Gdiv, Tdiv } from "../style/styled-compo";
 import { ResponsiveLine } from "@nivo/line";
 import { Link } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -192,7 +192,6 @@ function Scanning() {
 
   return (
     <>
-      <Header />
       <Gdiv>
         <MyResponsiveLine gdata={gdata} />
       </Gdiv>
