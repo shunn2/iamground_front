@@ -23,8 +23,8 @@ export const Nav = styled.nav`
 
 export const NavListWrapper = styled.ul`
   padding: 0px 20px;
-  margin: 0px
-`
+  margin: 0px;
+`;
 
 export const NavList = styled.li`
   list-style: none;
@@ -33,8 +33,7 @@ export const NavList = styled.li`
   font-size: 20px;
   font-weight: 700;
   padding: 6px 0px;
-
-`
+`;
 
 export const Hidemenu = styled.nav`
   width: 15%;
@@ -99,9 +98,10 @@ export const Div4 = styled.div`
 `;
 
 export const Title = styled.h2`
+  padding-top: 10px;
   text-align: center;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   margin: 0;
   height: 20px;
 `;
@@ -114,15 +114,15 @@ export const LayoutContent = styled.div`
   height: calc(100% - 124px);
   padding: 30px;
   background-color: #fbdddd;
-`
+`;
 
 export const SummaryWrapper = styled.div`
   width: 100%;
   height: 100%;
-`
+`;
 
 export const Row = styled.div`
   display: flex;
   width: 100%;
   height: 50%;
-`
+`;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Div, Header } from "../style/styled-compo";
+import { Div } from "../style/styled-compo";
 import ScanningConfig from "./ScanningConfig";
 import ScanningPer from "./ScanningPer";
 import ScanningSummary from "./ScanningSummary";
@@ -20,49 +20,55 @@ function ScanningResult() {
   return (
     <>
       <Div>
-        <div style={{height:'25px', display:'flex', }}>
+        <div style={{ height: "25px", display: "flex" }}>
           <span
             style={{
-              backgroundColor: "#FBDDDD",
-              border:'1px solid black',
-              borderBottom: tab === 0 ? 'none' : '1px solid black',
+              backgroundColor: tab === 0 ? "#FBDDDD" : "#c9c5c5",
+              border: "1px solid black",
+              borderBottom: tab === 0 ? "none" : "1px solid black",
               width: "150px",
-              textAlign:'center'
+              textAlign: "center",
+              fontWeight: tab === 0 ? "bold" : "normal",
             }}
             onClick={handleTabClick(0)}
           >
             요약
           </span>
           <span
-            style={{ backgroundColor: "#FBDDDD",
-            border:'1px solid black',
-            borderBottom: tab === 1 ? 'none' : '1px solid black',
-            width: "150px",
-            textAlign:'center'
+            style={{
+              backgroundColor: tab === 1 ? "#FBDDDD" : "#c9c5c5",
+              border: "1px solid black",
+              borderBottom: tab === 1 ? "none" : "1px solid black",
+              width: "150px",
+              textAlign: "center",
+              fontWeight: tab === 1 ? "bold" : "normal",
             }}
             onClick={handleTabClick(1)}
           >
             권한 분리 추천
           </span>
           <span
-            style={{ backgroundColor: "#FBDDDD",
-            border:'1px solid black',  
-            borderBottom: tab === 2 ? 'none' : '1px solid black',
-            width: "150px",
-            textAlign:'center'
-          }}
+            style={{
+              backgroundColor: tab === 2 ? "#FBDDDD" : "#c9c5c5",
+              border: "1px solid black",
+              borderBottom: tab === 2 ? "none" : "1px solid black",
+              width: "150px",
+              textAlign: "center",
+              fontWeight: tab === 2 ? "bold" : "normal",
+            }}
             onClick={handleTabClick(2)}
           >
             올바른 구성 추천
           </span>
           <span
-            style={{ backgroundColor: "#FBDDDD",
-            borderBottom:'1px solid black', 
-            flex: 1 
-          }}
+            style={{
+              backgroundColor: "#FBDDDD",
+              borderBottom: "1px solid black",
+              flex: 1,
+            }}
           ></span>
         </div>
-        <div style={{width:'100%', height:'calc(100% - 30px)'}}>
+        <div style={{ width: "100%", height: "calc(100% - 30px)" }}>
           {tab === 0 && <Overview />}
           {tab === 1 && <Permission />}
           {tab === 2 && <Config />}
