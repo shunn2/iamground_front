@@ -1,6 +1,8 @@
 import React from "react";
 import Modal from "react-modal";
 import ModalInfo from "./ModalInfo";
+import ModalJson from "./ModalJson";
+import ModalDelete from "./ModalDelete";
 
 const CreateModal = ({ onOpen, modalClose }) => {
   return (
@@ -9,7 +11,7 @@ const CreateModal = ({ onOpen, modalClose }) => {
         <button onClcik={modalClose} style={{ float: "right" }}>
           close
         </button>
-        <ModalInfo />
+        <ModalDelete />
       </Modal>
     </>
   );

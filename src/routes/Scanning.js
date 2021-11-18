@@ -1,8 +1,8 @@
 import React from "react";
 import { useMemo } from "react";
 import faker from "faker/locale/ko";
-import Table from "../components/Table";
-import { Gdiv, Tdiv, Header } from "../style/styled-compo";
+import Table from "../components/module/Table";
+import { Gdiv, Tdiv } from "../style/styled-compo";
 import { ResponsiveLine } from "@nivo/line";
 import { Link } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -44,6 +44,66 @@ function Scanning() {
     {
       id: "Res",
       color: "hsl(263, 70%, 50%)",
+      data: [
+        {
+          x: "11/10",
+          y: 40,
+        },
+        {
+          x: "11/11",
+          y: 85,
+        },
+        {
+          x: "11/12",
+          y: 44,
+        },
+        {
+          x: "11/13",
+          y: 150,
+        },
+        {
+          x: "11/14",
+          y: 100,
+        },
+        {
+          x: "11/15",
+          y: 78,
+        },
+      ],
+    },
+    {
+      id: "Sec",
+      color: "hsl(269, 70%, 50%)",
+      data: [
+        {
+          x: "11/10",
+          y: 150,
+        },
+        {
+          x: "11/11",
+          y: 85,
+        },
+        {
+          x: "11/12",
+          y: 44,
+        },
+        {
+          x: "11/13",
+          y: 30,
+        },
+        {
+          x: "11/14",
+          y: 20,
+        },
+        {
+          x: "11/15",
+          y: 5,
+        },
+      ],
+    },
+    {
+      id: "Test",
+      color: "hsl(269, 70%, 50%)",
       data: [
         {
           x: "11/10",
@@ -192,7 +252,6 @@ function Scanning() {
 
   return (
     <>
-      <Header />
       <Gdiv>
         <MyResponsiveLine gdata={gdata} />
       </Gdiv>

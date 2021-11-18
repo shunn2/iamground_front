@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
+
 import qs from "qs";
 import faker from "faker/locale/ko";
-import { Div, Header } from "../style/styled-compo";
+import { Div } from "../style/styled-compo";
 import ToggleSide from "../components/ScanSide";
 import Table from "../components/Table";
 import { Link, useLocation } from "react-router-dom";
@@ -66,7 +67,6 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
   );
   return (
     <>
-      <Header />
       <Div>
         {decideWho === "grou" ? (
           <div>

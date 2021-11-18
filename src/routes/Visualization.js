@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { Div, Header } from "../style/styled-compo";
+import React from "react";
+import { Div } from "../style/styled-compo";
 import ReactFlow from "react-flow-renderer";
 
 const Visualization = ({ user, group, poweruser, accesskey }) => {
@@ -82,7 +82,6 @@ const Visualization = ({ user, group, poweruser, accesskey }) => {
   const flowStyles = { height: 2000 };
   return (
     <>
-      <Header />
       {/* //<ToggleSide /> */}
       <Div>
         <h3>visualization</h3>
