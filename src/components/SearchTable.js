@@ -5,7 +5,7 @@ const searchStyle = {
   width: "300px",
   marginBottom:'15px',
   display:'flex',
-  alignItems:'center'
+  alignItems:'center',
 };
 
 function Search({ onSubmit }) {
@@ -16,7 +16,7 @@ function Search({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} style={searchStyle}>
-      <SearchIcon/>
+      <div><SearchIcon/></div>
       <input name="filter" />
     </form>
   );

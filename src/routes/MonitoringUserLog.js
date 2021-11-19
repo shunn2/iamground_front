@@ -5,6 +5,7 @@ import { Div, UserName } from "../style/styled-compo";
 import Table from "../components/module/Table";
 import { Link, useLocation } from "react-router-dom";
 import { Personbutton, Groupbutton } from "../style/Icons";
+import Button from '@mui/material/Button';
 
 faker.seed(100);
 
@@ -65,25 +66,25 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
   );
   return (
     <>
-      <h1 style={{ position: "fixed", top: "5px", color: "#18b7be" }}>Monitoring</h1>
-      <Div>
-        {decideWho === "User" ? (
-          <div style={{ position: "fixed", top: "20px", right: "220px" }}>
-            <Personbutton />
-            <UserName>{query.userName}</UserName>
-          </div>
-        ) : (
-          <div style={{ position: "fixed", top: "20px", right: "220px" }}>
-            <Groupbutton />
-            <UserName>{query.userName}</UserName>
-          </div>
-        )}
-        <div>
-          <Link to="/visualization">
-            <button style={{ position: "fixed", top: "80px", right: "80px", backgroundColor: "#b7d6da", height: "50px" }}>{query.userName} 정보 보기</button>
+      <h1 style={{ color: "#787878",margin:'0px 0px 10px 0px', fontSize:'26px', height:'35px' }}>Monitoring</h1>
+        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+          {decideWho === "User" ? (
+            <div style={{display:'flex', alignItems:'center', }}>
+              <Personbutton />
+              <div style={{fontSize:'24px'}}>{query.userName}</div>
+            </div>
+          ) : (
+            <div>
+              <Groupbutton />
+              <UserName>{query.userName}</UserName>
+            </div>
+          )}
+          <Link to="/visualization" style={{textDecoration:'none'}}>
+            <Button variant="contained">{query.userName} 정보 보기</Button>
           </Link>
         </div>
-        <div style={{ paddingTop: "100px" }}>
+      <Div>
+        <div style={{ paddingTop: "40px" }}>
           <Table columns={columns} data={data} />
         </div>
       </Div>

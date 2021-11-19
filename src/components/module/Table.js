@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
-import CreateModal from "../Modal";
+import Modal from "../Modal";
 import Search from "../SearchTable";
 import { Ctable } from "../../style/styled-compo";
 
 function Table({ columns, data, type }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, setGlobalFilter } = useTable({ columns, data }, useGlobalFilter, useSortBy);
   const [modalOpen, setmodalOpen] = useState(false);
-  const modalClose = () => {
-    setmodalOpen(false);
-  };
   const openModal = () => {
     setmodalOpen(true);
   };
@@ -34,12 +31,12 @@ function Table({ columns, data, type }) {
                 {row.cells.map((cell) => (
                   <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 ))}
-                {modalOpen && <CreateModal type={type} isOpen={modalOpen} modalClose={modalClose} />}
               </tr>
             );
           })}
         </tbody>
       </Ctable>
+      {modalOpen && <Modal type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </>
   );
 }

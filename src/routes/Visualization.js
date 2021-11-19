@@ -4,13 +4,13 @@ import ReactFlow from "react-flow-renderer";
 import { VisGroup, VisUser, VisPUser, VisKey } from "../style/Icons";
 
 const Visualization = ({ user, group, poweruser, access }) => {
-  const elementRoot = [{ id: "root", type: "default", style: { background: "#b7d6da", width: 80, fontWeight: "bold", fontSize: "1.2em" }, data: { label: "root" }, position: { x: 500, y: 50 } }];
-  const elementNogroup = [{ id: "Nogroup", type: "default", style: { background: "white", width: 50 }, data: { label: "No group" }, position: { x: 1000, y: 160 } }];
+  const elementRoot = [{ id: "root", type: "default", style: { background: "#e0e0e0", width: 50, fontWeight: "bold", fontSize: "1.2em" }, data: { label: "root" }, position: { x: 500, y: 50 } }];
+  const elementNogroup = [{ id: "Nogroup", type: "default", style: { background: "transparent", width: 30 }, data: { label: "No group" }, position: { x: 1000, y: 160 } }];
   const elementUser = user.map((v, i) => {
     return {
       id: v,
       type: "default",
-      style: { background: "white", width: 50 },
+      style: { background: "transparent", width: 30 },
       data: {
         label: (
           <div>
@@ -28,7 +28,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
     return {
       id: v,
       type: "default",
-      style: { background: "white", width: 50 },
+      style: { background: "transparent", width: 30 },
       data: {
         label: (
           <div>
@@ -46,7 +46,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
     return {
       id: v,
       type: "default",
-      style: { background: "white", width: 50 },
+      style: { background: "transparent", width: 30 },
       data: {
         label: (
           <div>
@@ -64,7 +64,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
     return {
       id: v,
       type: "default",
-      style: { background: "white", width: 50 },
+      style: { background: "transparent", width: 30 },
       data: {
         label: (
           <div>
@@ -119,8 +119,9 @@ const Visualization = ({ user, group, poweruser, access }) => {
         <div style={{ height: "25px", width: "100%", display: "flex" }}>
           <span
             style={{
-              backgroundColor: tab === 0 ? "#efefef" : "#b7d6da",
+              backgroundColor: tab === 0 ? "#efefef" : "#e0e0e0",
               border: "2px solid black",
+              borderRight:'none',
               borderBottom: tab === 0 ? "none" : "1px solid black",
               width: "150px",
               textAlign: "center",
@@ -132,8 +133,9 @@ const Visualization = ({ user, group, poweruser, access }) => {
           </span>
           <span
             style={{
-              backgroundColor: tab === 1 ? "#efefef" : "#b7d6da",
+              backgroundColor: tab === 1 ? "#efefef" : "#e0e0e0",
               border: "2px solid black",
+              borderRight:'none',
               borderBottom: tab === 1 ? "none" : "1px solid black",
               width: "150px",
               textAlign: "center",
@@ -145,7 +147,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
           </span>
           <span
             style={{
-              backgroundColor: tab === 2 ? "#efefef" : "#b7d6da",
+              backgroundColor: tab === 2 ? "#efefef" : "#e0e0e0",
               border: "2px solid black",
               borderBottom: tab === 2 ? "none" : "1px solid black",
               width: "150px",

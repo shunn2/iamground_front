@@ -24,8 +24,9 @@ function ScanningResult() {
         <div style={{ height: "25px", display: "flex" }}>
           <span
             style={{
-              backgroundColor: tab === 0 ? "#efefef" : "#b7d6da",
+              backgroundColor: tab === 0 ? "#efefef" : "#e0e0e0",
               border: "1px solid black",
+              borderRight:'none',
               borderBottom: tab === 0 ? "none" : "1px solid black",
               width: "150px",
               textAlign: "center",
@@ -37,8 +38,9 @@ function ScanningResult() {
           </span>
           <span
             style={{
-              backgroundColor: tab === 1 ? "#efefef" : "#b7d6da",
+              backgroundColor: tab === 1 ? "#efefef" : "#e0e0e0",
               border: "1px solid black",
+              borderRight:'none',
               borderBottom: tab === 1 ? "none" : "1px solid black",
               width: "150px",
               textAlign: "center",
@@ -50,7 +52,7 @@ function ScanningResult() {
           </span>
           <span
             style={{
-              backgroundColor: tab === 2 ? "#efefef" : "#b7d6da",
+              backgroundColor: tab === 2 ? "#efefef" : "#e0e0e0",
               border: "1px solid black",
               borderBottom: tab === 2 ? "none" : "1px solid black",
               width: "150px",

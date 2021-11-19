@@ -20,16 +20,16 @@ export const VisIcon = () => {
   return <VisibilityIcon style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />;
 };
 export const Personbutton = () => {
-  return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "100px", color: "#2C2E31" }} />;
+  return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "80px", color: "#2C2E31" }} />;
 };
 export const Groupbutton = () => {
   return <PeopleOutlineIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "70px", color: "#2C2E31" }} />;
 };
 export const PowerPbutton = () => {
-  return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "100px", color: "#FA255D" }} />;
+  return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "80px", color: "#FA255D" }} />;
 };
 export const VisGroup = () => {
-  return <PeopleOutlineIcon style={{ color: "#2C2E31" }} />;
+  return <PeopleOutlineIcon style={{ color: "#2C2E31", fontSize:'26px'}} />;
 };
 export const VisUser = () => {
   return <AccountCircleOutlinedIcon style={{ color: "#2C2E31" }} />;
