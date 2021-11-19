@@ -1,11 +1,30 @@
 import styled from "styled-components";
+//#18b7be
+export const Iamground = styled.h3``;
 
 export const Header = styled.header`
   position: fixed;
   height: 64px;
   left: 250px;
   width: calc(100% - 250px);
-  background-color: gray;
+  background-color: #efefef;
+`;
+
+export const Nav = styled.nav`
+  position: fixed;
+  height: 100%;
+  width: 250px;
+  background-color: #b7d6da;
+`;
+
+export const LayoutContent = styled.div`
+  position: fixed;
+  top: 64px;
+  left: 250px;
+  width: calc(100% - 310px);
+  height: calc(100% - 124px);
+  padding: 30px;
+  background-color: #efefef;
 `;
 
 export const Div = styled.div`
@@ -14,15 +33,8 @@ export const Div = styled.div`
   overflow: auto;
 `;
 
-export const Nav = styled.nav`
-  position: fixed;
-  height: 100%;
-  width: 250px;
-  background-color: lightgray;
-`;
-
 export const NavListWrapper = styled.ul`
-  padding: 0px 20px;
+  padding: 20px 20px;
   margin: 0px;
 `;
 
@@ -30,9 +42,9 @@ export const NavList = styled.li`
   list-style: none;
   display: flex;
   align-item: center;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 700;
-  padding: 6px 0px;
+  padding: 30px 0px 30px 0px;
 `;
 
 export const Hidemenu = styled.nav`
@@ -66,14 +78,58 @@ export const Tdiv = styled.div`
   height: 55%;
   width: 100%;
 `;
-
+// `
+//   margin-left: auto;
+//   margin-right: auto;
+//   width: 100%;
+//   height: 250px;
+//   border: 3px solid black;
+//   text-align: center;
+//   const StyledTable = styled.table`
+export const SideSpan = styled.span`
+  &:hover {
+    font-size: 1.2em;
+    padding: 3px;
+    font-weight: bold;
+  }
+  color: #606062;
+`;
 export const Ctable = styled.table`
-  margin-left: auto;
-  margin-right: auto;
+  caption-side: top;
+  border: none;
+  border-collapse: collapse;
+  caption-side: bottom;
   width: 100%;
   height: 250px;
-  border: 3px solid black;
   text-align: center;
+  tbody {
+    vertical-align: top;
+    background-color: white;
+  }
+  td,
+  th {
+    border: none;
+  }
+  td,
+  th {
+    border: 1px solid;
+  }
+  td {
+    padding: 5px 10px;
+  }
+  tbody tr {
+    :hover {
+      background-color: #b7d6da;
+    }
+  }
+  thead > tr {
+    background-color: #c2c2c2;
+  }
+  caption {
+    font-size: 0.9em;
+    padding: 5px;
+    font-weight: bold;
+  }
 `;
 
 // 순서대로 1,2,3,4분면 배치용 div
@@ -106,16 +162,6 @@ export const Title = styled.h2`
   height: 20px;
 `;
 
-export const LayoutContent = styled.div`
-  position: fixed;
-  top: 64px;
-  left: 250px;
-  width: calc(100% - 310px);
-  height: calc(100% - 124px);
-  padding: 30px;
-  background-color: #fbdddd;
-`;
-
 export const SummaryWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -125,4 +171,31 @@ export const Row = styled.div`
   display: flex;
   width: 100%;
   height: 50%;
+`;
+
+export const MonGroup = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 30%;
+`;
+export const MonPower = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 30%;
+`;
+export const MonUser = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 30%;
+`;
+
+export const UserName = styled.h2`
+  text-align: center;
+  margin: 0px;
 `;

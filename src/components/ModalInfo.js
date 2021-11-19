@@ -10,13 +10,14 @@ const spanStyle = {
 };
 
 function ModalInfo() {
-  const infoArr = ["Cloud Name", "User", "Service", "Resource", "Activity", "Reason", "Raw Event"];
+  // const infoArr = ["Cloud Name", "User", "Service", "Resource", "Activity", "Reason", "Raw Event"];
   const infoDetail = [
     "Cloud Name / IAMGROUND_CLOUD",
     "User / User1: arn:aws:iam::284264230655:user/User1",
     "Service / S3: arn:aws:s3:::Iamground",
     "Activity / CreateBucket",
     "Reason / dangerous Access",
+    "Raw Event /" + faker.datatype.json(),
   ];
   return (
     <div>

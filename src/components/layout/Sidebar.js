@@ -1,57 +1,61 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Nav, NavList, NavListWrapper } from "../../style/styled-compo";
+import { Nav, NavList, NavListWrapper, SideSpan, Iamground } from "../../style/styled-compo";
 import { Homeicon, ScanIcon, MonIcon, VisIcon } from "../../style/Icons";
-import CircleIcon from '@mui/icons-material/Circle';
+import CircleIcon from "@mui/icons-material/Circle";
+import Topbar from "./Topbar";
 
 const Sidebar = () => (
   <Nav>
-    <div style={{
-      padding:'0px 20px',
-      fontWeight:'bold',
-      fontSize: '20px',
-      display:'flex',
-      alignItems:'center',
-      height:'64px'
-    }}>
-      <CircleIcon style={{marginRight:'4px'}}/>
-    IAMGROUND
+    <div
+      style={{
+        padding: "0px 20px",
+        fontWeight: "bold",
+        fontSize: "20px",
+        display: "flex",
+        alignItems: "center",
+        height: "64px",
+      }}
+    >
+      <CircleIcon style={{ marginRight: "4px" }} />
+      <Iamground>IAMGROUND</Iamground>
     </div>
     <NavListWrapper>
       <NavList>
-        <Link to="/" style={{color:"black", display:'flex', alignItems:'center',   textDecoration:'none'}}>
+        <Link to="/" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none" }}>
           <Homeicon />
-          Home
+          <SideSpan>Home</SideSpan>
         </Link>
       </NavList>
       <NavList>
-        <Link to="/scan" style={{color:"black", display:'flex', alignItems:'center',   textDecoration:'none'}}>
+        <Link to="/scan" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none" }}>
           <ScanIcon />
-          Scanning
+          <SideSpan>Scanning</SideSpan>
         </Link>
       </NavList>
       <NavList>
-        <MonIcon />
-        Monitoring
+        <Link to="/monitoring/log" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none" }}>
+          <MonIcon />
+          <SideSpan>Monitoring</SideSpan>
+          <Topbar what="monitoring" />
+        </Link>
       </NavList>
       <NavListWrapper>
-          <NavList>
-            <Link to="/monitoring/log" style={{color:"black", display:'flex', alignItems:'center',   textDecoration:'none'}}>monitoring-log</Link>
-          </NavList>
-          <NavList>
-            <Link to="/monitoring/user" style={{color:"black", display:'flex', alignItems:'center',   textDecoration:'none'}}>monitoring-user</Link>
-          </NavList>
-        </NavListWrapper>
+        <NavList style={{ padding: "0px" }}>
+          <Link to="/monitoring/log" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "0.8em" }}>
+            <SideSpan style={{ paddingLeft: "15px" }}>monitor-log</SideSpan>
+          </Link>
+        </NavList>
+        <NavList>
+          <Link to="/monitoring/user" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "0.8em" }}>
+            <SideSpan style={{ paddingLeft: "15px" }}>monitor-user</SideSpan>
+          </Link>
+        </NavList>
+      </NavListWrapper>
       <NavList>
-        <Link to="/visualization" style={{color:"black", display:'flex', alignItems:'center',   textDecoration:'none'}}>
+        <Link to="/visualization" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none" }}>
           <VisIcon />
-          visualization
-        </Link>
-      </NavList>
-      <NavList>
-        <Link to="/test" style={{color:"black", display:'flex', alignItems:'center',   textDecoration:'none'}}>
-          <VisIcon />
-          Test
+          <SideSpan>Visualization</SideSpan>
         </Link>
       </NavList>
     </NavListWrapper>

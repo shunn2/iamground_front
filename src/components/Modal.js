@@ -1,17 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import ModalInfo from "./ModalInfo";
-import ModalJson from "./ModalJson";
 import ModalDelete from "./ModalDelete";
 
-const CreateModal = ({ onOpen, modalClose }) => {
+const ModalStyle = {
+  overlay: {
+    position: "fixed",
+    top: "10px",
+    left: "150px",
+    right: 0,
+    bottom: 0,
+    width: "1200px",
+    height: "700px",
+    backgroundColor: "rgba(255, 255, 255, 0.75)",
+  },
+  content: {
+    position: "absolute",
+    fontsize: "10px",
+    border: "1px solid #ccc",
+    background: "#fff",
+    overflow: "auto",
+    WebkitOverflowScrolling: "touch",
+    borderRadius: "4px",
+    outline: "none",
+    padding: "20px",
+  },
+};
+
+const CreateModal = ({ type, isOpen, modalClose }) => {
+  const [openModal, setopenModal] = useState({ isOpen });
+  const closeModal = () => {
+    setopenModal((prev) => !prev);
+  };
   return (
     <>
-      <Modal isOpen={onOpen} onRequestClose={() => modalClose()}>
-        <button onClcik={modalClose} style={{ float: "right" }}>
+      <Modal isOpen={openModal} onRequestClose={closeModal} ariaHideApp={false} style={ModalStyle}>
+        <button onClcik={closeModal} style={{ float: "right" }}>
           close
         </button>
-        <ModalDelete />
+        {type === "monitoring" ? <ModalInfo /> : <ModalDelete />}
       </Modal>
     </>
   );

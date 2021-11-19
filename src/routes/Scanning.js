@@ -252,12 +252,13 @@ function Scanning() {
 
   return (
     <>
+      <h1 style={{ position: "fixed", top: "5px", color: "#18b7be" }}>Scanning</h1>
       <Gdiv>
         <MyResponsiveLine gdata={gdata} />
       </Gdiv>
       <Tdiv>
         <br />
-        <Table columns={columns} data={tdata} />
+        <Table type="scan" columns={columns} data={tdata} />
       </Tdiv>
     </>
   );

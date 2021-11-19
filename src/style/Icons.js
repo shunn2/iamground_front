@@ -3,30 +3,40 @@ import HomeIcon from "@material-ui/icons/Home";
 import DocumentScannerIcon from "@mui/icons-material/DocumentScanner";
 import DvrIcon from "@mui/icons-material/Dvr";
 import VisibilityIcon from "@mui/icons-material/Visibility";
-import { pink } from "@mui/material/colors";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { HiOutlineUserGroup } from "react-icons/hi";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 
 export const Homeicon = () => {
-  return <HomeIcon style={{ marginRight: "6px" }} />;
+  return <HomeIcon style={{ marginRight: "6px", fontSize: "50px", color: "#606062" }} />;
 };
 export const ScanIcon = () => {
-  return <DocumentScannerIcon style={{ marginRight: "6px" }} />;
+  return <DocumentScannerIcon style={{ marginRight: "6px", fontSize: "50px", color: "#606062" }} />;
 };
 export const MonIcon = () => {
-  return <DvrIcon style={{ marginRight: "6px" }} />;
+  return <DvrIcon style={{ marginRight: "6px", fontSize: "50px", color: "#606062" }} />;
 };
 export const VisIcon = () => {
-  return <VisibilityIcon style={{ marginRight: "6px" }} />;
+  return <VisibilityIcon style={{ marginRight: "6px", fontSize: "50px", color: "#606062" }} />;
 };
 export const Personbutton = () => {
-  return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px" }} />;
+  return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "100px", color: "#2C2E31" }} />;
 };
 export const Groupbutton = () => {
-  return <PeopleOutlineIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px" }} />;
+  return <PeopleOutlineIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "100px", color: "#2C2E31" }} />;
 };
 export const PowerPbutton = () => {
-  return <AssignmentIndIcon sx={({ color: pink[800] }, { fontSize: 80 })} />;
+  return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "100px", color: "#FA255D" }} />;
+};
+export const VisGroup = () => {
+  return <PeopleOutlineIcon style={{ color: "#2C2E31" }} />;
+};
+export const VisUser = () => {
+  return <AccountCircleOutlinedIcon style={{ color: "#2C2E31" }} />;
+};
+export const VisPUser = () => {
+  return <AccountCircleOutlinedIcon style={{ color: "#2C2E31" }} />;
+};
+export const VisKey = () => {
+  return <VpnKeyOutlinedIcon style={{ color: "#2C2E31" }} />;
 };

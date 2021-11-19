@@ -19,11 +19,12 @@ function ScanningResult() {
 
   return (
     <>
+      <h1 style={{ position: "fixed", top: "5px", color: "#18b7be" }}>Scanning</h1>
       <Div>
         <div style={{ height: "25px", display: "flex" }}>
           <span
             style={{
-              backgroundColor: tab === 0 ? "#FBDDDD" : "#c9c5c5",
+              backgroundColor: tab === 0 ? "#efefef" : "#b7d6da",
               border: "1px solid black",
               borderBottom: tab === 0 ? "none" : "1px solid black",
               width: "150px",
@@ -36,7 +37,7 @@ function ScanningResult() {
           </span>
           <span
             style={{
-              backgroundColor: tab === 1 ? "#FBDDDD" : "#c9c5c5",
+              backgroundColor: tab === 1 ? "#efefef" : "#b7d6da",
               border: "1px solid black",
               borderBottom: tab === 1 ? "none" : "1px solid black",
               width: "150px",
@@ -49,7 +50,7 @@ function ScanningResult() {
           </span>
           <span
             style={{
-              backgroundColor: tab === 2 ? "#FBDDDD" : "#c9c5c5",
+              backgroundColor: tab === 2 ? "#efefef" : "#b7d6da",
               border: "1px solid black",
               borderBottom: tab === 2 ? "none" : "1px solid black",
               width: "150px",
@@ -62,7 +63,7 @@ function ScanningResult() {
           </span>
           <span
             style={{
-              backgroundColor: "#FBDDDD",
+              backgroundColor: "#efefef",
               borderBottom: "1px solid black",
               flex: 1,
             }}

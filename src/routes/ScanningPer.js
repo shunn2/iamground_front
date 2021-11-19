@@ -45,7 +45,9 @@ function ScanningPer() {
 
   return (
     <>
-        <Table columns={columns} data={data} />
+      <div style={{ paddingTop: "50px" }}>
+        <Table type="scan" columns={columns} data={data} />
+      </div>
     </>
   );
 }

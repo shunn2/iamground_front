@@ -39,10 +39,10 @@ const ScanningSummary = () => {
   ];
 
   const colors = {
-    "Risky Permission": "	#F08080",
-    "Normal Permission": "	#FFE4C4",
-    "Risky Config": "	#F08080",
-    "Normal Config": "	#FFE4C4",
+    "Risky Permission": "	#b7d6da",
+    "Normal Permission": "	#C3B8B5",
+    "Risky Config": "	#b7d6da",
+    "Normal Config": "	#C3B8B5",
   };
   const getColor = (pie) => colors[pie.id];
 
@@ -157,7 +157,8 @@ const ScanningSummary = () => {
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
-      colors={{ scheme: "nivo" }}
+      // colors={{ scheme: "set2" }}
+      colors={["#C3B8B5", "#b7d6da"]}
       borderColor={{ from: "color", modifiers: [["darker", 1.6]] }}
       axisTop={null}
       axisRight={null}
@@ -243,35 +244,40 @@ const ScanningSummary = () => {
 
   const MyTable = () => {
     return (
-      <table
-        border="1"
-        borderColor="#F08080"
-        cellPadding="5"
-        style={{
-          textAlign: "center",
-          borderCollapse: "collapse",
-          cellpadding: "20px",
-        }}
-      >
-        <thead>
-          <tr>
-            <th>Resource</th>
-            <th>Recommendation</th>
-            <th>Last Scan</th>
-            <th>Current Scan</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data_table.map((v, i) => (
-            <tr key={`tr-${i}`}>
-              <td>{v.resource}</td>
-              <td>{v.rec}</td>
-              <td>{v.last}</td>
-              <td>{v.cur}</td>
+      <>
+        <br />
+        <br />
+        <table
+          border="4"
+          borderColor="#b7d6da"
+          cellPadding="5"
+          style={{
+            textAlign: "center",
+            borderCollapse: "collapse",
+            cellpadding: "20px",
+            paddingTop: "100px",
+          }}
+        >
+          <thead>
+            <tr>
+              <th>Resource</th>
+              <th>Recommendation</th>
+              <th>Last Scan</th>
+              <th>Current Scan</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data_table.map((v, i) => (
+              <tr key={`tr-${i}`}>
+                <td>{v.resource}</td>
+                <td>{v.rec}</td>
+                <td>{v.last}</td>
+                <td>{v.cur}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </>
     );
   };
 
@@ -280,19 +286,19 @@ const ScanningSummary = () => {
       <Row>
         <Div2>
           <Title>Permission</Title>
-          <div style={{width:"100%", height:'calc(100% - 80px)'}}>
+          <div style={{ width: "100%", height: "calc(100% - 80px)" }}>
             <MyResponsivePie data={data1}></MyResponsivePie>
           </div>
-          <div style={{width:"100%", height:'60px'}}>
+          <div style={{ width: "100%", height: "60px" }}>
             <MyResponsiveBullet data={data_bar1}></MyResponsiveBullet>
           </div>
         </Div2>
         <Div1>
           <Title>Config</Title>
-          <div style={{width:"100%", height:'calc(100% - 80px)'}}>
+          <div style={{ width: "100%", height: "calc(100% - 80px)" }}>
             <MyResponsivePie data={data2}></MyResponsivePie>
           </div>
-          <div style={{width:"100%", height:'60px'}}>
+          <div style={{ width: "100%", height: "60px" }}>
             <MyResponsiveBullet data={data_bar2}></MyResponsiveBullet>
           </div>
         </Div1>

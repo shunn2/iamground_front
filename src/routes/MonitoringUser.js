@@ -1,46 +1,48 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Div, Spanstyle } from "../style/styled-compo";
+import { Div, SideSpan, MonGroup, MonPower, MonUser, UserName } from "../style/styled-compo";
 import { Personbutton, Groupbutton, PowerPbutton } from "../style/Icons";
 
 const MonitoringUser = ({ group, user, poweruser }) => {
-  const [clicked, setClicked] = useState(false);
-
   return (
     <>
+      <h1 style={{ position: "fixed", top: "5px", color: "#18b7be" }}>Monitoring</h1>
       <Div>
-        <div>
+        <MonGroup>
+          <button style={{ fontSize: "40px", height: "100px", width: "100px", borderRadius: "10px" }}>ALL</button>
           {group.map((group, index) => (
-            <Spanstyle key={`group-${index}`}>
-              {group}
+            <SideSpan key={`group-${index}`}>
               <Link to={`/monitoring/user/log?userName=${group}`}>
                 <Groupbutton />
+                <UserName>{group}</UserName>
               </Link>
-            </Spanstyle>
+            </SideSpan>
           ))}
-        </div>
+        </MonGroup>
         <hr />
-        <div>
+        <MonPower>
+          <span style={{ position: "fixed", left: "270px", top: "300px", border: "1px solid black" }}>관리대상</span>
           {poweruser.map((poweruser, index) => (
-            <Spanstyle key={`poweruser-${index}`}>
-              {poweruser}
+            <SideSpan key={`poweruser-${index}`}>
               <Link to={`/monitoring/user/log?userName=${poweruser}`}>
                 <PowerPbutton />
+                <UserName>{poweruser}</UserName>
               </Link>
-            </Spanstyle>
+            </SideSpan>
           ))}
-        </div>
+        </MonPower>
         <hr />
-        <div>
+        <MonUser>
+          <span style={{ position: "fixed", left: "260px", top: "500px", border: "1px solid black" }}>일반 사용자</span>
           {user.map((user, index) => (
-            <Spanstyle key={`user-${index}`}>
-              {user}
+            <SideSpan key={`user-${index}`}>
               <Link to={`/monitoring/user/log?userName=${user}`}>
                 <Personbutton />
+                <UserName>{user}</UserName>
               </Link>
-            </Spanstyle>
+            </SideSpan>
           ))}
-        </div>
+        </MonUser>
       </Div>
     </>
   );

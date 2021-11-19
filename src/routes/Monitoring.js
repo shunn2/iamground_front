@@ -8,15 +8,14 @@ faker.seed(100);
 
 const labelStyle = {
   position: "relative",
-  top: "50px",
-  left: "850px",
+  top: "10px",
+  left: "1000px",
 };
 
 function Monitoring() {
   const [checked, setChecked] = useState(true);
   const handleChange = (event) => {
     setChecked(event.target.checked);
-    console.log(event.target.checked);
   };
   const columns = useMemo(
     () => [
@@ -54,7 +53,7 @@ function Monitoring() {
 
   const data = useMemo(
     () =>
-      Array(100)
+      Array(15)
         .fill()
         .map(() => ({
           time: faker.time.recent(),
@@ -70,6 +69,7 @@ function Monitoring() {
 
   return (
     <>
+      <h1 style={{ position: "fixed", top: "5px", color: "#18b7be" }}>Monitoring</h1>
       <Div>
         <form>
           <label style={labelStyle}>
@@ -77,7 +77,7 @@ function Monitoring() {
             <strong>위험한 변경사항</strong>
           </label>
         </form>
-        {checked && <Table columns={columns} data={data} />}
+        {checked && <Table type="monitoring" columns={columns} data={data} />}
       </Div>
     </>
   );

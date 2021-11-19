@@ -2,8 +2,8 @@ import React from "react";
 
 const searchStyle = {
   position: "relative",
-  top: "30px",
-  left: "30px",
+  top: "-20px",
+  // left: "30px",
   width: "300px",
 };
 

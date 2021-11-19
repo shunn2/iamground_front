@@ -1,12 +1,10 @@
-import { useMemo, useState } from "react";
-
+import { useMemo } from "react";
 import qs from "qs";
 import faker from "faker/locale/ko";
-import { Div } from "../style/styled-compo";
-import ToggleSide from "../components/ScanSide";
-import Table from "../components/Table";
+import { Div, UserName } from "../style/styled-compo";
+import Table from "../components/module/Table";
 import { Link, useLocation } from "react-router-dom";
-import { Personbutton, Groupbutton, PowerPbutton } from "../style/Icons";
+import { Personbutton, Groupbutton } from "../style/Icons";
 
 faker.seed(100);
 
@@ -52,11 +50,11 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
 
   const data = useMemo(
     () =>
-      Array(100)
+      Array(13)
         .fill()
         .map(() => ({
           time: faker.time.recent(),
-          user: faker.name.lastName() + faker.name.firstName(),
+          user: query.userName,
           resource: faker.lorem.word(),
           activity: faker.lorem.word(),
           result: faker.lorem.word(),
@@ -67,29 +65,27 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
   );
   return (
     <>
+      <h1 style={{ position: "fixed", top: "5px", color: "#18b7be" }}>Monitoring</h1>
       <Div>
-        {decideWho === "grou" ? (
-          <div>
-            <Groupbutton />
-            {query.userName}
-          </div>
-        ) : decideWho === "p-us" ? (
-          <div>
-            <PowerPbutton />
-            {query.userName}
+        {decideWho === "User" ? (
+          <div style={{ position: "fixed", top: "20px", right: "220px" }}>
+            <Personbutton />
+            <UserName>{query.userName}</UserName>
           </div>
         ) : (
-          <div>
-            <Personbutton />
-            {query.userName}
+          <div style={{ position: "fixed", top: "20px", right: "220px" }}>
+            <Groupbutton />
+            <UserName>{query.userName}</UserName>
           </div>
         )}
         <div>
           <Link to="/visualization">
-            <button>{query.userName} 정보 보기</button>
+            <button style={{ position: "fixed", top: "80px", right: "80px", backgroundColor: "#b7d6da", height: "50px" }}>{query.userName} 정보 보기</button>
           </Link>
         </div>
-        <Table columns={columns} data={data} />
+        <div style={{ paddingTop: "100px" }}>
+          <Table columns={columns} data={data} />
+        </div>
       </Div>
     </>
   );
