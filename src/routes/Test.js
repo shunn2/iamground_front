@@ -1,7 +1,8 @@
 import React from "react";
+import EdgesFlow from "../components/ReactFlow";
 
 function Test() {
-  return <h1>this is test</h1>;
+  return <EdgesFlow />;
 }
 
 export default Test;
