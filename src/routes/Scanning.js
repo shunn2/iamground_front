@@ -252,7 +252,7 @@ function Scanning() {
 
   return (
     <>
-      <h1 style={{ color: "#787878",margin:'0px 0px 10px 0px', fontSize:'26px', height:'35px' }}>Scanning</h1>
+      <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px", height: "35px" }}>Scanning</h1>
       <Gdiv>
         <MyResponsiveLine gdata={gdata} />
       </Gdiv>
