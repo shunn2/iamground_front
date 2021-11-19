@@ -114,9 +114,9 @@ const Visualization = ({ user, group, poweruser, access }) => {
   const Root3 = () => <ReactFlow elements={elements} />;
   return (
     <>
-      <h1 style={{ position: "fixed", top: "5px", color: "#18b7be" }}>Visualization</h1>
+      <h1 style={{ color: "#787878",margin:'0px 0px 10px 0px', fontSize:'26px', height:'35px' }}>Visualization</h1>
       <Div>
-        <div style={{ height: "25px", width: "95%", display: "flex" }}>
+        <div style={{ height: "25px", width: "100%", display: "flex" }}>
           <span
             style={{
               backgroundColor: tab === 0 ? "#efefef" : "#b7d6da",
@@ -164,7 +164,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
             }}
           ></span>
         </div>
-        <div style={{ width: "95%", height: "calc(100% - 30px)", border: "2px solid black", borderTop: "none" }}>
+        <div style={{ width: "99.7%", height: "calc(100% - 30px)", border: "2px solid black", borderTop: "none" }}>
           {tab === 0 && <Root1 />}
           {tab === 1 && <Root2 />}
           {tab === 2 && <Root3 />}

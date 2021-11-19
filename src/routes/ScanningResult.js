@@ -19,7 +19,7 @@ function ScanningResult() {
 
   return (
     <>
-      <h1 style={{ position: "fixed", top: "5px", color: "#18b7be" }}>Scanning</h1>
+      <h1 style={{ color: "#787878",margin:'0px 0px 10px 0px', fontSize:'26px', height:'35px' }}>Scanning</h1>
       <Div>
         <div style={{ height: "25px", display: "flex" }}>
           <span

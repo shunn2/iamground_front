@@ -69,7 +69,7 @@ function Monitoring() {
 
   return (
     <>
-      <h1 style={{ position: "fixed", top: "5px", color: "#18b7be" }}>Monitoring</h1>
+      <h1 style={{ color: "#787878",margin:'0px 0px 10px 0px', fontSize:'26px' }}>Monitoring</h1>
       <Div>
         <form>
           <label style={labelStyle}>

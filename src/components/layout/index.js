@@ -5,7 +5,6 @@ import Topbar from "./Topbar";
 
 function Layout(props) {
   const { children } = props;
-  console.log(children.element);
   return (
     <React.Fragment>
       <Topbar />

@@ -8,22 +8,22 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 
 export const Homeicon = () => {
-  return <HomeIcon style={{ marginRight: "6px", fontSize: "50px", color: "#606062" }} />;
+  return <HomeIcon style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />;
 };
 export const ScanIcon = () => {
-  return <DocumentScannerIcon style={{ marginRight: "6px", fontSize: "50px", color: "#606062" }} />;
+  return <DocumentScannerIcon style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />;
 };
 export const MonIcon = () => {
-  return <DvrIcon style={{ marginRight: "6px", fontSize: "50px", color: "#606062" }} />;
+  return <DvrIcon style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />;
 };
 export const VisIcon = () => {
-  return <VisibilityIcon style={{ marginRight: "6px", fontSize: "50px", color: "#606062" }} />;
+  return <VisibilityIcon style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />;
 };
 export const Personbutton = () => {
   return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "100px", color: "#2C2E31" }} />;
 };
 export const Groupbutton = () => {
-  return <PeopleOutlineIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "100px", color: "#2C2E31" }} />;
+  return <PeopleOutlineIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "70px", color: "#2C2E31" }} />;
 };
 export const PowerPbutton = () => {
   return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "100px", color: "#FA255D" }} />;

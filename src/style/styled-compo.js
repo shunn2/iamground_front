@@ -4,47 +4,52 @@ export const Iamground = styled.h3``;
 
 export const Header = styled.header`
   position: fixed;
-  height: 64px;
+  height: 50px;
   left: 250px;
   width: calc(100% - 250px);
-  background-color: #efefef;
+  background-color: #3B434D;
+  border-left: 1px solid #5e6c70;
 `;
 
 export const Nav = styled.nav`
   position: fixed;
   height: 100%;
   width: 250px;
-  background-color: #b7d6da;
+  background-color: #3B434D;
 `;
 
 export const LayoutContent = styled.div`
   position: fixed;
-  top: 64px;
+  top: 50px;
   left: 250px;
   width: calc(100% - 310px);
-  height: calc(100% - 124px);
+  height: calc(100% - 110px);
   padding: 30px;
   background-color: #efefef;
 `;
 
 export const Div = styled.div`
-  height: 100%;
+  height: calc(100% - 35px);
   width: 100%;
   overflow: auto;
 `;
 
 export const NavListWrapper = styled.ul`
-  padding: 20px 20px;
+  padding: 0px 20px;
   margin: 0px;
+  transition: all 0.5s ease-in;
+  overflow: hidden;
 `;
 
 export const NavList = styled.li`
   list-style: none;
   display: flex;
   align-item: center;
-  font-size: 25px;
   font-weight: 700;
-  padding: 30px 0px 30px 0px;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-top: 1px solid #5e6c70;
+  margin: 0px -20px;
 `;
 
 export const Hidemenu = styled.nav`
@@ -88,11 +93,10 @@ export const Tdiv = styled.div`
 //   const StyledTable = styled.table`
 export const SideSpan = styled.span`
   &:hover {
-    font-size: 1.2em;
-    padding: 3px;
-    font-weight: bold;
+    color: #ffffff;
   }
-  color: #606062;
+  fontSize: 18px;
+  color: #d6d6d6;
 `;
 export const Ctable = styled.table`
   caption-side: top;
@@ -106,24 +110,24 @@ export const Ctable = styled.table`
     vertical-align: top;
     background-color: white;
   }
-  td,
   th {
-    border: none;
+    height: 30px;
+    color: #545454;
   }
   td,
   th {
-    border: 1px solid;
+    border: 1px solid none;
   }
   td {
     padding: 5px 10px;
   }
   tbody tr {
     :hover {
-      background-color: #b7d6da;
+      background-color: #ebeef2;
     }
   }
   thead > tr {
-    background-color: #c2c2c2;
+    background-color: #a1b8d6;
   }
   caption {
     font-size: 0.9em;

@@ -1,10 +1,11 @@
 import React from "react";
+import SearchIcon from '@mui/icons-material/Search';
 
 const searchStyle = {
-  position: "relative",
-  top: "-20px",
-  // left: "30px",
   width: "300px",
+  marginBottom:'15px',
+  display:'flex',
+  alignItems:'center'
 };
 
 function Search({ onSubmit }) {
@@ -15,8 +16,8 @@ function Search({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} style={searchStyle}>
+      <SearchIcon/>
       <input name="filter" />
-      <button>Search</button>
     </form>
   );
 }
