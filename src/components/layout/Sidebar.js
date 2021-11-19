@@ -44,14 +44,14 @@ const Sidebar = () => {
       <NavListWrapper style={{height: open? "88px" : '0px',   margin: "0px -20px", padding:'0px 10px'}}>
         <NavList style={{margin: "0px -20px", padding:'10px 50px', backgroundColor:'#2C3239'}}>
           <Link to="/monitoring/log" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
-            <Description style={{  fontSize: "21px", color: "#d6d6d6" }}/>
-            <SideSpan style={{ paddingLeft: "5px" }}>monitor-log</SideSpan>
+            <Description style={{  fontSize: "21px", width:'24px', color: "#d6d6d6" }}/>
+            <SideSpan style={{ paddingLeft: "5px" }}>Log</SideSpan>
           </Link>
         </NavList>
         <NavList style={{margin: "0px -20px", padding:'10px 50px', backgroundColor:'#2C3239'}}>
           <Link to="/monitoring/user" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
             <Person style={{ fontSize: "24px", color: "#d6d6d6" }}/>
-            <SideSpan style={{ paddingLeft: "5px" }}>monitor-user</SideSpan>
+            <SideSpan style={{ paddingLeft: "5px" }}>User</SideSpan>
           </Link>
         </NavList>
       </NavListWrapper>

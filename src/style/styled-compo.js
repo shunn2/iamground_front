@@ -120,6 +120,7 @@ export const Ctable = styled.table`
   }
   td {
     padding: 5px 10px;
+    line-height: 33.6px;
   }
   tbody tr {
     :hover {
@@ -153,8 +154,9 @@ export const Div3 = styled.div`
 `;
 
 export const Div4 = styled.div`
-  height: 100%;
-  width: 50%;
+  padding: 20px 40px;
+  height: calc(100% - 40px);
+  width: calc(50% - 40px);
 `;
 
 export const Title = styled.h2`

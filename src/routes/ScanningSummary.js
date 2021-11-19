@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Div1, Div2, Div3, Div4, Row, SummaryWrapper, Title } from "../style/styled-compo";
 import { ResponsivePie } from "@nivo/pie";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveBullet } from "@nivo/bullet";
-import WarningIcon from "@mui/icons-material/Warning";
-import GppGoodIcon from "@mui/icons-material/GppGood";
+import Table from "../components/module/normalTable";
 
 const ScanningSummary = () => {
   /* ********************반원 그래프******************** */
@@ -207,79 +206,65 @@ const ScanningSummary = () => {
       ]}
     />
   );
-  /* ********************표******************** */
 
-  const data_table = [
-    {
-      resource: "policy1",
-      rec: "delete permission1",
-      last: <GppGoodIcon />,
-      cur: <WarningIcon />,
-    },
-    {
-      resource: "user2",
-      rec: "delete permission33",
-      last: <GppGoodIcon />,
-      cur: <WarningIcon />,
-    },
-    {
-      resource: "policy2",
-      rec: "delete resource",
-      last: <WarningIcon />,
-      cur: <WarningIcon />,
-    },
-    {
-      resource: "role1",
-      rec: "misconfiguration",
-      last: <WarningIcon />,
-      cur: <WarningIcon />,
-    },
-    {
-      resource: "user4",
-      rec: "need delete deny",
-      last: <GppGoodIcon />,
-      cur: <WarningIcon />,
-    },
-  ];
+  const columns = useMemo(
+    () => [
+      {
+        accessor: "resource",
+        Header: "Resource",
+      },
+      {
+        accessor: "rec",
+        Header: "Recommendation",
+      },
+      {
+        accessor: "last",
+        Header: "Last Scan",
+      },
+      {
+        accessor: "cur",
+        Header: "Current Scan",
+      },
+    ],
+    []
+  );
 
-  const MyTable = () => {
-    return (
-      <>
-        <br />
-        <br />
-        <table
-          border="4"
-          borderColor="#b7d6da"
-          cellPadding="5"
-          style={{
-            textAlign: "center",
-            borderCollapse: "collapse",
-            cellpadding: "20px",
-            paddingTop: "100px",
-          }}
-        >
-          <thead>
-            <tr>
-              <th>Resource</th>
-              <th>Recommendation</th>
-              <th>Last Scan</th>
-              <th>Current Scan</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data_table.map((v, i) => (
-              <tr key={`tr-${i}`}>
-                <td>{v.resource}</td>
-                <td>{v.rec}</td>
-                <td>{v.last}</td>
-                <td>{v.cur}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </>
-    );
-  };
+  const data_table = [    {
+    resource: "policy1",
+    rec: "delete permission1",
+    last: 0,
+    cur: 1,
+  },
+  {
+    resource: "user2",
+    rec: "delete permission3",
+    last: 0,
+    cur: 1,
+  },
+  {
+    resource: "policy2",
+    rec: "delete resource",
+    last: 1,
+    cur: 1,
+  },
+  {
+    resource: "role1",
+    rec: "misconfiguration",
+    last: 1,
+    cur: 1,
+  },
+  {
+    resource: "user4",
+    rec: "need delete deny",
+    last: 0,
+    cur: 1,
+  },
+  {
+    resource: "role1",
+    rec: "misconfiguration",
+    last: 1,
+    cur: 1,
+  },]
 
   return (
     <SummaryWrapper>
@@ -308,9 +293,7 @@ const ScanningSummary = () => {
           <MyResponsiveChart data={data_chart}></MyResponsiveChart>
         </Div3>
         <Div4>
-          <center>
-            <MyTable />
-          </center>
+          <Table type="scaning" columns={columns} data={data_table}/>
         </Div4>
       </Row>
     </SummaryWrapper>
