@@ -6,10 +6,10 @@ import Table from "../components/module/Table";
 import { Link, useLocation } from "react-router-dom";
 import { Personbutton, Groupbutton } from "../style/Icons";
 import Button from "@mui/material/Button";
-import moment from 'moment'
+import moment from "moment";
 
 export function getTime(time) {
-  return moment(time).format('YYYY-MM-DD HH:mm:ss')
+  return moment(time).format("YYYY-MM-DD HH:mm:ss");
 }
 
 faker.seed(100);
@@ -212,7 +212,7 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
       </div>
       <Div>
         <div style={{ paddingTop: "40px" }}>
-          <Table columns={columns} data={data} />
+          <Table columns={columns} data={data} type="monitoring" />
         </div>
       </Div>
     </>

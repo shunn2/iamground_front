@@ -27,10 +27,12 @@ function Table({ columns, data, type }) {
         <tbody {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
-            let check = false;
-            row.cells.map((cell) => {if(cell.value === '-') check =true})
+            let check = true;
+            row.cells.map((cell) => {
+              if (cell.value === "-") check = false;
+            });
             return (
-              <tr style={{backgroundColor:check ? '#ffffff' : "#F8ABA1"}} onClick={openModal} {...row.getRowProps()}>
+              <tr style={{ backgroundColor: check ? "#ffffff" : "#F8ABA1" }} onClick={openModal} {...row.getRowProps()}>
                 {row.cells.map((cell) => (
                   <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                 ))}
@@ -39,8 +41,8 @@ function Table({ columns, data, type }) {
           })}
         </tbody>
       </Ctable>
-      {type === 'scan' && modalOpen && <ScanModal type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen}/>}
-      {type !== 'scan' && modalOpen && <Modal type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {type === "scan" && modalOpen && <ScanModal type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {type !== "scan" && modalOpen && <Modal type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </>
   );
 }
