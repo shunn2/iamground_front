@@ -228,96 +228,70 @@ function Home () {
       <div
         style={{width:'calc(100% - 30px)', height:'145px', backgroundColor:'#dedede', padding:'15px', marginBottom:'30px'}}
       >
-        <div style={{display:'flex', justifyContent:'flex-end'}}>
-          <div style={{width:'120px', backgroundColor:'#ffffff', borderRadius:'4px'}}>
-          <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Filter</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={age}
-                label="Age"
-                onChange={handleChange}
-              >
-                <MenuItem value={10}>ALL</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
+        {JSON.stringify({
+  "version": "0",
+  "id": "ce5645a3-2791-73ef-9db9-73c889bbe0e9",
+  "detail-type": "AWS API Call via CloudTrail",
+  "source": "aws.iam",
+  "account": "962110289919",
+  "time": "2021-10-09T15:32:13Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "eventVersion": "1.08",
+    "userIdentity": {
+      "type": "Root",
+      "principalId": "962110289919",
+      "arn": "arn:aws:iam::962110289919:root",
+      "accountId": "962110289919",
+      "accessKeyId": "ASIA6AAR5677ZZ2VY24L",
+      "sessionContext": {
+        "sessionIssuer": {},
+        "webIdFederationData": {},
+        "attributes": {
+          "creationDate": "2021-10-09T11:54:21Z",
+          "mfaAuthenticated": "false"
+        }
+      }
+    },
+    "eventTime": "2021-10-09T15:32:13Z",
+    "eventSource": "iam.amazonaws.com",
+    "eventName": "CreatePolicy",
+    "awsRegion": "us-east-1",
+    "sourceIPAddress": "221.149.235.161",
+    "userAgent": "console.amazonaws.com",
+    "requestParameters": {
+      "policyName": "trailTest",
+      "policyDocument": "{\n    'Version': '2012-10-17',\n    'Statement': [\n        {\n            'Sid': 'VisualEditor0',\n            'Effect': 'Allow',\n            'Action': 'cloudtrail:',\n            'Resource': ''\n        }\n    ]\n}",
+      "description": "trail ALL",
+      "tags": []
+    },
+    "responseElements": {
+      "policy": {
+        "policyName": "trailTest",
+        "policyId": "ANPA6AAR5677WZIUJRAYD",
+        "arn": "arn:aws:iam::962110289919:policy/trailTest",
+        "path": "/",
+        "defaultVersionId": "v1",
+        "attachmentCount": 0,
+        "permissionsBoundaryUsageCount": 0,
+        "isAttachable": true,
+        "createDate": "Oct 9, 2021 3:32:13 PM",
+        "updateDate": "Oct 9, 2021 3:32:13 PM",
+        "tags": []
+      }
+    },
+    "requestID": "aaf7a930-75b8-4ffe-9c9d-ec565090c403",
+    "eventID": "c163e542-af25-4cbd-b56a-b2e5d0bb437a",
+    "readOnly": false,
+    "eventType": "AwsApiCall",
+    "managementEvent": true,
+    "recipientAccountId": "962110289919",
+    "eventCategory": "Management",
+    "sessionCredentialFromConsole": true
+  }
+}, null, 4)}
         </div>
-
-        <div style={{display:'flex', gap:'0px 2%', marginTop:'15px'}}>
-          <div style={{width:'calc(18.4% - 20px)', height:'60px', backgroundColor:'#ffffff', borderRadius:'8px', padding:'10px'}}>
-            <div style={{textAlign:'center', fontSize:'14px', fontWeight:'500', height:'19px'}}><span style={{fontWeight:'bold'}}>128</span> IAM USERS</div>
-            <div style={{height:"41px", display:'flex', alignItems:'center'}}>
-              <div style={{marginRight:"8px", marginBottom:'2px', fontSize:'12px'}}>16%</div>
-              <div style={{width:'100%', height:"10px", backgroundColor:'#EFEFEF', borderRadius:'4px'}}>
-                <div style={{width:'16%', height:"10px", backgroundColor:'#90CAF9', borderRadius:'4px'}}></div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{width:'calc(18.4% - 20px)', height:'60px', backgroundColor:'#ffffff', borderRadius:'8px', padding:'10px'}}>
-            <div style={{textAlign:'center', fontSize:'14px', fontWeight:'500', height:'19px'}}><span style={{fontWeight:'bold'}}>37</span> IAM SERVICE IDS</div>
-            <div style={{height:"41px", display:'flex', alignItems:'center'}}>
-              <div style={{marginRight:"8px", marginBottom:'2px', fontSize:'12px'}}>29%</div>
-              <div style={{width:'100%', height:"10px", backgroundColor:'#EFEFEF', borderRadius:'4px'}}>
-                <div style={{width:'29%', height:"10px", backgroundColor:'#90CAF9', borderRadius:'4px'}}></div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{width:'calc(18.4% - 20px)', height:'60px', backgroundColor:'#ffffff', borderRadius:'8px', padding:'10px'}}>
-            <div style={{textAlign:'center', fontSize:'14px', fontWeight:'500', height:'19px'}}><span style={{fontWeight:'bold'}}>24</span> IAM GROUPS</div>
-            <div style={{height:"41px", display:'flex', alignItems:'center'}}>
-              <div style={{marginRight:"8px", marginBottom:'2px', fontSize:'12px'}}>27%</div>
-              <div style={{width:'100%', height:"10px", backgroundColor:'#EFEFEF', borderRadius:'4px'}}>
-                <div style={{width:'27%', height:"10px", backgroundColor:'#90CAF9', borderRadius:'4px'}}></div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{width:'calc(18.4% - 20px)', height:'60px', backgroundColor:'#ffffff', borderRadius:'8px', padding:'10px'}}>
-            <div style={{textAlign:'center', fontSize:'14px', fontWeight:'500', height:'19px'}}><span style={{fontWeight:'bold'}}>30</span> IAM ROLES</div>
-            <div style={{height:"41px", display:'flex', alignItems:'center'}}>
-              <div style={{marginRight:"8px", marginBottom:'2px', fontSize:'12px'}}>70%</div>
-              <div style={{width:'100%', height:"10px", backgroundColor:'#EFEFEF', borderRadius:'4px'}}>
-                <div style={{width:'70%', height:"10px", backgroundColor:'#90CAF9', borderRadius:'4px'}}></div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{width:'calc(18.4% - 20px)', height:'60px', backgroundColor:'#ffffff', borderRadius:'8px', padding:'10px'}}>
-            <div style={{textAlign:'center', fontSize:'14px', fontWeight:'500', height:'19px'}}><span style={{fontWeight:'bold'}}>200</span> IAM POLICIES</div>
-            <div style={{height:"41px", display:'flex', alignItems:'center'}}>
-              <div style={{marginRight:"8px", marginBottom:'2px', fontSize:'12px'}}>52%</div>
-              <div style={{width:'100%', height:"10px", backgroundColor:'#EFEFEF', borderRadius:'4px'}}>
-                <div style={{width:'52%', height:"10px", backgroundColor:'#90CAF9', borderRadius:'4px'}}></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style={{width:'calc(100% - 30px)', height:'300px', backgroundColor:'#dedede', padding:'15px', display:'flex', marginBottom:'30px'}}>
-          <div style={{width:"70%", height:'100%'}}>
-            <MyResponsiveLine data={data}/>
-          </div>
-
-          <div style={{width:"30%", height:'100%'}}>
-            <MyResponsivePie data={pieData}/>
-            <div style={{position:'relative', textAlign:'center', bottom:'180px'}}><span style={{color:"#e0452b"}}>75</span> / 100</div>
-            <div style={{display:'flex', alignItems:'center', justifyContent:'center', marginTop:'-65px'}}>
-              <div style={{width:'12px', height:'12px', borderRadius:'16px', backgroundColor:"#F47560", marginRight:"6px"}}/>
-              <div>위험한 로그가 발생한 유저</div>
-            </div>
-          </div>
-      </div>
-
-      <div style={{width:'calc(100% - 30px)', height:'260px', backgroundColor:'#dedede', padding:'15px', display:'flex'}}>
-        <Table type="monitoring" columns={columns} data={data_table} />
-      </div>
     </>
   );
 };

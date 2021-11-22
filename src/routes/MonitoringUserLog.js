@@ -6,6 +6,11 @@ import Table from "../components/module/Table";
 import { Link, useLocation } from "react-router-dom";
 import { Personbutton, Groupbutton } from "../style/Icons";
 import Button from "@mui/material/Button";
+import moment from 'moment'
+
+export function getTime(time) {
+  return moment(time).format('YYYY-MM-DD HH:mm:ss')
+}
 
 faker.seed(100);
 
@@ -16,27 +21,27 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
   });
   const decideWho = query.userName.substring(0, 4);
   const result = [
-    "Success",
-    "Fail",
-    "Fail",
-    "Fail",
-    "Success",
-    "Fail",
-    "Success",
-    "Fail",
-    "Fail",
-    "Fail",
-    "Fail",
     "Fail",
     "Success",
     "Success",
+    "Success",
     "Fail",
-    "Fail",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
     "Fail",
     "Fail",
     "Success",
     "Success",
-    "Fail",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
   ];
   const resultCatgory = [
     "-",
@@ -115,23 +120,23 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
     "User7",
   ];
   const dataActivity = [
-    "CreateBucket",
+    "AttachPolicy",
     "CreatePolicy",
-    "DeleteBucket",
-    "LaunchEC2",
+    "AttachPolicy",
+    "CreateRole",
     "AttachPolicy",
     "CreateRole",
     "CreateGroup",
     "AssumeRole",
-    "CreatePolicy",
-    "DeleteBucket",
-    "LaunchEC2",
+    "CreateUser",
+    "DeleteUser",
+    "AssumeRole",
     "AttachPolicy",
     "CreateRole",
     "CreateGroup",
     "AssumeRole",
-    "DeleteBucket",
-    "LaunchEC2",
+    "CreateUser",
+    "AssumeRole",
     "AttachPolicy",
     "CreateRole",
     "CreateGroup",
@@ -176,7 +181,7 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
       Array(20)
         .fill()
         .map((v, i) => ({
-          time: faker.time.recent(),
+          time: getTime(faker.time.recent()),
           user: dataUser[i],
           resource: dataResource[i],
           activity: dataActivity[i],

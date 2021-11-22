@@ -3,6 +3,7 @@ import faker from "faker/locale/ko";
 import Table from "../components/module/Table";
 import Switch from "@mui/material/Switch";
 import { Div } from "../style/styled-compo";
+import { getTime } from "./MonitoringUserLog";
 
 faker.seed(100);
 
@@ -18,27 +19,27 @@ function Monitoring() {
     setChecked(event.target.checked);
   };
   const result = [
-    "Success",
-    "Fail",
-    "Fail",
-    "Fail",
-    "Success",
-    "Fail",
-    "Success",
-    "Fail",
-    "Fail",
-    "Fail",
-    "Fail",
     "Fail",
     "Success",
     "Success",
+    "Success",
     "Fail",
-    "Fail",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
     "Fail",
     "Fail",
     "Success",
     "Success",
-    "Fail",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
+    "Success",
   ];
   const resultCatgory = [
     "-",
@@ -117,23 +118,23 @@ function Monitoring() {
     "User7",
   ];
   const dataActivity = [
-    "CreateBucket",
+    "AttachPolicy",
     "CreatePolicy",
-    "DeleteBucket",
-    "LaunchEC2",
+    "AttachPolicy",
+    "CreateRole",
     "AttachPolicy",
     "CreateRole",
     "CreateGroup",
     "AssumeRole",
-    "CreatePolicy",
+    "CreateUser",
     "DeleteBucket",
-    "LaunchEC2",
+    "AssumeRole",
     "AttachPolicy",
     "CreateRole",
     "CreateGroup",
     "AssumeRole",
     "DeleteBucket",
-    "LaunchEC2",
+    "AssumeRole",
     "AttachPolicy",
     "CreateRole",
     "CreateGroup",
@@ -178,7 +179,7 @@ function Monitoring() {
       Array(20)
         .fill()
         .map((v, i) => ({
-          time: faker.time.recent(),
+          time: getTime(faker.time.recent()),
           user: dataUser[i],
           resource: dataResource[i],
           activity: dataActivity[i],
