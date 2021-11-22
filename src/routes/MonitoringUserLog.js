@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import React from "react";
 import qs from "qs";
 import faker from "faker/locale/ko";
 import { Div, UserName } from "../style/styled-compo";
@@ -193,8 +194,23 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
   );
   return (
     <>
-      <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px", height: "35px" }}>Monitoring</h1>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <h1
+        style={{
+          color: "#787878",
+          margin: "0px 0px 10px 0px",
+          fontSize: "26px",
+          height: "35px",
+        }}
+      >
+        Monitoring
+      </h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         {decideWho === "User" ? (
           <div style={{ display: "flex", alignItems: "center" }}>
             <Personbutton />

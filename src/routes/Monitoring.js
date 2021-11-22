@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import React from "react";
 import faker from "faker/locale/ko";
 import Table from "../components/module/Table";
 import Switch from "@mui/material/Switch";
@@ -192,11 +193,24 @@ function Monitoring() {
 
   return (
     <>
-      <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px" }}>Monitoring</h1>
+      <h1
+        style={{
+          color: "#787878",
+          margin: "0px 0px 10px 0px",
+          fontSize: "26px",
+        }}
+      >
+        Monitoring
+      </h1>
       <Div>
         <form>
           <label style={labelStyle}>
-            <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
+            <Switch
+              checked={checked}
+              onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+              color="success"
+            />
             <strong>위험한 변경사항</strong>
           </label>
         </form>

@@ -123,6 +123,94 @@ const ScanningSummary = () => {
     />
   );
 
+  const dataPer = ["user", "group", "role", "policy"];
+  const dataConfig = ["PW", "credential", "certificate", "MFA"];
+
+  const Buttons = ({ data }) => (
+    <div
+      style={{
+        paddingLeft: "170px",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        width: "60%",
+      }}
+    >
+      <span
+        style={{
+          color: "#F47560",
+          fontSize: "40px",
+          marginTop: "-20px",
+          marginRight: "-50px",
+        }}
+      >
+        ●
+      </span>
+      <span
+        style={{
+          color: "#999999",
+          fontSize: "15px",
+        }}
+      >
+        {data[0]}
+      </span>
+      <span
+        style={{
+          color: "#F1E15B",
+          fontSize: "40px",
+          marginTop: "-20px",
+          marginRight: "-50px",
+        }}
+      >
+        ●
+      </span>
+      <span
+        style={{
+          color: "#999999",
+          fontSize: "15px",
+        }}
+      >
+        {data[1]}
+      </span>
+      <span
+        style={{
+          color: "#E7A838",
+          fontSize: "40px",
+          marginTop: "-20px",
+          marginRight: "-50px",
+        }}
+      >
+        ●
+      </span>
+      <span
+        style={{
+          color: "#999999",
+          fontSize: "15px",
+        }}
+      >
+        {data[2]}
+      </span>
+      <span
+        style={{
+          color: "#60CDBB",
+          fontSize: "40px",
+          marginTop: "-20px",
+          marginRight: "-50px",
+        }}
+      >
+        ●
+      </span>
+      <span
+        style={{
+          color: "#999999",
+          fontSize: "15px",
+        }}
+      >
+        {data[3]}
+      </span>
+    </div>
+  );
+
   /* ********************차트******************** */
   const data_chart = [
     {
@@ -229,62 +317,66 @@ const ScanningSummary = () => {
     []
   );
 
-  const data_table = [    {
-    resource: "policy1",
-    rec: "delete permission1",
-    last: 0,
-    cur: 1,
-  },
-  {
-    resource: "user2",
-    rec: "delete permission3",
-    last: 0,
-    cur: 1,
-  },
-  {
-    resource: "policy2",
-    rec: "delete resource",
-    last: 1,
-    cur: 1,
-  },
-  {
-    resource: "role1",
-    rec: "misconfiguration",
-    last: 1,
-    cur: 1,
-  },
-  {
-    resource: "user4",
-    rec: "need delete deny",
-    last: 0,
-    cur: 1,
-  },
-  {
-    resource: "role1",
-    rec: "misconfiguration",
-    last: 1,
-    cur: 1,
-  },]
+  const data_table = [
+    {
+      resource: "policy1",
+      rec: "delete permission1",
+      last: 0,
+      cur: 1,
+    },
+    {
+      resource: "user2",
+      rec: "delete permission3",
+      last: 0,
+      cur: 1,
+    },
+    {
+      resource: "policy2",
+      rec: "delete resource",
+      last: 1,
+      cur: 1,
+    },
+    {
+      resource: "role1",
+      rec: "misconfiguration",
+      last: 1,
+      cur: 1,
+    },
+    {
+      resource: "user4",
+      rec: "need delete deny",
+      last: 0,
+      cur: 1,
+    },
+    {
+      resource: "role1",
+      rec: "misconfiguration",
+      last: 1,
+      cur: 1,
+    },
+  ];
 
   return (
     <SummaryWrapper>
       <Row>
         <Div2>
           <Title>Permission</Title>
-          <div style={{ width: "100%", height: "calc(100% - 80px)" }}>
+          <div style={{ width: "100%", height: "calc(100% - 100px)" }}>
             <MyResponsivePie data={data1}></MyResponsivePie>
           </div>
           <div style={{ width: "100%", height: "60px" }}>
             <MyResponsiveBullet data={data_bar1}></MyResponsiveBullet>
+            <Buttons data={dataPer}></Buttons>
           </div>
         </Div2>
         <Div1>
           <Title>Config</Title>
-          <div style={{ width: "100%", height: "calc(100% - 80px)" }}>
+          <div style={{ width: "100%", height: "calc(100% - 100px)" }}>
             <MyResponsivePie data={data2}></MyResponsivePie>
           </div>
           <div style={{ width: "100%", height: "60px" }}>
             <MyResponsiveBullet data={data_bar2}></MyResponsiveBullet>
+            <Buttons data={dataConfig}></Buttons>
           </div>
         </Div1>
       </Row>
@@ -293,7 +385,7 @@ const ScanningSummary = () => {
           <MyResponsiveChart data={data_chart}></MyResponsiveChart>
         </Div3>
         <Div4>
-          <Table type="scaning" columns={columns} data={data_table}/>
+          <Table type="scaning" columns={columns} data={data_table} />
         </Div4>
       </Row>
     </SummaryWrapper>

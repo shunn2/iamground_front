@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import React from "react";
 import Table from "../components/module/Table";
 import faker from "faker/locale/ko";
 
