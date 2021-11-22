@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import qs from "qs";
 import faker from "faker/locale/ko";
 import { Div, UserName } from "../style/styled-compo";

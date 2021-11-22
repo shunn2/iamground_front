@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import faker from "faker/locale/ko";
 import Table from "../components/module/Table";
 import Switch from "@mui/material/Switch";

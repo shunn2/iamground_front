@@ -229,42 +229,44 @@ const ScanningSummary = () => {
     []
   );
 
-  const data_table = [    {
-    resource: "policy1",
-    rec: "delete permission1",
-    last: 0,
-    cur: 1,
-  },
-  {
-    resource: "user2",
-    rec: "delete permission3",
-    last: 0,
-    cur: 1,
-  },
-  {
-    resource: "policy2",
-    rec: "delete resource",
-    last: 1,
-    cur: 1,
-  },
-  {
-    resource: "role1",
-    rec: "misconfiguration",
-    last: 1,
-    cur: 1,
-  },
-  {
-    resource: "user4",
-    rec: "need delete deny",
-    last: 0,
-    cur: 1,
-  },
-  {
-    resource: "role1",
-    rec: "misconfiguration",
-    last: 1,
-    cur: 1,
-  },]
+  const data_table = [
+    {
+      resource: "policy1",
+      rec: "delete permission1",
+      last: 0,
+      cur: 1,
+    },
+    {
+      resource: "user2",
+      rec: "delete permission3",
+      last: 0,
+      cur: 1,
+    },
+    {
+      resource: "policy2",
+      rec: "delete resource",
+      last: 1,
+      cur: 1,
+    },
+    {
+      resource: "role1",
+      rec: "misconfiguration",
+      last: 1,
+      cur: 1,
+    },
+    {
+      resource: "user4",
+      rec: "need delete deny",
+      last: 0,
+      cur: 1,
+    },
+    {
+      resource: "role1",
+      rec: "misconfiguration",
+      last: 1,
+      cur: 1,
+    },
+  ];
 
   return (
     <SummaryWrapper>
@@ -293,7 +295,7 @@ const ScanningSummary = () => {
           <MyResponsiveChart data={data_chart}></MyResponsiveChart>
         </Div3>
         <Div4>
-          <Table type="scaning" columns={columns} data={data_table}/>
+          <Table type="scaning" columns={columns} data={data_table} />
         </Div4>
       </Row>
     </SummaryWrapper>

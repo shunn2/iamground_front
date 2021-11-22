@@ -12,9 +12,17 @@ const Visualization = ({ user, group, poweruser, access }) => {
     top: "10px",
     left: "1000px",
   };
-  const [checked, setChecked] = useState(true);
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+  const [perchecked, persetChecked] = useState(true);
+  const perhandleChange = (event) => {
+    persetChecked(event.target.checked);
+  };
+  const [awschecked, awssetChecked] = useState(false);
+  const awshandleChange = (event) => {
+    awssetChecked(event.target.checked);
+  };
+  const [scanchecked, scansetChecked] = useState(false);
+  const scanhandleChange = (event) => {
+    scansetChecked(event.target.checked);
   };
   const [modalOpen, setmodalOpen] = useState(false);
   const openModal = () => {
@@ -186,20 +194,20 @@ const Visualization = ({ user, group, poweruser, access }) => {
         <div style={{ width: "99.7%", height: "calc(100% - 30px)", border: "2px solid black", borderTop: "none" }}>
           <form>
             <label style={labelStyle}>
-              <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
-              <strong>잘못된 구성</strong>
+              <Switch checked={perchecked} onChange={perhandleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
+              <strong>권한 분리 그룹</strong>
             </label>
           </form>
           <form>
             <label style={labelStyle}>
-              <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />
-              <strong>권한 분리</strong>
+              <Switch checked={awschecked} onChange={awshandleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />
+              <strong>AWS 그룹</strong>
             </label>
           </form>
           <form>
             <label style={labelStyle}>
-              <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="error" />
-              <strong>모두 해당</strong>
+              <Switch checked={scanchecked} onChange={scanhandleChange} inputProps={{ "aria-label": "controlled" }} color="error" />
+              <strong>스캐닝 결과 반영</strong>
             </label>
           </form>
           {tab === 0 && <Root1 />}

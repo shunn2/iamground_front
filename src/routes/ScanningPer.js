@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import Table from "../components/module/Table";
 import faker from "faker/locale/ko";
 
