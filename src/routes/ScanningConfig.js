@@ -59,42 +59,7 @@ function ScanningConfig() {
     "arn:aws:iam::284264230655:user/OpsNow",
     "arn:aws:iam::284264230655:user/ssh-user",
   ];
-  const dataReason = [
-    "과도한 권한 IAM USER",
-    "미사용 IAM USER",
-    "과도한 권한 IAM USER",
-    "과도한 권한 IAM USER",
-    "미연결 IAM POLICY",
-    "과도한 권한 IAM USER",
-    "미사용 IAM ROLE",
-    "과도한 권한 IAM USER",
-    "과도한 권한 IAM GROUP",
-    "과도한 권한 IAM GROUP",
-    "과도한 권한 IAM ROLE",
-    "과도한 권한 IAM ROLE",
-    "미사용 IAM USER",
-    "미사용 IAM USER",
-    "미연결 IAM USER",
-    "미연결 IAM USER",
-    "미사용 IAM ROLE",
-    "미사용 IAM ROLE",
-    "미사용 IAM ROLE",
-    "미사용 IAM ROLE",
-    "미사용 IAM GROUP",
-    "미사용 IAM GROUP",
-    "미연결 IAM GROUP",
-    "미사용 IAM POLICY",
-    "미사용 IAM POLICY",
-    "미사용 IAM POLICY",
-    "미사용 IAM POLICY",
-    "미사용 IAM POLICY",
-    "미사용 IAM POLICY",
-    "미사용 IAM POLICY",
-    "미연결 IAM POLICY",
-    "미연결 IAM POLICY",
-    "미연결 IAM POLICY",
-    "미연결 IAM POLICY",
-  ];
+  const dataReason =  ['강력한 IAM 암호 정책 설정 오류', '암호 길이 제한 설정 오류', '암호 재사용 설정 오류', 'Root 사용', 'Root MFA 비활성화', 'User 암호 만료', 'User 암호 만료', 'User 암호 만료', 'User 암호 만료', 'User 암호 만료', 'User 암호 만료', 'User 암호 만료', 'User 암호 만료', 'User 암호 만료', 'User MFA 비활성화', 'User MFA 비활성화', 'User MFA 비활성화', 'User MFA 비활성화', 'User MFA 비활성화', 'User MFA 비활성화', 'User MFA 비활성화', 'User MFA 비활성화', 'User MFA 비활성화', 'User MFA 비활성화', 'User MFA 비활성화', 'User Access Key 만료', 'User Access Key 만료', 'User Access Key 만료', 'User SSH Public Key 2개 활성화'];
 
   const columns = useMemo(
     () => [
