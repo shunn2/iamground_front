@@ -2,6 +2,10 @@ import React from "react";
 import Button from "@mui/material/Button";
 import { Clear } from "@mui/icons-material";
 import ModalJson from "./ModalJson";
+import ModalInfo from "./ModalInfo";
+import ModalDelete from "./ModalDelete";
+import ModalVisual from "./ModalVisual";
+import ModalConfig from "./ModalConfig";
 
 function Modal({ type, modalOpen, setmodalOpen }) {
   return (
@@ -25,7 +29,7 @@ function Modal({ type, modalOpen, setmodalOpen }) {
         }}
       >
         <div style={{ height: "30px", display: "flex", justifyContent: "space-between" }}>
-          <div style={{ fontSize: "22px", fontWeight: "bold" }}>로그 세부 정보</div>
+          <div style={{ fontSize: "22px", fontWeight: "bold" }}></div>
           <Clear
             style={{ fontSize: "26px", cursor: "pointer" }}
             onClick={() => {
@@ -34,7 +38,9 @@ function Modal({ type, modalOpen, setmodalOpen }) {
           />
         </div>
         <div style={{ flex: 1 }}>
-          <ModalJson />
+          {type === "monitoring" && <ModalInfo />}
+          {type === "scanconfig" && <ModalConfig />} {type === "scanper" && <ModalJson />}
+          {type === "ModalVisual" && <ModalVisual />}
         </div>
         <div style={{ height: "30px", display: "flex", justifyContent: "flex-end" }}>
           <Button

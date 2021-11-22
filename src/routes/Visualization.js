@@ -2,8 +2,24 @@ import React, { useState } from "react";
 import { Div } from "../style/styled-compo";
 import ReactFlow from "react-flow-renderer";
 import { VisGroup, VisUser, VisPUser, VisKey } from "../style/Icons";
+import ModalVisual from "../components/ModalVisual";
+import Modal from "../components/Modal";
+import Switch from "@mui/material/Switch";
 
 const Visualization = ({ user, group, poweruser, access }) => {
+  const labelStyle = {
+    position: "relative",
+    top: "10px",
+    left: "1000px",
+  };
+  const [checked, setChecked] = useState(true);
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+  const [modalOpen, setmodalOpen] = useState(false);
+  const openModal = () => {
+    setmodalOpen(true);
+  };
   const elementRoot = [{ id: "root", type: "default", style: { background: "#e0e0e0", width: 50, fontWeight: "bold", fontSize: "1.2em" }, data: { label: "root" }, position: { x: 500, y: 50 } }];
   const elementNogroup = [{ id: "Nogroup", type: "default", style: { background: "transparent", width: 30 }, data: { label: "No group" }, position: { x: 1000, y: 160 } }];
   const elementUser = user.map((v, i) => {
@@ -107,21 +123,22 @@ const Visualization = ({ user, group, poweruser, access }) => {
     setTab(tabNumber);
   };
 
-  const Root1 = () => <ReactFlow elements={elements} />;
+  const Root1 = () => <ReactFlow elements={elements} onElementClick={openModal} />;
 
-  const Root2 = () => <ReactFlow elements={elements} />;
+  const Root2 = () => <ReactFlow elements={elements} onElementClick={openModal} />;
 
-  const Root3 = () => <ReactFlow elements={elements} />;
+  const Root3 = () => <ReactFlow elements={elements} onElementClick={openModal} />;
+
   return (
     <>
-      <h1 style={{ color: "#787878",margin:'0px 0px 10px 0px', fontSize:'26px', height:'35px' }}>Visualization</h1>
+      <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px", height: "35px" }}>Visualization</h1>
       <Div>
         <div style={{ height: "25px", width: "100%", display: "flex" }}>
           <span
             style={{
               backgroundColor: tab === 0 ? "#efefef" : "#e0e0e0",
               border: "2px solid black",
-              borderRight:'none',
+              borderRight: "none",
               borderBottom: tab === 0 ? "none" : "1px solid black",
               width: "150px",
               textAlign: "center",
@@ -135,7 +152,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
             style={{
               backgroundColor: tab === 1 ? "#efefef" : "#e0e0e0",
               border: "2px solid black",
-              borderRight:'none',
+              borderRight: "none",
               borderBottom: tab === 1 ? "none" : "1px solid black",
               width: "150px",
               textAlign: "center",
@@ -167,11 +184,30 @@ const Visualization = ({ user, group, poweruser, access }) => {
           ></span>
         </div>
         <div style={{ width: "99.7%", height: "calc(100% - 30px)", border: "2px solid black", borderTop: "none" }}>
+          <form>
+            <label style={labelStyle}>
+              <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
+              <strong>잘못된 구성</strong>
+            </label>
+          </form>
+          <form>
+            <label style={labelStyle}>
+              <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />
+              <strong>권한 분리</strong>
+            </label>
+          </form>
+          <form>
+            <label style={labelStyle}>
+              <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="error" />
+              <strong>모두 해당</strong>
+            </label>
+          </form>
           {tab === 0 && <Root1 />}
           {tab === 1 && <Root2 />}
           {tab === 2 && <Root3 />}
         </div>
       </Div>
+      {modalOpen && <Modal type="ModalVisual" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </>
   );
 };

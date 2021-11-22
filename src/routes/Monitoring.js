@@ -199,7 +199,7 @@ function Monitoring() {
             <strong>위험한 변경사항</strong>
           </label>
         </form>
-        {checked && <Table type="monitoring" columns={columns} data={data} />}
+        {checked && <Table columns={columns} data={data} type="monitoring" />}
       </Div>
     </>
   );

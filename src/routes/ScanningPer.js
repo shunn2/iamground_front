@@ -138,7 +138,7 @@ function ScanningPer() {
   return (
     <>
       <div style={{ paddingTop: "50px" }}>
-        <Table type="scan" type="permission" columns={columns} data={data} />
+        <Table columns={columns} data={data} type="scanper" />
       </div>
     </>
   );

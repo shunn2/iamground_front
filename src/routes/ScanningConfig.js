@@ -139,7 +139,7 @@ function ScanningConfig() {
   return (
     <>
       <div style={{ paddingTop: "50px" }}>
-        <Table type="scan" columns={columns} data={data} />
+        <Table columns={columns} data={data} type="scanconfig" />
       </div>
     </>
   );

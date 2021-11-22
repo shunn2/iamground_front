@@ -1,8 +1,8 @@
 import React from "react";
-import EdgesFlow from "../components/ReactFlow";
+import HorizontalFlow from "../components/HorizontalFlow";
 
 function Test() {
-  return <EdgesFlow />;
+  return <HorizontalFlow />;
 }
 
 export default Test;
