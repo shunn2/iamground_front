@@ -12,9 +12,17 @@ const Visualization = ({ user, group, poweruser, access }) => {
     top: "10px",
     left: "1000px",
   };
-  const [checked, setChecked] = useState(true);
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
+  const [perchecked, persetChecked] = useState(true);
+  const perhandleChange = (event) => {
+    persetChecked(event.target.checked);
+  };
+  const [awschecked, awssetChecked] = useState(false);
+  const awshandleChange = (event) => {
+    awssetChecked(event.target.checked);
+  };
+  const [scanchecked, scansetChecked] = useState(false);
+  const scanhandleChange = (event) => {
+    scansetChecked(event.target.checked);
   };
   const [modalOpen, setmodalOpen] = useState(false);
   const openModal = () => {
@@ -136,15 +144,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
     { id: "18", source: "User10", target: "accesskey5", type: "straight" },
     { id: "19", source: "Nogroup", target: "User10", type: "straight" },
   ];
-  const elements = [
-    ...elementUser,
-    ...elementGroup,
-    ...elementPower,
-    ...elementKey,
-    ...elementRoot,
-    ...elementNogroup,
-    ...elementConnect,
-  ];
+  const elements = [...elementUser, ...elementGroup, ...elementPower, ...elementKey, ...elementRoot, ...elementNogroup, ...elementConnect];
 
   const [tab, setTab] = useState(0);
 
@@ -152,17 +152,11 @@ const Visualization = ({ user, group, poweruser, access }) => {
     setTab(tabNumber);
   };
 
-  const Root1 = () => (
-    <ReactFlow elements={elements} onElementClick={openModal} />
-  );
+  const Root1 = () => <ReactFlow elements={elements} onElementClick={openModal} />;
 
-  const Root2 = () => (
-    <ReactFlow elements={elements} onElementClick={openModal} />
-  );
+  const Root2 = () => <ReactFlow elements={elements} onElementClick={openModal} />;
 
-  const Root3 = () => (
-    <ReactFlow elements={elements} onElementClick={openModal} />
-  );
+  const Root3 = () => <ReactFlow elements={elements} onElementClick={openModal} />;
 
   return (
     <>
@@ -237,34 +231,19 @@ const Visualization = ({ user, group, poweruser, access }) => {
         >
           <form>
             <label style={labelStyle}>
-              <Switch
-                checked={checked}
-                onChange={handleChange}
-                inputProps={{ "aria-label": "controlled" }}
-                color="success"
-              />
+              <Switch checked={perchecked} onChange={perhandleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
               <strong>권한 분리 그룹</strong>
             </label>
           </form>
           <form>
             <label style={labelStyle}>
-              <Switch
-                checked={checked}
-                onChange={handleChange}
-                inputProps={{ "aria-label": "controlled" }}
-                color="primary"
-              />
+              <Switch checked={awschecked} onChange={awshandleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />
               <strong>AWS 그룹</strong>
             </label>
           </form>
           <form>
             <label style={labelStyle}>
-              <Switch
-                checked={checked}
-                onChange={handleChange}
-                inputProps={{ "aria-label": "controlled" }}
-                color="error"
-              />
+              <Switch checked={scanchecked} onChange={scanhandleChange} inputProps={{ "aria-label": "controlled" }} color="error" />
               <strong>스캐닝 결과 반영</strong>
             </label>
           </form>
@@ -273,13 +252,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
           {tab === 2 && <Root3 />}
         </div>
       </Div>
-      {modalOpen && (
-        <Modal
-          type="ModalVisual"
-          modalOpen={modalOpen}
-          setmodalOpen={setmodalOpen}
-        />
-      )}
+      {modalOpen && <Modal type="ModalVisual" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </>
   );
 };

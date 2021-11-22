@@ -7,6 +7,7 @@ import MonitoringUser from "../routes/MonitoringUser";
 import MonitoringUserLog from "../routes/MonitoringUserLog";
 import Visualization from "../routes/Visualization";
 import Layout from "./layout";
+import Setting from "../routes/Setting";
 import Test from "../routes/Test";
 import ScanningResult from "../routes/ScanningResult";
 
@@ -29,6 +30,7 @@ const AppRouter = () => {
           <Route path="/monitoring" element={<Monitoring />} />
           <Route path="/visualization" element={<Visualization user={user} group={group} poweruser={poweruser} access={accesskey} />} />
           <Route path="/test" element={<Test />} />
+          <Route path="/setting" element={<Setting />} />
         </Routes>
       </Layout>
     </Router>
