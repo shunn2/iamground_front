@@ -24,7 +24,7 @@ function Modal({ type, modalOpen, setmodalOpen }) {
           padding: "30px",
         }}
       >
-        <div style={{ height: "30px", display: "flex", justifyContent: "space-between", marginBottom:'30px' }}>
+        <div style={{ height: "30px", display: "flex", justifyContent: "space-between", marginBottom: "30px" }}>
           <div style={{ fontSize: "22px", fontWeight: "bold" }}>로그 세부 정보</div>
           <Clear
             style={{ fontSize: "26px", cursor: "pointer" }}
@@ -36,7 +36,7 @@ function Modal({ type, modalOpen, setmodalOpen }) {
         <div style={{ flex: 1 }}>
           <ModalJson />
         </div>
-        <div style={{ height: "30px", display: "flex", justifyContent: "flex-end", marginTop:'30px' }}>
+        <div style={{ height: "30px", display: "flex", justifyContent: "flex-end", marginTop: "30px" }}>
           <Button
             variant="contained"
             color="inherit"

@@ -1,8 +1,8 @@
 import React from "react";
-import HorizontalFlow from "../components/HorizontalFlow";
+import TableMaterial from "../components/MTable";
 
 function Test() {
-  return <HorizontalFlow />;
+  return <TableMaterial />;
 }
 
 export default Test;
