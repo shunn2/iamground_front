@@ -10,6 +10,9 @@ import Layout from "./layout";
 import Setting from "../routes/Setting";
 import Test from "../routes/Test";
 import ScanningResult from "../routes/ScanningResult";
+import Cloud from "../routes/Cloud";
+import Organization from "../routes/Organization";
+import CloudRegister from "../routes/CloudRegister";
 
 const AppRouter = () => {
   const user = ["User1", "User2", "User4", "User5", "User7", "User10"];
@@ -31,6 +34,9 @@ const AppRouter = () => {
           <Route path="/visualization" element={<Visualization user={user} group={group} poweruser={poweruser} access={accesskey} />} />
           <Route path="/test" element={<Test />} />
           <Route path="/setting" element={<Setting />} />
+          <Route path="/cloud" element={<Cloud />} />
+          <Route path="/cloud/register" element={<CloudRegister />} />
+          <Route path="/organization" element={<Organization />} />
         </Routes>
       </Layout>
     </Router>

@@ -39,101 +39,139 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const TableMaterial = () => {
+const TableMaterial = ({ columns, cdata, title, type }) => {
   const [modalOpen, setmodalOpen] = useState(false);
   const openModal = () => {
     setmodalOpen(true);
   };
-  const [tableData, setTableData] = useState([
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/23", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/22", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-    { time: "2021 11/22", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: null },
-    { time: "2021 11/26", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: null },
-    { time: "2021 11/28", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-    { time: "2021 11/29", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/22", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: null },
-    { time: "2021 11/26", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: null },
-    { time: "2021 11/28", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-    { time: "2021 11/29", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-    { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  ]);
+  const [tableData, setTableData] = useState(cdata);
+
+  // const [tableData, setTableData] = useState([
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/23", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/22", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
+  //   { time: "2021 11/22", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: null },
+  //   { time: "2021 11/26", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: null },
+  //   { time: "2021 11/28", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
+  //   { time: "2021 11/29", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/22", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: null },
+  //   { time: "2021 11/26", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: null },
+  //   { time: "2021 11/28", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
+  //   { time: "2021 11/29", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
+  // ]);
   //field 뒤에 있는 것들은 그냥 연습 time 뒤에 defaultsort는 있는 게 좋을 듯
-  const columns = [
-    { title: "Time", field: "time", defaultSort: "asc" },
-    { title: "User", field: "user", lookup: { user1: "User1" }, cellStyle: { color: "blue" } },
-    { title: "Service", field: "service", align: "right", filterPlaceholder: "Filter by service" },
-    { title: "Resource", field: "resource", align: "center" },
-    { title: "Activity", field: "activity" },
-    { title: "Result", field: "result", sorting: false, render: (rowData) => <div style={{ background: rowData.result === "success" ? "White" : "Grey" }}>{rowData.result}</div> },
-    { title: "Reason", field: "reason", emptyValue: () => <strong>NULL</strong> },
-  ];
+  // const columns = [
+  //   { title: "Time", field: "time", defaultSort: "asc" },
+  //   { title: "User", field: "user", lookup: { user1: "User1" }, cellStyle: { color: "blue" } },
+  //   { title: "Service", field: "service", align: "right", filterPlaceholder: "Filter by service" },
+  //   { title: "Resource", field: "resource", align: "center" },
+  //   { title: "Activity", field: "activity" },
+  //   { title: "Result", field: "result", sorting: false, render: (rowData) => <div style={{ background: rowData.result === "success" ? "White" : "Grey" }}>{rowData.result}</div> },
+  //   { title: "Reason", field: "reason", emptyValue: () => <strong>NULL</strong> },
+  // ];
   return (
     <div className="App">
-      <MaterialTable
-        columns={columns}
-        data={tableData}
-        title="Monitoring"
-        icons={tableIcons}
-        editable={{
-          //newRow에 추가된 정보 다 들어가 있음
-          onRowAdd: (newRow) =>
-            new Promise((resolve, reject) => {
-              setTableData([...tableData, newRow]);
-              setTimeout(() => resolve(), 500);
-            }),
-          onRowUpdate: (newRow, oldRow) =>
-            new Promise((resolve, reject) => {
-              const updatedData = [...tableData];
-              updatedData[oldRow.tableData.id] = newRow;
-              setTableData(updatedData);
-              setTimeout(() => resolve(), 500);
-            }),
-          onRowDelete: (selectedRow) =>
-            new Promise((resolve, reject) => {
-              const updatedData = [...tableData];
-              updatedData.splice(selectedRow.tableData.id, 1);
-              setTableData(updatedData);
-              setTimeout(() => resolve(), 1000);
-            }),
-        }}
-        actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
-        onSelectionChange={(selectedRow) => console.log(selectedRow)}
-        onRowClick={openModal}
-        options={{
-          sorting: true,
-          search: true,
-          filtering: true,
-          paging: true,
-          pageSize: 10,
-          maxBodyHeight: "450px",
-          pageSizeOptions: [5, 10, 15, 20],
-          paginationType: "stepped",
-          showFirstLastPageButtons: true,
-          paginationPosition: "bottom",
-          exportButton: true,
-          exportAllData: true,
-          addRowPosition: "last",
-          actionsColumnIndex: -1,
-          selection: true,
-          showSelectAllCheckbox: true,
-          showTextRowsSelected: false,
-          selectionProps: (rowData) => ({ color: "primary" }),
-          grouping: true,
-          columnsButton: true,
-          rowStyle: (data, index) => (data.result === "fail" ? { background: "Pink" } : null),
-          headerStyle: { background: "#d6d6d6", fontStyle: "italic" },
-        }}
-      />
+      {type === "cloud" || type === "organization" ? (
+        <MaterialTable
+          columns={columns}
+          data={tableData}
+          title={title}
+          icons={tableIcons}
+          editable={{
+            //newRow에 추가된 정보 다 들어가 있음
+            onRowAdd: (newRow) =>
+              new Promise((resolve, reject) => {
+                setTableData([...tableData, newRow]);
+                setTimeout(() => resolve(), 500);
+              }),
+            onRowUpdate: (newRow, oldRow) =>
+              new Promise((resolve, reject) => {
+                const updatedData = [...tableData];
+                updatedData[oldRow.tableData.id] = newRow;
+                setTableData(updatedData);
+                setTimeout(() => resolve(), 500);
+              }),
+            onRowDelete: (selectedRow) =>
+              new Promise((resolve, reject) => {
+                const updatedData = [...tableData];
+                updatedData.splice(selectedRow.tableData.id, 1);
+                setTableData(updatedData);
+                setTimeout(() => resolve(), 1000);
+              }),
+          }}
+          actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
+          onSelectionChange={(selectedRow) => console.log(selectedRow)}
+          onRowClick={openModal}
+          options={{
+            sorting: true,
+            search: true,
+            filtering: true,
+            paging: true,
+            pageSize: 10,
+            pageSizeOptions: [5, 10, 15, 20],
+            paginationType: "stepped",
+            showFirstLastPageButtons: true,
+            paginationPosition: "bottom",
+            exportAllData: true,
+            addRowPosition: "last",
+            actionsColumnIndex: -1,
+            showSelectAllCheckbox: true,
+            showTextRowsSelected: false,
+            selectionProps: (rowData) => ({ color: "primary" }),
+            grouping: true,
+            columnsButton: true,
+            rowStyle: (data, index) => (data.result === "fail" ? { background: "Pink" } : null),
+            headerStyle: { background: "#d6d6d6", fontStyle: "italic" },
+            maxBodyHeight: "650px",
+            exportButton: false,
+            selection: false,
+          }}
+        />
+      ) : (
+        <MaterialTable
+          columns={columns}
+          data={tableData}
+          title={title}
+          icons={tableIcons}
+          actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
+          onSelectionChange={(selectedRow) => console.log(selectedRow)}
+          onRowClick={openModal}
+          options={{
+            sorting: true,
+            search: true,
+            filtering: true,
+            paging: true,
+            pageSize: 10,
+            pageSizeOptions: [5, 10, 15, 20],
+            paginationType: "stepped",
+            showFirstLastPageButtons: true,
+            paginationPosition: "bottom",
+            exportAllData: true,
+            addRowPosition: "last",
+            actionsColumnIndex: -1,
+            showSelectAllCheckbox: true,
+            showTextRowsSelected: false,
+            selectionProps: (rowData) => ({ color: "primary" }),
+            grouping: true,
+            columnsButton: true,
+            rowStyle: (data, index) => (data.result === "fail" ? { background: "Pink" } : null),
+            headerStyle: { background: "#d6d6d6", fontStyle: "italic" },
+            maxBodyHeight: type === "monitoring" || type === "scanning2" ? "650px" : "200px",
+            exportButton: type === "monitoring" || type === "scanning2" ? true : false,
+            selection: false,
+          }}
+        />
+      )}
       {modalOpen && <Modal type="monitoring" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </div>
   );

@@ -5,7 +5,8 @@ import { Homeicon, ScanIcon, MonIcon, VisIcon } from "../../style/Icons";
 import { Circle, Description, Person, Dashboard, Cloud, Settings } from "@mui/icons-material";
 
 const Sidebar = () => {
-  const [open, setOpen] = useState(false);
+  const [mopen, setMOpen] = useState(false);
+  const [aopen, setAOpen] = useState(false);
 
   return (
     <Nav>
@@ -40,13 +41,13 @@ const Sidebar = () => {
         </NavList>
         <NavList
           onClick={() => {
-            setOpen(!open);
+            setMOpen(!mopen);
           }}
         >
           <MonIcon />
           <SideSpan>Monitoring</SideSpan>
         </NavList>
-        <NavListWrapper style={{ height: open ? "88px" : "0px", margin: "0px -20px", padding: "0px 10px" }}>
+        <NavListWrapper style={{ height: mopen ? "88px" : "0px", margin: "0px -20px", padding: "0px 10px" }}>
           <NavList style={{ margin: "0px -20px", padding: "10px 50px", backgroundColor: "#2C3239" }}>
             <Link to="/monitoring/log" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
               <Description style={{ fontSize: "21px", width: "24px", color: "#d6d6d6" }} />
@@ -66,12 +67,28 @@ const Sidebar = () => {
             <SideSpan>Visualization</SideSpan>
           </Link>
         </NavList>
-        <NavList>
-          <Link to="/cloud" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
-            <Cloud style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />
-            <SideSpan>Asset</SideSpan>
-          </Link>
+        <NavList
+          onClick={() => {
+            setAOpen(!aopen);
+          }}
+        >
+          <Cloud style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />
+          <SideSpan>Asset</SideSpan>
         </NavList>
+        <NavListWrapper style={{ height: aopen ? "88px" : "0px", margin: "0px -20px", padding: "0px 10px" }}>
+          <NavList style={{ margin: "0px -20px", padding: "10px 50px", backgroundColor: "#2C3239" }}>
+            <Link to="/cloud" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
+              <Description style={{ fontSize: "21px", width: "24px", color: "#d6d6d6" }} />
+              <SideSpan style={{ paddingLeft: "5px" }}>Cloud</SideSpan>
+            </Link>
+          </NavList>
+          <NavList style={{ margin: "0px -20px", padding: "10px 50px", backgroundColor: "#2C3239" }}>
+            <Link to="/organization" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
+              <Person style={{ fontSize: "24px", color: "#d6d6d6" }} />
+              <SideSpan style={{ paddingLeft: "5px" }}>Organization</SideSpan>
+            </Link>
+          </NavList>
+        </NavListWrapper>
         <NavList style={{ borderBottom: "1px solid #5e6c70" }}>
           <Link to="/setting" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
             <Settings style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />
