@@ -3,8 +3,7 @@ import { Div1, Div2, Div3, Div4, Row, SummaryWrapper, Title } from "../style/sty
 import { ResponsivePie } from "@nivo/pie";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveBullet } from "@nivo/bullet";
-import Table from "../components/module/normalTable";
-import TableMaterial from "../components/MTable";
+import TableMaterial from "../components/module/MTable";
 import WarningIcon from "@mui/icons-material/Warning";
 import GppGoodIcon from "@mui/icons-material/GppGood";
 
@@ -297,67 +296,6 @@ const ScanningSummary = () => {
       ]}
     />
   );
-
-  const columns = useMemo(
-    () => [
-      {
-        field: "resource",
-        title: "Resource",
-      },
-      {
-        field: "rec",
-        title: "Recommendation",
-      },
-      {
-        field: "last",
-        title: "Last Scan",
-      },
-      {
-        field: "cur",
-        title: "Current Scan",
-      },
-    ],
-    []
-  );
-
-  const data_table = [
-    {
-      resource: "policy1",
-      rec: "delete permission1",
-      last: 0,
-      cur: 1,
-    },
-    {
-      resource: "user2",
-      rec: "delete permission3",
-      last: 0,
-      cur: 1,
-    },
-    {
-      resource: "policy2",
-      rec: "delete resource",
-      last: 1,
-      cur: 1,
-    },
-    {
-      resource: "role1",
-      rec: "misconfiguration",
-      last: 1,
-      cur: 1,
-    },
-    {
-      resource: "user4",
-      rec: "need delete deny",
-      last: 0,
-      cur: 1,
-    },
-    {
-      resource: "role1",
-      rec: "misconfiguration",
-      last: 1,
-      cur: 1,
-    },
-  ];
 
   return (
     <SummaryWrapper>

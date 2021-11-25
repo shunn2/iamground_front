@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { Div } from "../style/styled-compo";
 import ReactFlow from "react-flow-renderer";
 import { VisGroup, VisUser, VisPUser, VisKey } from "../style/Icons";
-import ModalVisual from "../components/ModalVisual";
-import Modal from "../components/Modal";
+import Modal from "../components/Modal/Modal";
 import Switch from "@mui/material/Switch";
 
 const Visualization = ({ user, group, poweruser, access }) => {

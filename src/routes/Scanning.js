@@ -1,14 +1,10 @@
 import React from "react";
 import { useMemo } from "react";
-import faker from "faker/locale/ko";
-import Table from "../components/module/Table";
 import { Gdiv, Tdiv } from "../style/styled-compo";
 import { ResponsiveLine } from "@nivo/line";
 import { Link } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
-import TableMaterial from "../components/MTable";
-
-faker.seed(100);
+import TableMaterial from "../components/module/MTable";
 
 function Scanning() {
   const gdata = [
@@ -200,55 +196,6 @@ function Scanning() {
         },
       ]}
     />
-  );
-
-  const columns = useMemo(
-    () => [
-      {
-        field: "root",
-        title: "Root",
-      },
-      {
-        field: "last_scanned",
-        title: "Last Scanned",
-      },
-      {
-        field: "per",
-        title: "Per",
-      },
-      {
-        field: "config",
-        title: "Config",
-      },
-      {
-        field: "scan",
-        title: "Scan",
-      },
-      {
-        field: "result",
-        title: "Result",
-      },
-    ],
-    []
-  );
-
-  const tdata = useMemo(
-    () =>
-      Array(5)
-        .fill()
-        .map(() => ({
-          root: faker.name.jobType(),
-          last_scanned: faker.date.recent().toString(),
-          per: faker.datatype.number(50),
-          config: faker.datatype.number(50),
-          scan: <button>Scan</button>,
-          result: (
-            <Link to="/scan/report/summary">
-              <DescriptionIcon />
-            </Link>
-          ),
-        })),
-    []
   );
 
   return (

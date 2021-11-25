@@ -1,10 +1,7 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { Div } from "../style/styled-compo";
-import Table from "../components/module/homeTable";
-import BuildIcon from "@mui/icons-material/Build";
-import DeleteIcon from "@mui/icons-material/Delete";
-import TableMaterial from "../components/MTable";
+import TableMaterial from "../components/module/MTable";
 
 function Cloud() {
   return (

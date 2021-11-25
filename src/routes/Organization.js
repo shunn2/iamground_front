@@ -1,16 +1,60 @@
 import React, { useState } from "react";
-import Table from "../components/module/normalTable";
 import { Div } from "../style/styled-compo";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import TableMaterial from "../components/MTable";
+import TableMaterial from "../components/module/MTable";
+import XLSX from "xlsx";
 
 function Organization() {
   const [visible, setVisible] = useState(false);
   const OpenList = () => {
     return setVisible(!visible);
   };
-
+  const [colDef, setColDef] = useState();
+  const [data, setData] = useState();
+  const Extentions = ["xlsx", "xls", "csv"];
+  const getExtention = (file) => {
+    const parts = file.name.split(".");
+    const extention = parts[parts.length - 1];
+    return Extentions.includes(extention);
+  };
+  const convertToJson = (headers, data) => {
+    const rows = [];
+    data.forEach((row) => {
+      let rowData = {};
+      row.forEach((element, index) => {
+        rowData[headers[index]] = element;
+      });
+      rows.push(rowData);
+    });
+    return rows;
+  };
+  const importCSV = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const bstr = event.target.result;
+      const workBook = XLSX.read(bstr, { type: "binary" });
+      const workSheetName = workBook.SheetNames[0];
+      const workSheet = workBook.Sheets[workSheetName];
+      const fileData = XLSX.utils.sheet_to_json(workSheet, { header: 1 });
+      const headers = fileData[0];
+      const heads = headers.map((head) => ({ title: head, field: head }));
+      setColDef(heads);
+      fileData.splice(0, 1);
+      setData(convertToJson(headers, fileData));
+    };
+    if (file) {
+      if (getExtention(file)) {
+        reader.readAsBinaryString(file);
+      } else {
+        alert("Invalid file input");
+      }
+    } else {
+      setData([]);
+      setColDef([]);
+    }
+  };
   const csvList = () => {
     return (
       <>
@@ -71,7 +115,9 @@ function Organization() {
         {visible ? csvList() : ""}
 
         <div style={{ width: "calc(100%-30px)", padding: "40px" }}>
-          <TableMaterial
+          <input type="file" onChange={importCSV} />
+          <TableMaterial columns={colDef} cdata={data} title="Organization" type="organization" />
+          {/* <TableMaterial
             columns={[
               { title: "Permission Group", field: "permission_group" },
               { title: "Root Account", field: "root_account" },
@@ -106,9 +152,11 @@ function Organization() {
                 phone_number: "010-7552-5596",
               },
             ]}
+            columns={colDef}
+            cdata={data}
             title="Organization"
             type="organization"
-          />
+          /> */}
         </div>
       </Div>
     </>

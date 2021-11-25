@@ -5,8 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";
-import Table from "../components/module/homeTable";
-import TableMaterial from "../components/MTable";
+import TableMaterial from "../components/module/MTable";
 
 function Home() {
   const [age, setAge] = React.useState("");
@@ -191,39 +190,6 @@ function Home() {
     ],
     []
   );
-
-  const data_table = [
-    {
-      cloudName: "demo1",
-      lastScanTime: "Sat Nov 20 2021 02:47:47",
-      status: "스캔중",
-      result: "result",
-    },
-    {
-      cloudName: "demo2",
-      lastScanTime: "Sat Nov 20 2021 02:47:47",
-      status: "활성화",
-      result: "result",
-    },
-    {
-      cloudName: "demo3",
-      lastScanTime: "Sat Nov 20 2021 02:47:47",
-      status: "비활성화",
-      result: "result",
-    },
-    {
-      cloudName: "demo4",
-      lastScanTime: "Sat Nov 20 2021 02:47:47",
-      status: "활성화",
-      result: "result",
-    },
-    {
-      cloudName: "demo5",
-      lastScanTime: "Sat Nov 20 2021 02:47:47",
-      status: "활성화",
-      result: "result",
-    },
-  ];
 
   return (
     <>

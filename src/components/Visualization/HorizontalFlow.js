@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import ReactFlow, { removeElements, addEdge } from "react-flow-renderer";
 
-import CustomEdge from "./CustomEdge";
+import CustomEdge from "../CustomEdge";
 
 const onLoad = (reactFlowInstance) => reactFlowInstance.fitView();
 
