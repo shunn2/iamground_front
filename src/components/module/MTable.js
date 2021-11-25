@@ -1,4 +1,4 @@
-import React, { useState, forwardRef, useMemo } from "react";
+import React, { useState, forwardRef, useEffect } from "react";
 import MaterialTable from "material-table";
 import XLSX from "xlsx";
 import Modal from "../Modal/Modal";
@@ -43,9 +43,13 @@ const tableIcons = {
 const TableMaterial = ({ columns, cdata, title, type }) => {
   const [modalOpen, setmodalOpen] = useState(false);
   const openModal = () => {
-    setmodalOpen(true);
+    if (type === "monitoring" || type === "scanning2") setmodalOpen(true);
+    else setmodalOpen(false);
   };
-  const [tableData, setTableData] = useState(cdata);
+  const [tableData, setTableData] = useState();
+  useEffect(() => {
+    setTableData(cdata);
+  });
   // const [colDef, setColDef] = useState();
   // const [data, setData] = useState();
   // const Extentions = ["xlsx", "xls", "csv"];
