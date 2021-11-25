@@ -122,7 +122,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
                 setTimeout(() => resolve(), 1000);
               }),
           }}
-          actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
+          // actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
           onSelectionChange={(selectedRow) => console.log(selectedRow)}
           onRowClick={openModal}
           options={{
@@ -156,13 +156,12 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
           data={tableData}
           title={title}
           icons={tableIcons}
-          actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
+          // actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
           onSelectionChange={(selectedRow) => console.log(selectedRow)}
           onRowClick={openModal}
           options={{
             sorting: true,
             search: true,
-            filtering: true,
             paging: true,
             pageSize: 10,
             pageSizeOptions: [5, 10, 15, 20],
@@ -175,13 +174,14 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
             showSelectAllCheckbox: true,
             showTextRowsSelected: false,
             selectionProps: (rowData) => ({ color: "primary" }),
-            grouping: true,
             columnsButton: true,
             rowStyle: (data, index) => (data.result === "fail" ? { background: "Pink" } : null),
             headerStyle: { background: "#d6d6d6", fontStyle: "italic" },
-            maxBodyHeight: type === "monitoring" || type === "scanning2" ? "650px" : "200px",
+            maxBodyHeight: type === "monitoring" || type === "scanning2" ? "650px" : type === "main" ? "150px" : "300px",
             exportButton: type === "monitoring" || type === "scanning2" ? true : false,
             selection: false,
+            filtering: type === "monitoring" || type === "scanning2" ? true : false,
+            grouping: type === "monitoring" || type === "scanning2" ? true : false,
           }}
         />
       )}

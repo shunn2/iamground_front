@@ -6,6 +6,7 @@ import { Gdiv, Tdiv } from "../style/styled-compo";
 import { ResponsiveLine } from "@nivo/line";
 import { Link } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
+import TableMaterial from "../components/MTable";
 
 faker.seed(100);
 
@@ -204,28 +205,28 @@ function Scanning() {
   const columns = useMemo(
     () => [
       {
-        accessor: "root",
-        Header: "Root",
+        field: "root",
+        title: "Root",
       },
       {
-        accessor: "last_scanned",
-        Header: "Last Scanned",
+        field: "last_scanned",
+        title: "Last Scanned",
       },
       {
-        accessor: "per",
-        Header: "Per",
+        field: "per",
+        title: "Per",
       },
       {
-        accessor: "config",
-        Header: "Config",
+        field: "config",
+        title: "Config",
       },
       {
-        accessor: "scan",
-        Header: "Scan",
+        field: "scan",
+        title: "Scan",
       },
       {
-        accessor: "result",
-        Header: "Result",
+        field: "result",
+        title: "Result",
       },
     ],
     []
@@ -258,7 +259,69 @@ function Scanning() {
       </Gdiv>
       <Tdiv>
         <br />
-        <Table type="scan" columns={columns} data={tdata} />
+
+        <TableMaterial
+          columns={[
+            { title: "Root", field: "root" },
+            { title: "Last Scanned", field: "last_scanned" },
+            { title: "Per", field: "per" },
+            { title: "Config", field: "config" },
+            { title: "Scan", field: "scan" },
+            { title: "Result", field: "result" },
+          ]}
+          cdata={[
+            {
+              root: "Dev",
+              last_scanned: "Thu Nov 25 2021 00:08:27 GMT+0900",
+              per: "10",
+              config: "26",
+              scan: <button>Scan</button>,
+              result: (
+                <Link to="/scan/report/summary">
+                  <DescriptionIcon />
+                </Link>
+              ),
+            },
+            {
+              root: "Res",
+              last_scanned: "Thu Nov 25 2021 00:08:27 GMT+0900",
+              per: "19",
+              config: "36",
+              scan: <button>Scan</button>,
+              result: (
+                <Link to="/scan/report/summary">
+                  <DescriptionIcon />
+                </Link>
+              ),
+            },
+            {
+              root: "Sec",
+              last_scanned: "Thu Nov 25 2021 00:08:27 GMT+0900",
+              per: "30",
+              config: "26",
+              scan: <button>Scan</button>,
+              result: (
+                <Link to="/scan/report/summary">
+                  <DescriptionIcon />
+                </Link>
+              ),
+            },
+            {
+              root: "Test",
+              last_scanned: "Thu Nov 25 2021 00:08:27 GMT+0900",
+              per: "8",
+              config: "40",
+              scan: <button>Scan</button>,
+              result: (
+                <Link to="/scan/report/summary">
+                  <DescriptionIcon />
+                </Link>
+              ),
+            },
+          ]}
+          title="Root Accounts"
+          type="scanning1"
+        />
       </Tdiv>
     </>
   );
