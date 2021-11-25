@@ -1,5 +1,6 @@
 import React, { useState, forwardRef } from "react";
 import MaterialTable from "material-table";
+import XLSX from "xlsx";
 import Modal from "./Modal";
 import GetAppIcon from "@mui/icons-material/GetApp";
 
@@ -45,42 +46,54 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
     setmodalOpen(true);
   };
   const [tableData, setTableData] = useState(cdata);
-
-  // const [tableData, setTableData] = useState([
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/23", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/22", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-  //   { time: "2021 11/22", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: null },
-  //   { time: "2021 11/26", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: null },
-  //   { time: "2021 11/28", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-  //   { time: "2021 11/29", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/22", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: null },
-  //   { time: "2021 11/26", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: null },
-  //   { time: "2021 11/28", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "fail", reason: "-" },
-  //   { time: "2021 11/29", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  //   { time: "2021 11/24", user: "user1", service: "IAM", resource: "Policy1", activity: "CreatePolicy", result: "success", reason: "-" },
-  // ]);
-  //field 뒤에 있는 것들은 그냥 연습 time 뒤에 defaultsort는 있는 게 좋을 듯
-  // const columns = [
-  //   { title: "Time", field: "time", defaultSort: "asc" },
-  //   { title: "User", field: "user", lookup: { user1: "User1" }, cellStyle: { color: "blue" } },
-  //   { title: "Service", field: "service", align: "right", filterPlaceholder: "Filter by service" },
-  //   { title: "Resource", field: "resource", align: "center" },
-  //   { title: "Activity", field: "activity" },
-  //   { title: "Result", field: "result", sorting: false, render: (rowData) => <div style={{ background: rowData.result === "success" ? "White" : "Grey" }}>{rowData.result}</div> },
-  //   { title: "Reason", field: "reason", emptyValue: () => <strong>NULL</strong> },
-  // ];
+  const [colDef, setColDef] = useState();
+  const [data, setData] = useState();
+  const Extentions = ["xlsx", "xls", "csv"];
+  const getExtention = (file) => {
+    const parts = file.name.split(".");
+    const extention = parts[parts.length - 1];
+    return Extentions.includes(extention);
+  };
+  const convertToJson = (headers, data) => {
+    const rows = [];
+    data.forEach((row) => {
+      let rowData = {};
+      row.forEach((element, index) => {
+        rowData[headers[index]] = element;
+      });
+      rows.push(rowData);
+    });
+    return rows;
+  };
+  const importCSV = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const bstr = event.target.result;
+      const workBook = XLSX.read(bstr, { type: "binary" });
+      const workSheetName = workBook.SheetNames[0];
+      const workSheet = workBook.Sheets[workSheetName];
+      const fileData = XLSX.utils.sheet_to_json(workSheet, { header: 1 });
+      const headers = fileData[0];
+      const heads = headers.map((head) => ({ title: head, field: head }));
+      setColDef(heads);
+      fileData.splice(0, 1);
+      setData(convertToJson(headers, fileData));
+    };
+    if (file) {
+      if (getExtention(file)) {
+        reader.readAsBinaryString(file);
+      } else {
+        alert("Invalid file input");
+      }
+    } else {
+      setData([]);
+      setColDef([]);
+    }
+  };
   return (
-    <div className="App">
+    <div>
+      <input type="file" onChange={importCSV} />
       {type === "cloud" || type === "organization" ? (
         <MaterialTable
           columns={columns}

@@ -13,6 +13,7 @@ import ScanningResult from "../routes/ScanningResult";
 import Cloud from "../routes/Cloud";
 import Organization from "../routes/Organization";
 import CloudRegister from "../routes/CloudRegister";
+import Notification from "../routes/Notification";
 
 const AppRouter = () => {
   const user = ["User1", "User2", "User4", "User5", "User7", "User10"];
@@ -37,6 +38,7 @@ const AppRouter = () => {
           <Route path="/cloud" element={<Cloud />} />
           <Route path="/cloud/register" element={<CloudRegister />} />
           <Route path="/organization" element={<Organization />} />
+          <Route path="/notification" element={<Notification />} />
         </Routes>
       </Layout>
     </Router>

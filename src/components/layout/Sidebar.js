@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Nav, NavList, NavListWrapper, SideSpan, Iamground } from "../../style/styled-compo";
 import { Homeicon, ScanIcon, MonIcon, VisIcon } from "../../style/Icons";
-import { Circle, Description, Person, Dashboard, Cloud, Settings } from "@mui/icons-material";
+import { Circle, Description, Person, Dashboard, Cloud, Settings, NotificationsActive } from "@mui/icons-material";
 
 const Sidebar = () => {
   const [mopen, setMOpen] = useState(false);
@@ -93,6 +93,12 @@ const Sidebar = () => {
           <Link to="/setting" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
             <Settings style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />
             <SideSpan>Setting</SideSpan>
+          </Link>
+        </NavList>
+        <NavList style={{ borderBottom: "1px solid #5e6c70" }}>
+          <Link to="/notification" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
+            <NotificationsActive style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />
+            <SideSpan>Notification</SideSpan>
           </Link>
         </NavList>
       </NavListWrapper>
