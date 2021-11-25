@@ -53,7 +53,6 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
 
   return (
     <div>
-      {/* <input type="file" onChange={importCSV} /> */}
       {type === "cloud" || type === "organization" ? (
         <MaterialTable
           columns={columns}
@@ -105,7 +104,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
             rowStyle: (data, index) => (data.result === "fail" ? { background: "Pink" } : null),
             headerStyle: { background: "#d6d6d6", fontStyle: "italic" },
             maxBodyHeight: "650px",
-            exportButton: true,
+            exportButton: type === "organization" ? true : false,
             selection: false,
           }}
         />

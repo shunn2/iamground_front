@@ -6,7 +6,7 @@ import TableMaterial from "../components/module/MTable";
 import XLSX from "xlsx";
 
 function Organization() {
-  const origincolumns = [
+  const defaultColumns = [
     { title: "Permission Group", field: "permission_group" },
     { title: "Root Account", field: "root_account" },
     { title: "user arn", field: "user_arn" },
@@ -14,7 +14,7 @@ function Organization() {
     { title: "email", field: "email" },
     { field: "phone_number", title: "Phone Number" },
   ];
-  const origindata = [
+  const defaultData = [
     {
       permission_group: "Dev",
       root_account: "IAMGROUND",
@@ -40,12 +40,13 @@ function Organization() {
       phone_number: "010-7552-5596",
     },
   ];
+
   const [visible, setVisible] = useState(false);
   const OpenList = () => {
     return setVisible(!visible);
   };
-  const [colDef, setColDef] = useState(origincolumns);
-  const [data, setData] = useState(origindata);
+  const [colDef, setColDef] = useState(defaultColumns);
+  const [data, setData] = useState(defaultData);
   const Extentions = ["xlsx", "xls", "csv"];
   const getExtention = (file) => {
     const parts = file.name.split(".");
@@ -92,7 +93,7 @@ function Organization() {
   const csvList = () => {
     return (
       <>
-        <table style={{ borderCollapse: "collapse", border: "1px solid black", position: "absolute", top: "4px", right: "202px", textAlign: "center", backgroundColor: "white" }}>
+        <table style={{ borderCollapse: "collapse", border: "1px solid black", position: "absolute", top: "26px", right: "202px", textAlign: "center", backgroundColor: "white" }}>
           <thead>
             <tr>
               <th style={{ backgroundColor: "#D6D6D6", border: "1px solid #A1B8D6", padding: "3px" }}>CSV File</th>
@@ -109,7 +110,7 @@ function Organization() {
             <tr>
               <td style={{ border: "1px solid #D6D6D6" }}>
                 <a href="/organization" style={{ color: "black", textDecoration: "none" }}>
-                  Upload - Overwrite
+                  <input type="file" onChange={importCSV} />
                 </a>
               </td>
             </tr>
@@ -142,7 +143,6 @@ function Organization() {
         {visible ? csvList() : ""}
 
         <div style={{ width: "calc(100%-30px)", padding: "40px" }}>
-          <input type="file" onChange={importCSV} />
           <TableMaterial columns={colDef} cdata={data} title="Organization" type="organization" />
           {/* <TableMaterial
             columns={[
