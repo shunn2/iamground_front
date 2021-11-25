@@ -6,12 +6,46 @@ import TableMaterial from "../components/module/MTable";
 import XLSX from "xlsx";
 
 function Organization() {
+  const origincolumns = [
+    { title: "Permission Group", field: "permission_group" },
+    { title: "Root Account", field: "root_account" },
+    { title: "user arn", field: "user_arn" },
+    { title: "Name", field: "name" },
+    { title: "email", field: "email" },
+    { field: "phone_number", title: "Phone Number" },
+  ];
+  const origindata = [
+    {
+      permission_group: "Dev",
+      root_account: "IAMGROUND",
+      user_arn: "aws:iam::284264230655:user",
+      name: "김민경",
+      email: "5596molly@naver.com",
+      phone_number: "010-7552-5596",
+    },
+    {
+      permission_group: "Dev",
+      root_account: "IAMGROUND",
+      user_arn: "aws:iam::284264230655:user",
+      name: "김민경",
+      email: "5596molly@naver.com",
+      phone_number: "010-7552-5596",
+    },
+    {
+      permission_group: "Dev",
+      root_account: "IAMGROUND",
+      user_arn: "aws:iam::284264230655:user",
+      name: "김민경",
+      email: "5596molly@naver.com",
+      phone_number: "010-7552-5596",
+    },
+  ];
   const [visible, setVisible] = useState(false);
   const OpenList = () => {
     return setVisible(!visible);
   };
-  const [colDef, setColDef] = useState();
-  const [data, setData] = useState();
+  const [colDef, setColDef] = useState(origincolumns);
+  const [data, setData] = useState(origindata);
   const Extentions = ["xlsx", "xls", "csv"];
   const getExtention = (file) => {
     const parts = file.name.split(".");
@@ -76,13 +110,6 @@ function Organization() {
               <td style={{ border: "1px solid #D6D6D6" }}>
                 <a href="/organization" style={{ color: "black", textDecoration: "none" }}>
                   Upload - Overwrite
-                </a>
-              </td>
-            </tr>
-            <tr>
-              <td style={{ border: "1px solid #D6D6D6" }}>
-                <a href="/organization" style={{ color: "black", textDecoration: "none" }}>
-                  Upload - Update
                 </a>
               </td>
             </tr>

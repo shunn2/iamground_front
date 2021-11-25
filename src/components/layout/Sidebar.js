@@ -90,15 +90,15 @@ const Sidebar = () => {
           </NavList>
         </NavListWrapper>
         <NavList style={{ borderBottom: "1px solid #5e6c70" }}>
-          <Link to="/setting" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
-            <Settings style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />
-            <SideSpan>Setting</SideSpan>
-          </Link>
-        </NavList>
-        <NavList style={{ borderBottom: "1px solid #5e6c70" }}>
           <Link to="/notification" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
             <NotificationsActive style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />
             <SideSpan>Notification</SideSpan>
+          </Link>
+        </NavList>
+        <NavList style={{ borderBottom: "1px solid #5e6c70" }}>
+          <Link to="/setting" style={{ color: "black", display: "flex", alignItems: "center", textDecoration: "none", fontSize: "18px" }}>
+            <Settings style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />
+            <SideSpan>Setting</SideSpan>
           </Link>
         </NavList>
       </NavListWrapper>

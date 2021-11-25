@@ -50,51 +50,6 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
   useEffect(() => {
     setTableData(cdata);
   });
-  // const [colDef, setColDef] = useState();
-  // const [data, setData] = useState();
-  // const Extentions = ["xlsx", "xls", "csv"];
-  // const getExtention = (file) => {
-  //   const parts = file.name.split(".");
-  //   const extention = parts[parts.length - 1];
-  //   return Extentions.includes(extention);
-  // };
-  // const convertToJson = (headers, data) => {
-  //   const rows = [];
-  //   data.forEach((row) => {
-  //     let rowData = {};
-  //     row.forEach((element, index) => {
-  //       rowData[headers[index]] = element;
-  //     });
-  //     rows.push(rowData);
-  //   });
-  //   return rows;
-  // };
-  // const importCSV = (e) => {
-  //   const file = e.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.onload = (event) => {
-  //     const bstr = event.target.result;
-  //     const workBook = XLSX.read(bstr, { type: "binary" });
-  //     const workSheetName = workBook.SheetNames[0];
-  //     const workSheet = workBook.Sheets[workSheetName];
-  //     const fileData = XLSX.utils.sheet_to_json(workSheet, { header: 1 });
-  //     const headers = fileData[0];
-  //     const heads = headers.map((head) => ({ title: head, field: head }));
-  //     setColDef(heads);
-  //     fileData.splice(0, 1);
-  //     setData(convertToJson(headers, fileData));
-  //   };
-  //   if (file) {
-  //     if (getExtention(file)) {
-  //       reader.readAsBinaryString(file);
-  //     } else {
-  //       alert("Invalid file input");
-  //     }
-  //   } else {
-  //     setData([]);
-  //     setColDef([]);
-  //   }
-  // };
 
   return (
     <div>
@@ -150,7 +105,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
             rowStyle: (data, index) => (data.result === "fail" ? { background: "Pink" } : null),
             headerStyle: { background: "#d6d6d6", fontStyle: "italic" },
             maxBodyHeight: "650px",
-            exportButton: false,
+            exportButton: true,
             selection: false,
           }}
         />
@@ -180,7 +135,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
             selectionProps: (rowData) => ({ color: "primary" }),
             columnsButton: true,
             rowStyle: (data, index) => (data.result === "fail" ? { background: "Pink" } : null),
-            headerStyle: { background: "#d6d6d6", fontStyle: "italic" },
+            headerStyle: { background: "#d6d6d6", fontSize: "16px", fontWeight: "bold" },
             maxBodyHeight: type === "monitoring" || type === "scanning2" ? "650px" : type === "main" ? "150px" : "300px",
             exportButton: type === "monitoring" || type === "scanning2" ? true : false,
             selection: false,
