@@ -4,6 +4,9 @@ import { ResponsivePie } from "@nivo/pie";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveBullet } from "@nivo/bullet";
 import Table from "../components/module/normalTable";
+import TableMaterial from "../components/MTable";
+import WarningIcon from "@mui/icons-material/Warning";
+import GppGoodIcon from "@mui/icons-material/GppGood";
 
 const ScanningSummary = () => {
   /* ********************반원 그래프******************** */
@@ -298,20 +301,20 @@ const ScanningSummary = () => {
   const columns = useMemo(
     () => [
       {
-        accessor: "resource",
-        Header: "Resource",
+        field: "resource",
+        title: "Resource",
       },
       {
-        accessor: "rec",
-        Header: "Recommendation",
+        field: "rec",
+        title: "Recommendation",
       },
       {
-        accessor: "last",
-        Header: "Last Scan",
+        field: "last",
+        title: "Last Scan",
       },
       {
-        accessor: "cur",
-        Header: "Current Scan",
+        field: "cur",
+        title: "Current Scan",
       },
     ],
     []
@@ -385,7 +388,56 @@ const ScanningSummary = () => {
           <MyResponsiveChart data={data_chart}></MyResponsiveChart>
         </Div3>
         <Div4>
-          <Table type="scaning" columns={columns} data={data_table} />
+          <div style={{ padding: "20px" }}>
+            <TableMaterial
+              columns={[
+                { title: "Resource", field: "resource" },
+                { title: "Recommendation", field: "rec" },
+                { title: "Last Scan", field: "last" },
+                { title: "Current Scan", field: "cur" },
+              ]}
+              cdata={[
+                {
+                  resource: "policy1",
+                  rec: "delete permission1",
+                  last: <GppGoodIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                },
+                {
+                  resource: "user2",
+                  rec: "delete permission3",
+                  last: <GppGoodIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                },
+                {
+                  resource: "policy2",
+                  rec: "delete resource",
+                  last: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                },
+                {
+                  resource: "role1",
+                  rec: "misconfiguration",
+                  last: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                },
+                {
+                  resource: "user4",
+                  rec: "need delete deny",
+                  last: <GppGoodIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                },
+                {
+                  resource: "role1",
+                  rec: "misconfiguration",
+                  last: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
+                },
+              ]}
+              title="Recommendations"
+              type="scanning1"
+            />
+          </div>
         </Div4>
       </Row>
     </SummaryWrapper>

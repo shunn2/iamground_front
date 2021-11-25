@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import Table from "../components/module/Table";
 import faker from "faker/locale/ko";
+import TableMaterial from "../components/MTable";
 
 function ScanningConfig() {
   const dataResource = [
@@ -94,24 +95,24 @@ function ScanningConfig() {
   const columns = useMemo(
     () => [
       {
-        accessor: "resource",
-        Header: "Resource",
+        field: "resource",
+        title: "Resource",
       },
       {
-        accessor: "arn",
-        Header: "arn",
+        field: "arn",
+        title: "arn",
       },
       {
-        accessor: "reason",
-        Header: "Reason",
+        field: "reason",
+        title: "Reason",
       },
       {
-        accessor: "recommendation",
-        Header: "Recommendation",
+        field: "recommendation",
+        title: "Recommendation",
       },
       {
-        accessor: "marking",
-        Header: "Marking",
+        field: "marking",
+        title: "Marking",
       },
     ],
     []
@@ -134,7 +135,145 @@ function ScanningConfig() {
   return (
     <>
       <div style={{ paddingTop: "50px" }}>
-        <Table columns={columns} data={data} type="scanconfig" />
+        <TableMaterial
+          columns={[
+            { title: "Resource", field: "resource" },
+            { title: "arn", field: "arn" },
+            { title: "Reason", field: "reason" },
+            { title: "Recommendation", field: "recommendation" },
+            { title: "Marking", field: "marking" },
+          ]}
+          cdata={[
+            {
+              resource: "Root",
+              arn: "arn:aws:iam::284264230655:root",
+              reason: "강력한 IAM 암호 정책 설정 오류",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "fronttt",
+              arn: "arn:aws:iam::284264230655:user/emptyUser",
+              reason: "암호 재사용 설정 오류",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "emptyUser",
+              arn: "arn:aws:iam::284264230655:user/emptyUser",
+              reason: "User 암호 만료",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "IAMBoto3",
+              arn: "arn:aws:iam::284264230655:user/IAMBoto3",
+              reason: "강력한 IAM 암호 정책 설정 오류",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "ssh-user",
+              arn: "arn:aws:iam::284264230655:user/ssh-user",
+              reason: "User SSH Public Key 2개 활성화",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "test1",
+              arn: "arn:aws:iam::284264230655:user/test",
+              reason: "User Access Key 만료",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "Root",
+              arn: "arn:aws:iam::284264230655:root",
+              reason: "강력한 IAM 암호 정책 설정 오류",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "fronttt",
+              arn: "arn:aws:iam::284264230655:user/emptyUser",
+              reason: "암호 재사용 설정 오류",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "emptyUser",
+              arn: "arn:aws:iam::284264230655:user/emptyUser",
+              reason: "User 암호 만료",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "IAMBoto3",
+              arn: "arn:aws:iam::284264230655:user/IAMBoto3",
+              reason: "강력한 IAM 암호 정책 설정 오류",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "ssh-user",
+              arn: "arn:aws:iam::284264230655:user/ssh-user",
+              reason: "User SSH Public Key 2개 활성화",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "test1",
+              arn: "arn:aws:iam::284264230655:user/test",
+              reason: "User Access Key 만료",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "Root",
+              arn: "arn:aws:iam::284264230655:root",
+              reason: "강력한 IAM 암호 정책 설정 오류",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "fronttt",
+              arn: "arn:aws:iam::284264230655:user/emptyUser",
+              reason: "암호 재사용 설정 오류",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "emptyUser",
+              arn: "arn:aws:iam::284264230655:user/emptyUser",
+              reason: "User 암호 만료",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "IAMBoto3",
+              arn: "arn:aws:iam::284264230655:user/IAMBoto3",
+              reason: "강력한 IAM 암호 정책 설정 오류",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "ssh-user",
+              arn: "arn:aws:iam::284264230655:user/ssh-user",
+              reason: "User SSH Public Key 2개 활성화",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+            {
+              resource: "test1",
+              arn: "arn:aws:iam::284264230655:user/test",
+              reason: "User Access Key 만료",
+              recommendation: <button>자세히 보기</button>,
+              marking: <input type="checkbox" />,
+            },
+          ]}
+          title="Misconfigurations"
+          type="scanning2"
+        />
       </div>
     </>
   );

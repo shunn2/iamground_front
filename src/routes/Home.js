@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";
 import Table from "../components/module/homeTable";
+import TableMaterial from "../components/MTable";
 
 function Home() {
   const [age, setAge] = React.useState("");
@@ -389,8 +390,21 @@ function Home() {
         </div>
       </div>
 
-      <div style={{ width: "calc(100% - 30px)", height: "260px", backgroundColor: "#dedede", padding: "15px", display: "flex" }}>
-        <Table type="monitoring" columns={columns} data={data_table} />
+      <div style={{ width: "calc(100% - 30px)", height: "260px", backgroundColor: "#dedede", padding: "15px" }}>
+        <TableMaterial
+          columns={[
+            { title: "Cloud Name", field: "cloudName" },
+            { title: "Last Scan", field: "lastScanTime" },
+            { title: "Status", field: "status" },
+            { title: "Result", field: "result" },
+          ]}
+          cdata={[
+            { cloudName: "IAMGROUND", lastScanTime: "Sat Nov 20 2021 02:47:47", status: "활성화", result: <button>보기</button> },
+            { cloudName: "DEMO", lastScanTime: "Sat Nov 20 2021 02:47:46", status: "활성화", result: <button>보기</button> },
+          ]}
+          title="Clouds"
+          type="main"
+        />
       </div>
     </>
   );
