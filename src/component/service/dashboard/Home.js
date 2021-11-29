@@ -5,9 +5,9 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";
-import TableMaterial from "../components/module/MTable";
 import { Link } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
+import TableMaterial from "../../module/TableMaterial";
 
 function Home() {
   const [age, setAge] = React.useState("");

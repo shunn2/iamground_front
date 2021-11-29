@@ -1,36 +1,35 @@
-import styled from "styled-components";
 import React from "react";
-import Topbar from "./topbar";
-import Sidebar from "./sidebar";
+import { Menu, AccountCircle, Settings, Notifications } from "@mui/icons-material";
+import styled from "styled-components";
 
-const LayoutWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
+const Header = styled.header`
+  width: calc(100% - 1px);
+  background-color: #3b434d;
+  border-left: 1px solid #5e6c70;
 `;
 
-const LayoutContent = styled.div`
-  flex: 1;
-  height: 100%;
-  background-color: #efefef;
-`;
-
-const ChildrenWrapper = styled.div`
-  padding: 30px;
-  height: calc(100% - 110px);
-`;
-
-function Layout(props) {
-  const { children } = props;
+function Topbar() {
   return (
-    <LayoutWrapper>
-      <Sidebar />
-      <LayoutContent>
-        <Topbar />
-        <ChildrenWrapper>{children}</ChildrenWrapper>
-      </LayoutContent>
-    </LayoutWrapper>
+    <Header>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ height: "50px", display: "flex", alignItems: "center", width: "50px", justifyContent: "center", cursor: "pointer" }}>
+          <Menu style={{ width: "36px", height: "36px", color: "#d6d6d6" }} />
+        </div>
+
+        <div style={{ height: "50px", display: "flex", alignItems: "center", width: "135px" }}>
+          <div style={{ height: "50px", display: "flex", alignItems: "center", width: "40px", justifyContent: "center", cursor: "pointer" }}>
+            <Notifications style={{ width: "30px", height: "30px", color: "#d6d6d6" }} />
+          </div>
+          <div style={{ height: "50px", display: "flex", alignItems: "center", width: "40px", justifyContent: "center", cursor: "pointer" }}>
+            <Settings style={{ width: "30px", height: "30px", color: "#d6d6d6" }} />
+          </div>
+          <div style={{ height: "50px", display: "flex", alignItems: "center", width: "40px", justifyContent: "center", cursor: "pointer" }}>
+            <AccountCircle style={{ width: "30px", height: "30px", color: "#d6d6d6" }} />
+          </div>
+        </div>
+      </div>
+    </Header>
   );
 }
 
-export default Layout;
+export default Topbar;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Div } from "../style/styled-compo";
 import { Link } from "react-router-dom";
-import Register from "./Register.PNG";
+import Register from "./Register.png";
 
 function CloudRegister() {
   return (

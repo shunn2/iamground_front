@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const IconWrapper = styled.span`
   margin-right: 6px;
@@ -6,6 +6,6 @@ const IconWrapper = styled.span`
   color: #d6d6d6;
   display: flex;
   align-item: center;
-`
+`;
 
-export default IconWrapper
+export default IconWrapper;
