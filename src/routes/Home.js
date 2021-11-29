@@ -6,6 +6,8 @@ import Select from "@mui/material/Select";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";
 import TableMaterial from "../components/module/MTable";
+import { Link } from "react-router-dom";
+import DescriptionIcon from "@mui/icons-material/Description";
 
 function Home() {
   const [age, setAge] = React.useState("");
@@ -343,8 +345,26 @@ function Home() {
             { title: "Result", field: "result" },
           ]}
           cdata={[
-            { cloudName: "IAMGROUND", lastScanTime: "Sat Nov 20 2021 02:47:47", status: "활성화", result: <button>보기</button> },
-            { cloudName: "DEMO", lastScanTime: "Sat Nov 20 2021 02:47:46", status: "활성화", result: <button>보기</button> },
+            {
+              cloudName: "IAMGROUND",
+              lastScanTime: "Sat Nov 20 2021 02:47:47",
+              status: "활성화",
+              result: (
+                <Link to="/scan/report/summary">
+                  <DescriptionIcon />
+                </Link>
+              ),
+            },
+            {
+              cloudName: "DEMO",
+              lastScanTime: "Sat Nov 20 2021 02:47:46",
+              status: "활성화",
+              result: (
+                <Link to="/scan/report/summary">
+                  <DescriptionIcon />
+                </Link>
+              ),
+            },
           ]}
           title="Clouds"
           type="main"
