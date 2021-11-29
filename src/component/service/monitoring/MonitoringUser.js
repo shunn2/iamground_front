@@ -1,72 +1,96 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Div, SideSpan } from "../style/styled-compo";
-import { Personbutton, Groupbutton, PowerPbutton } from "../style/Icons";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import GroupsIcon from "@mui/icons-material/Groups";
+import Modal from "../../module/modal/Modal";
+import { useState } from "react";
 
 const MonitoringUser = ({ group, user, poweruser }) => {
+  const [modalOpen, setmodalOpen] = useState(false);
+
+  const openModal = () => {
+    setmodalOpen(true);
+  };
+
   return (
     <>
       <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px", height: "35px" }}>Monitoring</h1>
       <Div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0px 30px" }}>
-          <button style={{ fontSize: "30px", height: "70px", width: "70px", borderRadius: "10px" }}>
-            <div
-              style={{
-                color: "red",
-                border: "2px solid red",
-                borderRadius: "20px",
-                width: "30px",
-                height: "30px",
-                fontSize: "14px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: "bold",
-                backgroundColor: "#ffffff",
-                position: "absolute",
-                top: "70px",
-                left: "80px",
-              }}
-            >
-              177
-            </div>
-            ALL
-          </button>
+        <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Groups</div>
+        <div style={{ display: "flex", fontWeight: "bold", alignItems: "center", justifyContent: "space-evenly", padding: "10px" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}>
+            <button style={{ border: "none" }}>
+              <div
+                style={{
+                  color: "white",
+                  border: "2px solid red",
+                  borderRadius: "20px",
+                  width: "30px",
+                  height: "30px",
+                  fontSize: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: "bold",
+                  backgroundColor: "red",
+                  position: "relative",
+                  top: "0px",
+                  left: "160px",
+                }}
+              >
+                177
+              </div>
+              <GroupsIcon style={{ marginTop: "-11px", fontSize: "150px", color: "#3B434D" }} />
+            </button>
+            <div style={{ marginTop: "-30px" }}>All</div>
+          </div>
+
+          {/* **************************Groups************************** */}
           {group.map((group, index) => (
             <SideSpan key={`group-${index}`}>
               <Link to={`/monitoring/user/log?userName=${group}`} style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}>
                 <div
                   style={{
-                    color: "red",
+                    color: "white",
                     border: "2px solid red",
                     borderRadius: "20px",
                     width: "30px",
                     height: "30px",
-                    fontSize: "14px",
+                    fontSize: "16px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     fontWeight: "bold",
-                    backgroundColor: "#ffffff",
-                    position: "absolute",
-                    top: "70px",
-                    left: `${index * 106 + 180}px`,
+                    backgroundColor: "red",
+                    position: "relative",
+                    top: "22x",
+                    left: "60px",
                   }}
                 >
                   {Math.floor(Math.random() * 60)}
                 </div>
-                <Groupbutton />
+                <PeopleAltIcon style={{ fontSize: "120px", color: "#3B434D" }} />
                 <div style={{ marginTop: "-10px" }}>{group}</div>
               </Link>
             </SideSpan>
           ))}
+          <div style={{ marginLeft: "50px", display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}>
+            <button style={{ border: "none" }} onClick={openModal}>
+              <GroupAddIcon style={{ marginTop: "20px", fontSize: "150px", color: "#3B434D" }} />
+            </button>
+            <div style={{ marginTop: "-30px" }}>Add Group</div>
+          </div>
         </div>
 
-        <div style={{ height: "1px", margin: "15px 0px", backgroundColor: "black" }} />
+        <div style={{ height: "2px", margin: "15px 0px", backgroundColor: "#3B434D" }} />
 
+        {/* **************************Power Users************************** */}
         <div>
-          <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>관리대상</div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0px 30px", marginBottom: "50px" }}>
+          <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Power Users</div>
+          <div style={{ display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
             {poweruser.map((poweruser, index) => (
               <SideSpan key={`poweruser-${index}`}>
                 <Link
@@ -75,35 +99,35 @@ const MonitoringUser = ({ group, user, poweruser }) => {
                 >
                   <div
                     style={{
-                      color: "red",
+                      color: "white",
                       border: "2px solid red",
                       borderRadius: "20px",
                       width: "30px",
                       height: "30px",
-                      fontSize: "14px",
+                      fontSize: "16px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       fontWeight: "bold",
-                      backgroundColor: "#ffffff",
-                      position: "absolute",
-                      top: "222px",
-                      left: `${index * 116 + 80}px`,
+                      backgroundColor: "red",
+                      position: "relative",
+                      top: "20px",
+                      left: "60px",
                     }}
                   >
                     {Math.floor(Math.random() * 60)}
                   </div>
-                  <PowerPbutton />
+                  <AccountCircleIcon style={{ fontSize: "120px", color: "#F32668" }} />
                   <div style={{ marginTop: "-10px" }}>{poweruser}</div>
                 </Link>
               </SideSpan>
             ))}
           </div>
         </div>
-
+        {/* **************************Users************************** */}
         <div>
-          <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>일반 사용자</div>
-          <div style={{ display: "flex", alignItems: "center", gap: "0px 30px" }}>
+          <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Users</div>
+          <div style={{ display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
             {user.map((user, index) => (
               <SideSpan key={`user-${index}`}>
                 <Link
@@ -112,25 +136,25 @@ const MonitoringUser = ({ group, user, poweruser }) => {
                 >
                   <div
                     style={{
-                      color: "red",
+                      color: "white",
                       border: "2px solid red",
                       borderRadius: "20px",
                       width: "30px",
                       height: "30px",
-                      fontSize: "14px",
+                      fontSize: "16px",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       fontWeight: "bold",
-                      backgroundColor: "#ffffff",
-                      position: "absolute",
-                      top: "397px",
-                      left: `${index * 116 + 80}px`,
+                      backgroundColor: "red",
+                      position: "relative",
+                      top: "20px",
+                      left: "60px",
                     }}
                   >
                     {Math.floor(Math.random() * 60)}
                   </div>
-                  <Personbutton />
+                  <AccountCircleIcon style={{ fontSize: "120px", color: "#3B434D" }} />
                   <div style={{ marginTop: "-10px" }}>{user}</div>
                 </Link>
               </SideSpan>
@@ -138,6 +162,7 @@ const MonitoringUser = ({ group, user, poweruser }) => {
           </div>
         </div>
       </Div>
+      {modalOpen && <Modal type="addgroup" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </>
   );
 };

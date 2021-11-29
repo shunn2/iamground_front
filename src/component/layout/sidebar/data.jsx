@@ -1,4 +1,5 @@
 import { Description, Person, Dashboard, Cloud, Settings, NotificationsActive, DocumentScanner, Dvr, Visibility } from '@mui/icons-material'
+import React from 'react'
 
 const sidebarData = [
   {
