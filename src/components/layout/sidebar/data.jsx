@@ -1,65 +1,65 @@
-import { Description, Person, Dashboard, Cloud, Settings, NotificationsActive, DocumentScanner, Dvr, Visibility } from '@mui/icons-material'
+import { Description, Person, Dashboard, Cloud, Settings, NotificationsActive, DocumentScanner, Dvr, Visibility } from "@mui/icons-material";
 
 const sidebarData = [
   {
-    link: '/',
-    text: 'Dashboard',
+    link: "/",
+    text: "Dashboard",
     icon: <Dashboard />,
   },
   {
-    link: '/scan',
-    text: 'Scanning',
+    link: "/scan",
+    text: "Scanning",
     icon: <DocumentScanner />,
   },
   {
     link: null,
-    text: 'Monitoring',
+    text: "Monitoring",
     icon: <Dvr />,
     children: [
       {
-        link: '/monitoring/log',
-        text: 'Log',
+        link: "/monitoring/log",
+        text: "Log",
         icon: <Description />,
       },
       {
-        link: '/monitoring/user',
-        text: 'User',
+        link: "/monitoring/user",
+        text: "User",
         icon: <Person />,
       },
     ],
   },
   {
-    link: '/visualization',
-    text: 'Visualization',
+    link: "/visualization",
+    text: "Visualization",
     icon: <Visibility />,
   },
   {
     link: null,
-    text: 'Asset',
+    text: "Asset",
     icon: <Cloud />,
     children: [
       {
-        link: '/cloud',
-        text: 'Cloud',
+        link: "/cloud",
+        text: "Cloud",
         icon: <Description />,
       },
       {
-        link: '/organization',
-        text: 'Organization',
+        link: "/organization",
+        text: "Organization",
         icon: <Person />,
       },
     ],
   },
   {
-    link: '/notification',
-    text: 'Notification',
+    link: "/notification",
+    text: "Notification",
     icon: <NotificationsActive />,
   },
   {
-    link: '/setting',
-    text: 'Setting',
+    link: "/setting",
+    text: "Setting",
     icon: <Settings />,
   },
-]
+];
 
-export default sidebarData
+export default sidebarData;

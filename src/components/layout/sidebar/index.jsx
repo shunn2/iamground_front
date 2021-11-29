@@ -1,21 +1,21 @@
-import React from 'react'
-import styled from 'styled-components'
-import Logo from './logo'
-import sidebarData from './data'
-import Row from './row'
+import React from "react";
+import styled from "styled-components";
+import Logo from "./logo";
+import sidebarData from "./data";
+import Row from "./row";
 
 const Nav = styled.nav`
   height: 100%;
   width: 250px;
   background-color: #3b434d;
-`
+`;
 
 const NavListWrapper = styled.ul`
   padding: 0px 20px;
   margin: 0px;
   transition: all 0.5s ease-in;
   overflow: hidden;
-`
+`;
 
 const ChildrenWrapper = styled.ul`
   margin: 0px;
@@ -24,7 +24,7 @@ const ChildrenWrapper = styled.ul`
   height: 0px;
   margin: 0px -20px;
   padding: 0px 20px;
-`
+`;
 
 const Sidebar = () => {
   return (
@@ -33,7 +33,7 @@ const Sidebar = () => {
       <NavListWrapper>
         {sidebarData.map((v, i) => {
           if (v.children === undefined) {
-            return <Row key={`row-${i}`} {...v} />
+            return <Row key={`row-${i}`} {...v} />;
           }
 
           return (
@@ -45,11 +45,11 @@ const Sidebar = () => {
                 ))}
               </ChildrenWrapper>
             </React.Fragment>
-          )
+          );
         })}
       </NavListWrapper>
     </Nav>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

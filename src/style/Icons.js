@@ -29,7 +29,7 @@ export const PowerPbutton = () => {
   return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "80px", color: "#FA255D" }} />;
 };
 export const VisGroup = () => {
-  return <PeopleOutlineIcon style={{ color: "#2C2E31", fontSize:'26px'}} />;
+  return <PeopleOutlineIcon style={{ color: "#2C2E31", fontSize: "26px" }} />;
 };
 export const VisUser = () => {
   return <AccountCircleOutlinedIcon style={{ color: "#2C2E31" }} />;
