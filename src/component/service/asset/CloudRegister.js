@@ -26,7 +26,7 @@ function CloudRegister() {
             <input type="password" name="secret key" placeholder="Enter Secret Key..." size="30"></input>
           </div>
           <div style={{ padding: "30px" }}>
-            <h2 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "20px", height: "35px" }}>Secret Key</h2>
+            <h2 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "20px", height: "35px" }}>Cloud ID</h2>
             <input type="text" name="cloud ID" placeholder="Enter cloud ID..." size="30"></input>
           </div>
           <div style={{ float: "right", paddingRight: "100px" }}>
