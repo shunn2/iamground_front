@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Switch from "@mui/material/Switch";
 import { Div } from "../style/styled-compo";
-import TableMaterial from "../components/module/MTable";
+import TableMaterial from "../../module/TableMaterial";
 
 const labelStyle = {
   position: "relative",

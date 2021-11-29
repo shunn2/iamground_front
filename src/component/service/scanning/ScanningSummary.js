@@ -3,9 +3,9 @@ import { Div1, Div2, Div3, Div4, Row, SummaryWrapper, Title } from "../style/sty
 import { ResponsivePie } from "@nivo/pie";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveBullet } from "@nivo/bullet";
-import TableMaterial from "../components/module/MTable";
 import WarningIcon from "@mui/icons-material/Warning";
 import GppGoodIcon from "@mui/icons-material/GppGood";
+import TableMaterial from "../../module/TableMaterial";
 
 const ScanningSummary = () => {
   /* ********************반원 그래프******************** */

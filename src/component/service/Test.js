@@ -1,7 +1,5 @@
-import { Switch } from "@material-ui/core";
-import React, { useState } from "react";
-import TableMaterial from "../components/module/MTable";
-import faker from "faker/locale/ko";
+import React from "react";
+import TableMaterial from "../module/TableMaterial";
 
 function Test() {
   const [tab, setTab] = useState(0);

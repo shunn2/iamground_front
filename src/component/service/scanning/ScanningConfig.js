@@ -1,5 +1,5 @@
 import React from "react";
-import TableMaterial from "../components/module/MTable";
+import TableMaterial from "../../module/TableMaterial";
 
 function ScanningConfig() {
   return (

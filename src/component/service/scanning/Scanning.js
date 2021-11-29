@@ -4,7 +4,7 @@ import { Gdiv, Tdiv } from "../style/styled-compo";
 import { ResponsiveLine } from "@nivo/line";
 import { Link } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
-import TableMaterial from "../components/module/MTable";
+import TableMaterial from "../../module/TableMaterial";
 
 function Scanning() {
   const gdata = [

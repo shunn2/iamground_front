@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Div } from "../style/styled-compo";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import TableMaterial from "../components/module/MTable";
 import XLSX from "xlsx";
+import TableMaterial from "../../module/TableMaterial";
 
 function Organization() {
   const defaultColumns = [

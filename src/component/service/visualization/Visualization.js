@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Div } from "../style/styled-compo";
 import ReactFlow from "react-flow-renderer";
 import { VisGroup, VisUser, VisPUser, VisKey } from "../style/Icons";
-import Modal from "../components/Modal/Modal";
 import Switch from "@mui/material/Switch";
+import Modal from "../../module/modal/Modal";
 
 const Visualization = ({ user, group, poweruser, access }) => {
   const labelStyle = {

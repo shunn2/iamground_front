@@ -1,9 +1,6 @@
 import React, { useState, forwardRef, useEffect } from "react";
 import MaterialTable from "material-table";
-import XLSX from "xlsx";
-import Modal from "../Modal/Modal";
-import GetAppIcon from "@mui/icons-material/GetApp";
-
+import Modal from "../module/modal/Modal";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";

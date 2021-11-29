@@ -4,7 +4,7 @@ import { Div, UserName } from "../style/styled-compo";
 import { Link, useLocation } from "react-router-dom";
 import { Personbutton, Groupbutton } from "../style/Icons";
 import Button from "@mui/material/Button";
-import TableMaterial from "../components/module/MTable";
+import TableMaterial from "../../module/TableMaterial";
 
 const MonitoringUserLog = ({ group, user, poweruser }) => {
   const location = useLocation();

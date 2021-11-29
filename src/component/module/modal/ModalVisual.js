@@ -1,5 +1,5 @@
 import React from "react";
-import HorizontalFlow from "../Visualization/HorizontalFlow";
+import HorizontalFlow from "../../service/visualization/HorizontalFlow";
 
 const ModalVisual = () => {
   const index = ["클라우드 이름", "리소스 이름", "권한 분리 그룹", "생성 시간", "마지막 사용 시간", "MFA", "Access Key", "올바른 구성 스캔 결과", "권한 분리 스캔 결과"];

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import TableMaterial from "../../module/TableMaterial";
 import { Div } from "../style/styled-compo";
-import TableMaterial from "../components/module/MTable";
 
 function Cloud() {
   return (
