@@ -5,7 +5,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import GroupsIcon from "@mui/icons-material/Groups";
-import Modal from "../../module/modal/Modal";
+import ModalGroup from "../../module/modal/ModalGroup";
 import { useState } from "react";
 
 const MonitoringUser = ({ group, user, poweruser }) => {
@@ -162,7 +162,7 @@ const MonitoringUser = ({ group, user, poweruser }) => {
           </div>
         </div>
       </Div>
-      {modalOpen && <Modal type="addgroup" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {modalOpen && <ModalGroup type="addgroup" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </>
   );
 };
