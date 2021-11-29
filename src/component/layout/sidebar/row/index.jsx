@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
-import React from 'react'
-import IconWrapper from '../../../module/iconWrapper'
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import React from "react";
+import IconWrapper from "../../../module/iconWrapper";
 
 const NavList = styled.li`
   list-style: none;
@@ -24,7 +24,7 @@ const NavList = styled.li`
   &: last-child {
     border-bottom: 1px solid #5e6c70;
   }
-`
+`;
 
 const ChildList = styled.li`
   list-style: none;
@@ -44,7 +44,7 @@ const ChildList = styled.li`
     text-decoration: none;
     font-size: 18px;
   }
-`
+`;
 
 const SideSpan = styled.span`
   &:hover {
@@ -54,22 +54,22 @@ const SideSpan = styled.span`
   color: #d6d6d6;
   display: flex;
   align-item: center;
-`
+`;
 
 function Row(props) {
-  const { link, text, icon, isChild } = props
+  const { link, text, icon, isChild } = props;
 
   const handleArcodian = (id) => () => {
-    const target = document.getElementById(id)
+    const target = document.getElementById(id);
 
-    if (target === null) return
+    if (target === null) return;
 
-    if (target.style.height === '90px') {
-      target.style.height = '0px'
+    if (target.style.height === "90px") {
+      target.style.height = "0px";
     } else {
-      target.style.height = '90px'
+      target.style.height = "90px";
     }
-  }
+  };
 
   if (isChild === true) {
     return (
@@ -79,7 +79,7 @@ function Row(props) {
           <SideSpan>{text}</SideSpan>
         </Link>
       </ChildList>
-    )
+    );
   }
 
   return (
@@ -96,7 +96,7 @@ function Row(props) {
         </React.Fragment>
       )}
     </NavList>
-  )
+  );
 }
 
-export default Row
+export default Row;
