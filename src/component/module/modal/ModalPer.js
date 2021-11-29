@@ -3,22 +3,17 @@ import React from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useState } from "react";
 
-function ModalJson() {
+function ModalPer() {
   const [tab, setTab] = useState(0);
-  const [isOpen, setOpen] = useState(true);
 
   const handleTabClick = (tabNumber) => () => {
     setTab(tabNumber);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   const RecTable = ({ type }) => {
     if (type === "json") {
       return (
-        <div style={{}}>
+        <div>
           <table
             border="3"
             borderColor="black"
@@ -113,7 +108,7 @@ function ModalJson() {
         <div style={{ borderBottom: "3px solid black", padding: "5px 10px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ fontSize: "14px", fontWeight: "bold" }}>권고사항</div>
           <div style={{ width: "20px", height: "20px", border: "1px solid black", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <ArrowBack style={{ fontSize: "16px" }} onClick={handleOpen()} />
+            <ArrowBack style={{ fontSize: "16px" }} />
           </div>
         </div>
         <div>
@@ -152,4 +147,4 @@ function ModalJson() {
   );
 }
 
-export default ModalJson;
+export default ModalPer;

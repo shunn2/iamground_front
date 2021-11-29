@@ -39,7 +39,8 @@ function Modal({ type, modalOpen, setmodalOpen }) {
         </div>
         <div style={{ flex: 1 }}>
           {type === "monitoring" && <ModalInfo />}
-          {type === "scanningconfig" && <ModalConfig />} {type === "scanningper" && <ModalPer />}
+          {type === "scanningconfig" && <ModalConfig />}
+          {type === "scanningper" && <ModalPer />}
           {type === "ModalVisual" && <ModalVisual />}
         </div>
         <div style={{ height: "30px", display: "flex", justifyContent: "flex-end" }}>

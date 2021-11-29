@@ -206,7 +206,6 @@ function Scanning() {
       </div>
       <Tdiv>
         <br />
-
         <TableMaterial
           columns={[
             { title: "Root", field: "root" },
@@ -267,7 +266,7 @@ function Scanning() {
             },
           ]}
           title="Root Accounts"
-          type="scanning1"
+          type="scanningsum"
         />
       </Tdiv>
     </>
