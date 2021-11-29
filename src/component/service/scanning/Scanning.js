@@ -1,12 +1,31 @@
-import React from "react";
-import { useMemo } from "react";
-import { Gdiv, Tdiv } from "../style/styled-compo";
+import React, { useEffect, useState } from "react";
+import { Tdiv } from "../style/styled-compo";
 import { ResponsiveLine } from "@nivo/line";
 import { Link } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
 import TableMaterial from "../../module/TableMaterial";
+import axios from "axios";
 
 function Scanning() {
+  // useEffect(() => {
+  //   ScanningAccounts();
+  // }, []);
+
+  // const ScanningAccounts = async () => {
+  //   const url = "http://54.180.115.206:8000/mock/scan";
+  //   const response = await axios.get(url);
+  //   // const result = await response.json();
+  //   console.log(response);
+  // };
+  const [accounts, setAccounts] = useState([]);
+  const fetchAccounts = async () => {
+    const response = await axios.get("http://54.180.115.206:8000/mock/scan");
+    setAccounts(response.data.cloudList);
+  };
+  useEffect(() => {
+    fetchAccounts();
+  }, []);
+
   const gdata = [
     {
       id: "Dev",
@@ -204,6 +223,7 @@ function Scanning() {
       <div style={{ height: "45%", width: "100%", backgroundColor: "white", border: "1px solid #D6D6D6" }}>
         <MyResponsiveLine gdata={gdata} />
       </div>
+      <div></div>
       <Tdiv>
         <br />
         <TableMaterial
@@ -215,56 +235,20 @@ function Scanning() {
             { title: "Scan", field: "scan", align: "center" },
             { title: "Result", field: "result", align: "center" },
           ]}
-          cdata={[
-            {
-              root: "Dev",
-              last_scanned: "Thu Nov 25 2021 00:08:27 GMT+0900",
-              per: "10",
-              config: "26",
+          cdata={accounts.map((v, i) => {
+            return {
+              root: v.name,
+              last_scanned: v.lastScan,
+              per: v.permissionCount,
+              config: v.configCount,
               scan: <button>Scan</button>,
               result: (
                 <Link to="/scan/report/summary">
                   <DescriptionIcon />
                 </Link>
               ),
-            },
-            {
-              root: "Res",
-              last_scanned: "Thu Nov 25 2021 00:08:27 GMT+0900",
-              per: "19",
-              config: "36",
-              scan: <button>Scan</button>,
-              result: (
-                <Link to="/scan/report/summary">
-                  <DescriptionIcon />
-                </Link>
-              ),
-            },
-            {
-              root: "Sec",
-              last_scanned: "Thu Nov 25 2021 00:08:27 GMT+0900",
-              per: "30",
-              config: "26",
-              scan: <button>Scan</button>,
-              result: (
-                <Link to="/scan/report/summary">
-                  <DescriptionIcon />
-                </Link>
-              ),
-            },
-            {
-              root: "Test",
-              last_scanned: "Thu Nov 25 2021 00:08:27 GMT+0900",
-              per: "8",
-              config: "40",
-              scan: <button>Scan</button>,
-              result: (
-                <Link to="/scan/report/summary">
-                  <DescriptionIcon />
-                </Link>
-              ),
-            },
-          ]}
+            };
+          })}
           title="Root Accounts"
           type="scanningsum"
         />

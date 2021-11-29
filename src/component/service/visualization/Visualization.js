@@ -1,16 +1,69 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router";
 import { Div } from "../style/styled-compo";
 import ReactFlow from "react-flow-renderer";
 import { VisGroup, VisUser, VisPUser, VisKey } from "../style/Icons";
 import Switch from "@mui/material/Switch";
-import Modal from "../../module/modal/Modal";
+import qs from "qs";
+import ModalVisual from "../../module/modal/ModalVisual";
 
 const Visualization = ({ user, group, poweruser, access }) => {
+  const location = useLocation();
+  const query = qs.parse(location.search, {
+    ignoreQueryPrefix: true,
+  });
   const labelStyle = {
     position: "relative",
     top: "10px",
     left: "1000px",
   };
+  const USERRESOURCE = [
+    {
+      RESOURCE_ARN: "iam_arn",
+      CNO: 1, //no
+      RESOURCE_NAME: "user1",
+      RESOURCE_TYPE: 1,
+      WARN_STATUS_INFO: "0000", //no
+      WARN_EVENT_COUNT: "0", //no
+      CREATION: "Wed Nov 10 2021 14:03:45 GMT+0900 (한국 표준시)",
+      ACCESS_KEY_1: "ASDAWDAWDAD",
+      ACCESS_KEY_2: null,
+    },
+    {
+      RESOURCE_ARN: "iam_arn2",
+      CNO: 1,
+      RESOURCE_NAME: "user2",
+      RESOURCE_TYPE: 2,
+      WARN_STATUS_INFO: "0000",
+      WARN_EVENT_COUNT: "0",
+      CREATION: "Wed Nov 10 2021 14:03:45 GMT+0900 (한국 표준시)",
+      ACCESS_KEY_1: "ASDAWDAWDADD",
+      ACCESS_KEY_2: null,
+    },
+  ];
+  const GROUPRESOURCE = [
+    {
+      RESOURCE_ARN: "group_arn",
+      CNO: 1, //no
+      RESOURCE_NAME: "group1",
+      RESOURCE_TYPE: 1,
+      WARN_STATUS_INFO: "0000", //no
+      WARN_EVENT_COUNT: "0", //no
+      CREATION: "Wed Nov 10 2021 14:03:45 GMT+0900 (한국 표준시)",
+      ACCESS_KEY_1: "ASDAWDAWDAD",
+      ACCESS_KEY_2: null,
+    },
+    {
+      RESOURCE_ARN: "group_arn2",
+      CNO: 1,
+      RESOURCE_NAME: "group2",
+      RESOURCE_TYPE: 2,
+      WARN_STATUS_INFO: "0000",
+      WARN_EVENT_COUNT: "0",
+      CREATION: "Wed Nov 10 2021 14:03:45 GMT+0900 (한국 표준시)",
+    },
+  ];
+
   const [perchecked, persetChecked] = useState(true);
   const perhandleChange = (event) => {
     persetChecked(event.target.checked);
@@ -50,7 +103,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
       position: { x: 1000, y: 160 },
     },
   ];
-  const elementUser = user.map((v, i) => {
+  const elementUser2 = user.map((v, i) => {
     return {
       id: v,
       type: "default",
@@ -68,7 +121,26 @@ const Visualization = ({ user, group, poweruser, access }) => {
       },
     };
   });
-  const elementGroup = group.map((v, i) => {
+  const elementUser = USERRESOURCE.map((v, i) => {
+    return {
+      id: v.RESOURCE_ARN,
+      type: "default",
+      style: { background: "transparent", width: 30 },
+      data: {
+        label: (
+          <div>
+            <VisUser />
+            {v.RESOURCE_NAME}
+          </div>
+        ),
+      },
+      position: {
+        x: i * 180 + 80,
+        y: 350 + Math.random() * 60,
+      },
+    };
+  });
+  const elementGroup2 = group.map((v, i) => {
     return {
       id: v,
       type: "default",
@@ -86,33 +158,74 @@ const Visualization = ({ user, group, poweruser, access }) => {
       },
     };
   });
-  const elementPower = poweruser.map((v, i) => {
+  const elementGroup = GROUPRESOURCE.map((v, i) => {
     return {
-      id: v,
+      id: v.RESOURCE_ARN,
       type: "default",
       style: { background: "transparent", width: 30 },
       data: {
         label: (
           <div>
-            <VisPUser />
+            <VisGroup />
+            {v.RESOURCE_NAME}
           </div>
         ),
       },
       position: {
-        x: i * 200 + 250 - Math.random() * 50,
-        y: 250 + Math.random() * 50,
+        x: i * 200 + 150,
+        y: 150 + Math.random() * 40,
       },
     };
   });
-  const elementKey = access.map((v, i) => {
+  // const elementPower = poweruser.map((v, i) => {
+  //   return {
+  //     id: v,
+  //     type: "default",
+  //     style: { background: "transparent", width: 30 },
+  //     data: {
+  //       label: (
+  //         <div>
+  //           <VisPUser />
+  //         </div>
+  //       ),
+  //     },
+  //     position: {
+  //       x: i * 200 + 250 - Math.random() * 50,
+  //       y: 250 + Math.random() * 50,
+  //     },
+  //   };
+  // });
+  const elementKey2 = USERRESOURCE.map((v, i) => {
     return {
-      id: v,
+      id: v.ACCESS_KEY_1,
       type: "default",
       style: { background: "transparent", width: 30 },
       data: {
         label: (
           <div>
             <VisKey />
+            {v.ACCESS_KEY_1}
+          </div>
+        ),
+      },
+      position: {
+        x: i * 200 + 100,
+        y: 500,
+      },
+    };
+  });
+  const [key, setKey] = useState([]);
+  const elementKey = USERRESOURCE.map((v, i) => {
+    const accessKey = {};
+    return {
+      id: v.ACCESS_KEY_1,
+      type: "default",
+      style: { background: "transparent", width: 30 },
+      data: {
+        label: (
+          <div>
+            <VisKey />
+            {v.ACCESS_KEY_1}
           </div>
         ),
       },
@@ -143,7 +256,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
     { id: "18", source: "User10", target: "accesskey5", type: "straight" },
     { id: "19", source: "Nogroup", target: "User10", type: "straight" },
   ];
-  const elements = [...elementUser, ...elementGroup, ...elementPower, ...elementKey, ...elementRoot, ...elementNogroup, ...elementConnect];
+  const elements = [...elementUser, ...elementGroup, ...elementKey, ...elementRoot, ...elementNogroup, ...elementConnect];
 
   const [tab, setTab] = useState(0);
 
@@ -251,7 +364,7 @@ const Visualization = ({ user, group, poweruser, access }) => {
           {tab === 2 && <Root3 />}
         </div>
       </Div>
-      {modalOpen && <Modal type="ModalVisual" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {modalOpen && <ModalVisual modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </>
   );
 };

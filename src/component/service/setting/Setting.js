@@ -9,6 +9,7 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import TimePicker from "@mui/lab/TimePicker";
 import DateTimePicker from "@mui/lab/DateTimePicker";
+import Box from "@mui/material/Box";
 
 const SettingDiv = styled.div`
   display: flex;
@@ -96,6 +97,7 @@ function NotificationSetting() {
   const options2 = ["policy1", "policy2", "policy3", "policy4"];
   const [endDate, setEndDate] = useState(new Date());
   const [resource, setResource] = useState("");
+  const [text, setText] = useState("");
   const [notification, setNotificaton] = useState([]);
   const onChange = (event) => {
     setResource(event.value);
@@ -141,6 +143,25 @@ function NotificationSetting() {
                 />
               </Stack>
             </LocalizationProvider>
+          </div>
+          <div>
+            <Box
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 1, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                id="standard-basic"
+                label="Message"
+                variant="standard"
+                onChange={(newtext) => {
+                  setText(newtext);
+                }}
+              />
+            </Box>
           </div>
           <div>
             <input type="submit" />

@@ -1,6 +1,5 @@
 import React, { useState, forwardRef, useEffect } from "react";
 import MaterialTable from "material-table";
-import Modal from "../module/modal/Modal";
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
 import Check from "@material-ui/icons/Check";
@@ -16,6 +15,9 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+import ModalInfo from "../module/modal/ModalInfo";
+import ModalConfig from "../module/modal/ModalConfig";
+import ModalPer from "../module/modal/ModalPer";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -135,15 +137,17 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
             columnsButton: true,
             rowStyle: (data, index) => (data.cau === true ? { background: "Pink" } : null),
             headerStyle: { background: "#d6d6d6", fontSize: "16px", fontWeight: "bold" },
-            maxBodyHeight: type === "monitoring" || type === "scanningper" || type === "scanningconfig" ? "650px" : type === "main" ? "150px" : "300px",
-            exportButton: type === "monitoring" || type === "scanningper" || type === "scanningconfig" ? true : false,
+            maxBodyHeight: type === "monitoring" || type === "scanningper" || type === "scanningconfig" || type === "notification" ? "650px" : type === "main" ? "150px" : "300px",
+            exportButton: type === "monitoring" || type === "scanningper" || type === "scanningconfig" || type === "notification" ? true : false,
             selection: false,
-            filtering: type === "monitoring" || type === "scanningper" || type === "scanningconfig" ? true : false,
-            grouping: type === "monitoring" || type === "scanningper" || type === "scanningconfig" ? true : false,
+            filtering: type === "monitoring" || type === "scanningper" || type === "scanningconfig" || type === "notification" ? true : false,
+            grouping: type === "monitoring" || type === "scanningper" || type === "scanningconfig" || type === "notification" ? true : false,
           }}
         />
       )}
-      {modalOpen && <Modal type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {modalOpen && type === "scanningper" && <ModalPer type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}\
+      {modalOpen && type === "scanningconfig" && <ModalConfig type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {modalOpen && type === "monitoring" && <ModalInfo type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </div>
   );
 };
