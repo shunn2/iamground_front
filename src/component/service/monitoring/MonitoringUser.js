@@ -5,6 +5,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import GroupsIcon from "@mui/icons-material/Groups";
+import ModalGroup from "../../module/modal/ModalGroup";
 import { useState } from "react";
 import ModalGroup from "../../module/modal/ModalGroup";
 

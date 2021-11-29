@@ -37,10 +37,10 @@ const ModalVisual = ({ modalOpen, setmodalOpen }) => {
       <Modal open={modalOpen} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Group{" "}
+            Add Group
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Group{" "}
+            Add Group
           </Typography>
           <Clear
             style={{ fontSize: "26px", cursor: "pointer" }}
