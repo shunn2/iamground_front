@@ -42,8 +42,10 @@ const tableIcons = {
 
 const TableMaterial = ({ columns, cdata, title, type }) => {
   const [modalOpen, setmodalOpen] = useState(false);
-  const openModal = () => {
-    if (type === "monitoring" || type === "scanning2") setmodalOpen(true);
+
+  const openModal = (event, data, index) => {
+    console.log(data.logId);
+    if (type === "monitoring" || type === "scanningper" || type === "scanningconfig") setmodalOpen(true);
     else setmodalOpen(false);
   };
   const [tableData, setTableData] = useState();
@@ -83,6 +85,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
           // actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
           onSelectionChange={(selectedRow) => console.log(selectedRow)}
           onRowClick={openModal}
+          // {data[selected]}
           options={{
             sorting: true,
             search: true,
@@ -105,7 +108,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
             headerStyle: { background: "#d6d6d6", fontStyle: "italic" },
             maxBodyHeight: "650px",
             exportButton: type === "organization" ? true : false,
-            selection: false,
+            selection: true,
           }}
         />
       ) : (
@@ -133,17 +136,17 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
             showTextRowsSelected: false,
             selectionProps: (rowData) => ({ color: "primary" }),
             columnsButton: true,
-            rowStyle: (data, index) => (data.result === "fail" ? { background: "Pink" } : null),
+            rowStyle: (data, index) => (data.cau === true ? { background: "Pink" } : null),
             headerStyle: { background: "#d6d6d6", fontSize: "16px", fontWeight: "bold" },
-            maxBodyHeight: type === "monitoring" || type === "scanning2" ? "650px" : type === "main" ? "150px" : "300px",
-            exportButton: type === "monitoring" || type === "scanning2" ? true : false,
+            maxBodyHeight: type === "monitoring" || type === "scanningper" || type === "scanningconfig" ? "650px" : type === "main" ? "150px" : "300px",
+            exportButton: type === "monitoring" || type === "scanningper" || type === "scanningconfig" ? true : false,
             selection: false,
-            filtering: type === "monitoring" || type === "scanning2" ? true : false,
-            grouping: type === "monitoring" || type === "scanning2" ? true : false,
+            filtering: type === "monitoring" || type === "scanningper" || type === "scanningconfig" ? true : false,
+            grouping: type === "monitoring" || type === "scanningper" || type === "scanningconfig" ? true : false,
           }}
         />
       )}
-      {modalOpen && <Modal type="monitoring" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {modalOpen && <Modal type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </div>
   );
 };

@@ -7,7 +7,7 @@ export const Header = styled.header`
   height: 50px;
   left: 250px;
   width: calc(100% - 250px);
-  background-color: #3B434D;
+  background-color: #3b434d;
   border-left: 1px solid #5e6c70;
 `;
 
@@ -15,7 +15,7 @@ export const Nav = styled.nav`
   position: fixed;
   height: 100%;
   width: 250px;
-  background-color: #3B434D;
+  background-color: #3b434d;
 `;
 
 export const LayoutContent = styled.div`
@@ -95,7 +95,7 @@ export const SideSpan = styled.span`
   &:hover {
     color: #ffffff;
   }
-  fontSize: 18px;
+  fontsize: 18px;
   color: #d6d6d6;
 `;
 export const Ctable = styled.table`

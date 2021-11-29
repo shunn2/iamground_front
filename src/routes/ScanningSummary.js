@@ -331,8 +331,8 @@ const ScanningSummary = () => {
               columns={[
                 { title: "Resource", field: "resource" },
                 { title: "Recommendation", field: "rec" },
-                { title: "Last Scan", field: "last" },
-                { title: "Current Scan", field: "cur" },
+                { title: "Last Scan", field: "last", align: "center" },
+                { title: "Current Scan", field: "cur", align: "center" },
               ]}
               cdata={[
                 {

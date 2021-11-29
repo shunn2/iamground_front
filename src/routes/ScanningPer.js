@@ -10,8 +10,8 @@ function ScanningPer() {
             { title: "Resource", field: "resource" },
             { title: "arn", field: "arn" },
             { title: "Reason", field: "reason" },
-            { title: "Recommendation", field: "recommendation" },
-            { title: "Marking", field: "marking" },
+            { title: "Recommendation", field: "recommendation", align: "center" },
+            { title: "Marking", field: "marking", align: "center" },
           ]}
           cdata={[
             {
@@ -142,7 +142,7 @@ function ScanningPer() {
             },
           ]}
           title="Permissions"
-          type="scanning2"
+          type="scanningper"
         />
       </div>
     </>

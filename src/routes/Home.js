@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -70,7 +70,7 @@ function Home() {
     },
   ];
 
-  const MyResponsiveLine = ({ data /* see data tab */ }) => (
+  const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
       data={data}
       curve="monotoneX"
@@ -117,7 +117,7 @@ function Home() {
     },
   ];
 
-  const MyResponsivePie = ({ data /* see data tab */ }) => (
+  const MyResponsivePie = ({ data }) => (
     <ResponsivePie
       data={data}
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
@@ -167,28 +167,6 @@ function Home() {
         },
       ]}
     />
-  );
-
-  const columns = useMemo(
-    () => [
-      {
-        accessor: "cloudName",
-        Header: "Cloud Name",
-      },
-      {
-        accessor: "lastScanTime",
-        Header: "Last Scan",
-      },
-      {
-        accessor: "status",
-        Header: "Status",
-      },
-      {
-        accessor: "result",
-        Header: "Result",
-      },
-    ],
-    []
   );
 
   return (
@@ -340,7 +318,7 @@ function Home() {
       </div>
 
       <div style={{ width: "calc(100% - 30px)", height: "300px", backgroundColor: "#dedede", padding: "15px", display: "flex", marginBottom: "30px" }}>
-        <div style={{ width: "70%", height: "100%" }}>
+        <div style={{ width: "70%", height: "100%", backgroundColor: "white", borderRadius: "5px" }}>
           <MyResponsiveLine data={data} />
         </div>
 

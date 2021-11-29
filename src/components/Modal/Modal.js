@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { Clear } from "@mui/icons-material";
-import ModalJson from "./ModalJson";
+import ModalPer from "./ModalPer";
 import ModalInfo from "./ModalInfo";
 import ModalDelete from "./ModalDelete";
 import ModalVisual from "./ModalVisual";
@@ -39,7 +39,7 @@ function Modal({ type, modalOpen, setmodalOpen }) {
         </div>
         <div style={{ flex: 1 }}>
           {type === "monitoring" && <ModalInfo />}
-          {type === "scanconfig" && <ModalConfig />} {type === "scanper" && <ModalJson />}
+          {type === "scanningconfig" && <ModalConfig />} {type === "scanningper" && <ModalPer />}
           {type === "ModalVisual" && <ModalVisual />}
         </div>
         <div style={{ height: "30px", display: "flex", justifyContent: "flex-end" }}>

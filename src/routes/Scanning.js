@@ -211,10 +211,10 @@ function Scanning() {
           columns={[
             { title: "Root", field: "root" },
             { title: "Last Scanned", field: "last_scanned" },
-            { title: "Per", field: "per" },
-            { title: "Config", field: "config" },
-            { title: "Scan", field: "scan" },
-            { title: "Result", field: "result" },
+            { title: "Per", field: "per", align: "center" },
+            { title: "Config", field: "config", align: "center" },
+            { title: "Scan", field: "scan", align: "center" },
+            { title: "Result", field: "result", align: "center" },
           ]}
           cdata={[
             {

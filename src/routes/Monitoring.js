@@ -14,6 +14,139 @@ function Monitoring() {
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
+  const data = [
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: true,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: false,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: false,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: true,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: false,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: true,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: true,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: false,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: true,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: true,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: false,
+    },
+    {
+      time: "2021-11-25 14:47:10",
+      user: "User5",
+      resource: "emptyUser",
+      activity: "AttachPolicy",
+      result: "Success",
+      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
+      ip: "112.34.212.120",
+      cau: false,
+    },
+  ];
+  const ReturnData = (data) => {
+    let cdata = [];
+    if (checked) {
+      for (let log of data) {
+        if (log.cau === true) cdata.push(log);
+      }
+      return cdata;
+    } else {
+      return data;
+    }
+  };
   return (
     <>
       <h1
@@ -27,12 +160,12 @@ function Monitoring() {
       </h1>
       <Div>
         <form>
-          <label style={(labelStyle, { float: "right", paddingRight: "50px" })}>
-            <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
+          <div style={{ float: "right", paddingRight: "50px" }}>
+            <Switch checked={checked} onChange={handleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />
             <strong>위험한 변경사항만</strong>
-          </label>
+          </div>
         </form>
-        <div style={{ width: "calc(100%-30px)" }}>
+        <div style={{ width: "calc(100%-30px)", paddingTop: "33px" }}>
           {/* {checked && ( */}
           <TableMaterial
             columns={[
@@ -44,80 +177,7 @@ function Monitoring() {
               { title: "Reason", field: "reason" },
               { title: "Ip", field: "ip" },
             ]}
-            cdata={[
-              {
-                time: "2021-11-25 14:47:10",
-                user: "User5",
-                resource: "emptyUser",
-                activity: "AttachPolicy",
-                result: "Success",
-                reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-                ip: "112.34.212.120",
-              },
-              {
-                time: "2021-11-25 14:47:10",
-                user: "User5",
-                resource: "emptyUser",
-                activity: "AttachPolicy",
-                result: "Success",
-                reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-                ip: "112.34.212.120",
-              },
-              {
-                time: "2021-11-25 14:47:10",
-                user: "User5",
-                resource: "emptyUser",
-                activity: "AttachPolicy",
-                result: "Success",
-                reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-                ip: "112.34.212.120",
-              },
-              {
-                time: "2021-11-25 14:47:10",
-                user: "User5",
-                resource: "emptyUser",
-                activity: "AttachPolicy",
-                result: "Success",
-                reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-                ip: "112.34.212.120",
-              },
-              {
-                time: "2021-11-25 14:47:10",
-                user: "User5",
-                resource: "emptyUser",
-                activity: "AttachPolicy",
-                result: "Success",
-                reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-                ip: "112.34.212.120",
-              },
-              {
-                time: "2021-11-25 14:47:10",
-                user: "User5",
-                resource: "emptyUser",
-                activity: "AttachPolicy",
-                result: "Success",
-                reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-                ip: "112.34.212.120",
-              },
-              {
-                time: "2021-11-25 14:47:10",
-                user: "User5",
-                resource: "emptyUser",
-                activity: "AttachPolicy",
-                result: "Success",
-                reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-                ip: "112.34.212.120",
-              },
-              {
-                time: "2021-11-25 14:47:10",
-                user: "User5",
-                resource: "emptyUser",
-                activity: "AttachPolicy",
-                result: "Success",
-                reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-                ip: "112.34.212.120",
-              },
-            ]}
+            cdata={ReturnData(data)}
             title="Monitoring Log"
             type="monitoring"
           />
