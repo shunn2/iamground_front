@@ -21,6 +21,7 @@ function Scanning() {
   const fetchAccounts = async () => {
     const response = await axios.get("http://54.180.115.206:8000/mock/scan");
     setAccounts(response.data.cloudList);
+    console.log(accounts);
   };
   useEffect(() => {
     fetchAccounts();

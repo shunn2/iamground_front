@@ -7,7 +7,6 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ModalGroup from "../../module/modal/ModalGroup";
 import { useState } from "react";
-import ModalGroup from "../../module/modal/ModalGroup";
 
 const MonitoringUser = ({ group, user, poweruser }) => {
   const [modalOpen, setmodalOpen] = useState(false);

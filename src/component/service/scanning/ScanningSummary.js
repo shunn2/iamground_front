@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Div1, Div2, Div3, Div4, Row, SummaryWrapper, Title } from "../style/styled-compo";
 import { ResponsivePie } from "@nivo/pie";
 import { ResponsiveBar } from "@nivo/bar";
@@ -6,44 +6,62 @@ import { ResponsiveBullet } from "@nivo/bullet";
 import WarningIcon from "@mui/icons-material/Warning";
 import GppGoodIcon from "@mui/icons-material/GppGood";
 import TableMaterial from "../../module/TableMaterial";
+import axios from "axios";
 
-const ScanningSummary = () => {
+const ScanningSummary = ({ report_id }) => {
+  const [summaryData, setSummaryData] = useState(null);
+  // const fetchData = async () => {
+  //   const response = await axios.get("http://54.180.115.206:8000/mock/scan/report/summary?report_id=0");
+  //   setSummaryData(response.data.summaryList);
+  //   console.log("response", response.data.summaryList);
+  //   console.log("summaryData", summaryData);
+  // };
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+  useEffect(() => {
+    axios.get("http://54.180.115.206:8000/mock/scan/report/summary?report_id=0").then((response) => {
+      setSummaryData(response);
+      console.log(summaryData);
+    });
+  }, []);
   /* ********************반원 그래프******************** */
-  const data1 = [
-    {
-      id: "Risky Permission",
-      label: "Risky",
-      value: 70,
-      color: "hsl(143, 70%, 50%)",
-    },
-    {
-      id: "Normal Permission",
-      label: "Normal",
-      value: 30,
-      color: "#FFFFFF",
-    },
-  ];
 
-  const data2 = [
-    {
-      id: "Risky Config",
-      label: "Risky",
-      value: 8,
-      color: "# FF0000",
-    },
-    {
-      id: "Normal Config",
-      label: "Normal",
-      value: 12,
-      color: "#FFFFFF",
-    },
-  ];
+  // const data1 = [
+  //   {
+  //     id: "Risky Permission",
+  //     label: "Risky",
+  //     value: summaryData.permissionHalfGraph.riskyCount,
+  //     color: "hsl(143, 70%, 50%)",
+  //   },
+  //   {
+  //     id: "Normal Permission",
+  //     label: "Normal",
+  //     value: summaryData.permissionHalfGraph.normalCount,
+  //     color: "#FFFFFF",
+  //   },
+  // ];
+
+  // const data2 = [
+  //   {
+  //     id: "Risky Config",
+  //     label: "Risky",
+  //     value: summaryData.configHalfGraph.riskyCount,
+  //     color: "# FF0000",
+  //   },
+  //   {
+  //     id: "Normal Config",
+  //     label: "Normal",
+  //     value: summaryData.configHalfGraph.normalCount,
+  //     color: "#FFFFFF",
+  //   },
+  // ];
 
   const colors = {
-    "Risky Permission": "	#b7d6da",
-    "Normal Permission": "	#C3B8B5",
-    "Risky Config": "	#b7d6da",
-    "Normal Config": "	#C3B8B5",
+    "Risky Permission": "   #b7d6da",
+    "Normal Permission": "   #C3B8B5",
+    "Risky Config": "   #b7d6da",
+    "Normal Config": "   #C3B8B5",
   };
   const getColor = (pie) => colors[pie.id];
 
@@ -92,22 +110,35 @@ const ScanningSummary = () => {
   );
 
   /* ********************바 그래프******************** */
-  const data_bar1 = [
-    {
-      id: "",
-      ranges: [10, 30, 40, 60, 70],
-      measures: [],
-      markers: [],
-    },
-  ];
-  const data_bar2 = [
-    {
-      id: "",
-      ranges: [3, 5, 7, 9, 10],
-      measures: [],
-      markers: [],
-    },
-  ];
+
+  // const data_bar1 = [
+  //   {
+  //     id: "",
+  //     ranges: [
+  //       0,
+  //       summaryData.permissionBarGraph.userCount,
+  //       summaryData.permissionBarGraph.userCount + summaryData.permissionBarGraph.groupCount,
+  //       summaryData.permissionBarGraph.userCount + summaryData.permissionBarGraph.groupCount + summaryData.permissionBarGraph.roleCount,
+  //       summaryData.permissionBarGraph.userCount + summaryData.permissionBarGraph.groupCount + summaryData.permissionBarGraph.roleCount + summaryData.permissionBarGraph.policyCount,
+  //     ],
+  //     measures: [],
+  //     markers: [],
+  //   },
+  // ];
+  // const data_bar2 = [
+  //   {
+  //     id: "",
+  //     ranges: [
+  //       0,
+  //       summaryData.configBarGraph.pwCount,
+  //       summaryData.configBarGraph.pwCount + summaryData.configBarGraph.credentialCount,
+  //       summaryData.configBarGraph.pwCount + summaryData.configBarGraph.credentialCount + summaryData.configBarGraph.certificateCount,
+  //       summaryData.configBarGraph.pwCount + summaryData.configBarGraph.credentialCount + summaryData.configBarGraph.certificateCount + summaryData.configBarGraph.mfaCount,
+  //     ],
+  //     measures: [],
+  //     markers: [],
+  //   },
+  // ];
 
   const MyResponsiveBullet = ({ data }) => (
     <ResponsiveBullet
@@ -140,7 +171,7 @@ const ScanningSummary = () => {
     >
       <span
         style={{
-          color: "#F47560",
+          color: "#E9C19F",
           fontSize: "40px",
           marginTop: "-20px",
           marginRight: "-50px",
@@ -158,7 +189,7 @@ const ScanningSummary = () => {
       </span>
       <span
         style={{
-          color: "#F1E15B",
+          color: "#F47560",
           fontSize: "40px",
           marginTop: "-20px",
           marginRight: "-50px",
@@ -176,7 +207,7 @@ const ScanningSummary = () => {
       </span>
       <span
         style={{
-          color: "#E7A838",
+          color: "#F1E15B",
           fontSize: "40px",
           marginTop: "-20px",
           marginRight: "-50px",
@@ -194,7 +225,7 @@ const ScanningSummary = () => {
       </span>
       <span
         style={{
-          color: "#60CDBB",
+          color: "#E7A838",
           fontSize: "40px",
           marginTop: "-20px",
           marginRight: "-50px",
@@ -214,28 +245,29 @@ const ScanningSummary = () => {
   );
 
   /* ********************차트******************** */
-  const data_chart = [
-    {
-      result: "Permission: Last",
-      "Last Scan": 60,
-      "Last ScanColor": "hsl(102, 70%, 50%)",
-    },
-    {
-      result: "Permission: Current",
-      "Current Scan": 70,
-      "Current ScanColor": "hsl(102, 70%, 50%)",
-    },
-    {
-      result: "Config: Last",
-      "Last Scan": 6,
-      "Last ScanColor": "hsl(102, 70%, 50%)",
-    },
-    {
-      result: "Config: Current",
-      "Current Scan": 8,
-      "Current ScanColor": "hsl(102, 70%, 50%)",
-    },
-  ];
+
+  // const data_chart = [
+  //   {
+  //     result: "Permission: Last",
+  //     "Last Scan": summaryData.recommenationChart.permissionLast,
+  //     "Last ScanColor": "hsl(102, 70%, 50%)",
+  //   },
+  //   {
+  //     result: "Permission: Current",
+  //     "Current Scan": summaryData.recommenationChart.permissionCurrent,
+  //     "Current ScanColor": "hsl(102, 70%, 50%)",
+  //   },
+  //   {
+  //     result: "Config: Last",
+  //     "Last Scan": summaryData.recommenationChart.configLast,
+  //     "Last ScanColor": "hsl(102, 70%, 50%)",
+  //   },
+  //   {
+  //     result: "Config: Current",
+  //     "Current Scan": summaryData.recommenationChart.configCurrent,
+  //     "Current ScanColor": "hsl(102, 70%, 50%)",
+  //   },
+  // ];
 
   const MyResponsiveChart = ({ data }) => (
     <ResponsiveBar
@@ -297,33 +329,118 @@ const ScanningSummary = () => {
     />
   );
 
+  /*********************테이블********************** */
+
   return (
     <SummaryWrapper>
-      <Row>
+      {/* <Row>
         <Div2>
           <Title>Permission</Title>
           <div style={{ width: "100%", height: "calc(100% - 100px)" }}>
-            <MyResponsivePie data={data1}></MyResponsivePie>
+            <MyResponsivePie
+              data={[
+                {
+                  id: "Risky Permission",
+                  label: "Risky",
+                  value: summaryData.permissionHalfGraph.riskyCount,
+                  color: "hsl(143, 70%, 50%)",
+                },
+                {
+                  id: "Normal Permission",
+                  label: "Normal",
+                  value: summaryData.permissionHalfGraph.normalCount,
+                  color: "#FFFFFF",
+                },
+              ]}
+            ></MyResponsivePie>
           </div>
           <div style={{ width: "100%", height: "60px" }}>
-            <MyResponsiveBullet data={data_bar1}></MyResponsiveBullet>
+            <MyResponsiveBullet
+              data={[
+                {
+                  id: "",
+                  ranges: [
+                    0,
+                    summaryData.permissionBarGraph.userCount,
+                    summaryData.permissionBarGraph.userCount + summaryData.permissionBarGraph.groupCount,
+                    summaryData.permissionBarGraph.userCount + summaryData.permissionBarGraph.groupCount + summaryData.permissionBarGraph.roleCount,
+                    summaryData.permissionBarGraph.userCount + summaryData.permissionBarGraph.groupCount + summaryData.permissionBarGraph.roleCount + summaryData.permissionBarGraph.policyCount,
+                  ],
+                  measures: [],
+                  markers: [],
+                },
+              ]}
+            ></MyResponsiveBullet>
             <Buttons data={dataPer}></Buttons>
           </div>
         </Div2>
         <Div1>
           <Title>Config</Title>
           <div style={{ width: "100%", height: "calc(100% - 100px)" }}>
-            <MyResponsivePie data={data2}></MyResponsivePie>
+            <MyResponsivePie
+              data={[
+                {
+                  id: "Risky Config",
+                  label: "Risky",
+                  value: summaryData.configHalfGraph.riskyCount,
+                  color: "# FF0000",
+                },
+                {
+                  id: "Normal Config",
+                  label: "Normal",
+                  value: summaryData.configHalfGraph.normalCount,
+                  color: "#FFFFFF",
+                },
+              ]}
+            ></MyResponsivePie>
           </div>
           <div style={{ width: "100%", height: "60px" }}>
-            <MyResponsiveBullet data={data_bar2}></MyResponsiveBullet>
+            <MyResponsiveBullet
+              data={[
+                {
+                  id: "",
+                  ranges: [
+                    0,
+                    summaryData.configBarGraph.pwCount,
+                    summaryData.configBarGraph.pwCount + summaryData.configBarGraph.credentialCount,
+                    summaryData.configBarGraph.pwCount + summaryData.configBarGraph.credentialCount + summaryData.configBarGraph.certificateCount,
+                    summaryData.configBarGraph.pwCount + summaryData.configBarGraph.credentialCount + summaryData.configBarGraph.certificateCount + summaryData.configBarGraph.mfaCount,
+                  ],
+                  measures: [],
+                  markers: [],
+                },
+              ]}
+            ></MyResponsiveBullet>
             <Buttons data={dataConfig}></Buttons>
           </div>
         </Div1>
       </Row>
       <Row>
         <Div3>
-          <MyResponsiveChart data={data_chart}></MyResponsiveChart>
+          <MyResponsiveChart
+            data={[
+              {
+                result: "Permission: Last",
+                "Last Scan": summaryData.recommenationChart.permissionLast,
+                "Last ScanColor": "hsl(102, 70%, 50%)",
+              },
+              {
+                result: "Permission: Current",
+                "Current Scan": summaryData.recommenationChart.permissionCurrent,
+                "Current ScanColor": "hsl(102, 70%, 50%)",
+              },
+              {
+                result: "Config: Last",
+                "Last Scan": summaryData.recommenationChart.configLast,
+                "Last ScanColor": "hsl(102, 70%, 50%)",
+              },
+              {
+                result: "Config: Current",
+                "Current Scan": summaryData.recommenationChart.configCurrent,
+                "Current ScanColor": "hsl(102, 70%, 50%)",
+              },
+            ]}
+          ></MyResponsiveChart>
         </Div3>
         <Div4>
           <div style={{ padding: "20px" }}>
@@ -334,50 +451,28 @@ const ScanningSummary = () => {
                 { title: "Last Scan", field: "last", align: "center" },
                 { title: "Current Scan", field: "cur", align: "center" },
               ]}
-              cdata={[
-                {
-                  resource: "policy1",
-                  rec: "delete permission1",
-                  last: <GppGoodIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                },
-                {
-                  resource: "user2",
-                  rec: "delete permission3",
-                  last: <GppGoodIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                },
-                {
-                  resource: "policy2",
-                  rec: "delete resource",
-                  last: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                },
-                {
-                  resource: "role1",
-                  rec: "misconfiguration",
-                  last: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                },
-                {
-                  resource: "user4",
-                  rec: "need delete deny",
-                  last: <GppGoodIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                },
-                {
-                  resource: "role1",
-                  rec: "misconfiguration",
-                  last: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                  cur: <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />,
-                },
-              ]}
+              cdata={summaryData.scanResultTable.map((v, i) => {
+                return {
+                  resource: v.resourceName,
+                  rec: v.recommandation,
+                  last: v.lastScanResult ? (
+                    <GppGoodIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />
+                  ) : (
+                    <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />
+                  ),
+                  cur: v.currentScanResult ? (
+                    <GppGoodIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />
+                  ) : (
+                    <WarningIcon style={{ fontSize: "24px", color: "gray", marginTop: "12px" }} />
+                  ),
+                };
+              })}
               title="Recommendations"
               type="scanning1"
             />
           </div>
         </Div4>
-      </Row>
+      </Row> */}
     </SummaryWrapper>
   );
 };

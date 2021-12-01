@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { Div } from "../style/styled-compo";
-import ReactFlow from "react-flow-renderer";
-import { VisGroup, VisUser, VisPUser, VisKey } from "../style/Icons";
+import ReactFlow, { ReactFlowProvider, isNode } from "react-flow-renderer";
+import { VisGroup, VisUser, VisKey } from "../style/Icons";
 import Switch from "@mui/material/Switch";
 import qs from "qs";
 import ModalVisual from "../../module/modal/ModalVisual";
+import axios from "axios";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import dagre from "dagre";
+import CircleIcon from "@mui/icons-material/Circle";
+import styled from "styled-components";
 
-const Visualization = ({ user, group, poweruser, access }) => {
+const VisualizationNav = styled.nav`
+  height: 30%;
+  width: 250px;
+  float: right;
+  position: absoulute;
+`;
+
+const Visualization = () => {
   const location = useLocation();
   const query = qs.parse(location.search, {
     ignoreQueryPrefix: true,
@@ -17,72 +31,120 @@ const Visualization = ({ user, group, poweruser, access }) => {
     top: "10px",
     left: "1000px",
   };
-  const USERRESOURCE = [
-    {
-      RESOURCE_ARN: "iam_arn",
-      CNO: 1, //no
-      RESOURCE_NAME: "user1",
-      RESOURCE_TYPE: 1,
-      WARN_STATUS_INFO: "0000", //no
-      WARN_EVENT_COUNT: "0", //no
-      CREATION: "Wed Nov 10 2021 14:03:45 GMT+0900 (한국 표준시)",
-      ACCESS_KEY_1: "ASDAWDAWDAD",
-      ACCESS_KEY_2: null,
-    },
-    {
-      RESOURCE_ARN: "iam_arn2",
-      CNO: 1,
-      RESOURCE_NAME: "user2",
-      RESOURCE_TYPE: 2,
-      WARN_STATUS_INFO: "0000",
-      WARN_EVENT_COUNT: "0",
-      CREATION: "Wed Nov 10 2021 14:03:45 GMT+0900 (한국 표준시)",
-      ACCESS_KEY_1: "ASDAWDAWDADD",
-      ACCESS_KEY_2: null,
-    },
-  ];
-  const GROUPRESOURCE = [
-    {
-      RESOURCE_ARN: "group_arn",
-      CNO: 1, //no
-      RESOURCE_NAME: "group1",
-      RESOURCE_TYPE: 1,
-      WARN_STATUS_INFO: "0000", //no
-      WARN_EVENT_COUNT: "0", //no
-      CREATION: "Wed Nov 10 2021 14:03:45 GMT+0900 (한국 표준시)",
-      ACCESS_KEY_1: "ASDAWDAWDAD",
-      ACCESS_KEY_2: null,
-    },
-    {
-      RESOURCE_ARN: "group_arn2",
-      CNO: 1,
-      RESOURCE_NAME: "group2",
-      RESOURCE_TYPE: 2,
-      WARN_STATUS_INFO: "0000",
-      WARN_EVENT_COUNT: "0",
-      CREATION: "Wed Nov 10 2021 14:03:45 GMT+0900 (한국 표준시)",
-    },
-  ];
-
-  const [perchecked, persetChecked] = useState(true);
-  const perhandleChange = (event) => {
-    persetChecked(event.target.checked);
+  // const [visualData, setVisualData] = useState(null);
+  // const fetchVisualData = async () => {
+  //   const response = await axios.get("http://54.180.115.206:8000/mock/visualization");
+  //   setVisualData(response);
+  //   console.log(response);
+  //   console.log(visualData);
+  // };
+  // useEffect(() => {
+  //   fetchVisualData();
+  // }, []);
+  const data = {
+    user: [
+      {
+        source: "user1",
+        target: "accesskey1",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0001", //잘못된 구성 <<< 변환해서 String으로 주는 걸로
+      },
+      {
+        source: "user2",
+        target: "accesskey5",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0000", //권한 분리 추천
+      },
+      {
+        source: "user3",
+        target: "accesskey2",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0011", //둘 다
+      },
+      {
+        source: "user4",
+        target: "accesskey8",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0010", //권한 분리 추천
+      },
+      {
+        source: "user5",
+        target: "accesskey10",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0000", //권한 분리 추천
+      },
+    ],
+    orgGroup: [
+      {
+        source: "group1",
+        target: "user1",
+      },
+      {
+        source: "group2",
+        target: "user2",
+      },
+    ],
+    awsGroup: [
+      {
+        source: "awsGroup1",
+        target: "user1",
+      },
+      {
+        source: "awsGroup2",
+        target: "user2",
+      },
+      {
+        source: "",
+        target: "user5",
+      },
+    ],
+    root: [
+      {
+        source: "root1",
+        target: "awsGroup1",
+      },
+      {
+        source: "root1",
+        target: "awsGroup2",
+      },
+    ],
   };
-  const [awschecked, awssetChecked] = useState(false);
-  const awshandleChange = (event) => {
-    awssetChecked(event.target.checked);
+  const [awsChecked, setAwsChecked] = useState(true);
+  const awsHandleChange = (event) => {
+    setAwsChecked(event.target.checked);
   };
-  const [scanchecked, scansetChecked] = useState(false);
-  const scanhandleChange = (event) => {
-    scansetChecked(event.target.checked);
+  const [orgChecked, setOrgChecked] = useState(false);
+  const orgHandleChange = (event) => {
+    setOrgChecked(event.target.checked);
+  };
+  const [scanChecked, setScanChecked] = useState(false);
+  const scanHandleChange = (event) => {
+    setScanChecked(event.target.checked);
   };
   const [modalOpen, setmodalOpen] = useState(false);
+  const [resource, setResource] = useState(null);
   const openModal = () => {
     setmodalOpen(true);
   };
-  const elementRoot = [
-    {
-      id: "root",
+  const onElementClick = async (event, element) => {
+    console.log("click", element);
+    await setResource(element.id);
+    setmodalOpen(true);
+  };
+  const g = new dagre.graphlib.Graph();
+  const elementRoot = data.root.map((v, i) => {
+    return {
+      id: v.source,
       type: "default",
       style: {
         background: "#e0e0e0",
@@ -90,186 +152,177 @@ const Visualization = ({ user, group, poweruser, access }) => {
         fontWeight: "bold",
         fontSize: "1.2em",
       },
-      data: { label: "root" },
-      position: { x: 500, y: 50 },
-    },
-  ];
+      data: { label: <div>{v.source}</div> },
+      position: { x: 700, y: 50 },
+    };
+  });
   const elementNogroup = [
     {
       id: "Nogroup",
       type: "default",
       style: { background: "transparent", width: 30 },
       data: { label: "No group" },
-      position: { x: 1000, y: 160 },
+      position: { x: 1200, y: 200 },
     },
   ];
-  const elementUser2 = user.map((v, i) => {
-    return {
-      id: v,
-      type: "default",
-      style: { background: "transparent", width: 30 },
-      data: {
-        label: (
-          <div>
-            <VisUser />
-          </div>
-        ),
-      },
-      position: {
-        x: i * 180 + 80,
-        y: 350 + Math.random() * 60,
-      },
-    };
-  });
-  const elementUser = USERRESOURCE.map((v, i) => {
-    return {
-      id: v.RESOURCE_ARN,
-      type: "default",
-      style: { background: "transparent", width: 30 },
-      data: {
-        label: (
-          <div>
-            <VisUser />
-            {v.RESOURCE_NAME}
-          </div>
-        ),
-      },
-      position: {
-        x: i * 180 + 80,
-        y: 350 + Math.random() * 60,
-      },
-    };
-  });
-  const elementGroup2 = group.map((v, i) => {
-    return {
-      id: v,
-      type: "default",
-      style: { background: "transparent", width: 30 },
-      data: {
-        label: (
-          <div>
-            <VisGroup />
-          </div>
-        ),
-      },
-      position: {
-        x: i * 200 + 150,
-        y: 150 + Math.random() * 40,
-      },
-    };
-  });
-  const elementGroup = GROUPRESOURCE.map((v, i) => {
-    return {
-      id: v.RESOURCE_ARN,
-      type: "default",
-      style: { background: "transparent", width: 30 },
-      data: {
-        label: (
-          <div>
-            <VisGroup />
-            {v.RESOURCE_NAME}
-          </div>
-        ),
-      },
-      position: {
-        x: i * 200 + 150,
-        y: 150 + Math.random() * 40,
-      },
-    };
-  });
-  // const elementPower = poweruser.map((v, i) => {
-  //   return {
-  //     id: v,
-  //     type: "default",
-  //     style: { background: "transparent", width: 30 },
-  //     data: {
-  //       label: (
-  //         <div>
-  //           <VisPUser />
-  //         </div>
-  //       ),
-  //     },
-  //     position: {
-  //       x: i * 200 + 250 - Math.random() * 50,
-  //       y: 250 + Math.random() * 50,
-  //     },
-  //   };
-  // });
-  const elementKey2 = USERRESOURCE.map((v, i) => {
-    return {
-      id: v.ACCESS_KEY_1,
-      type: "default",
-      style: { background: "transparent", width: 30 },
-      data: {
-        label: (
-          <div>
-            <VisKey />
-            {v.ACCESS_KEY_1}
-          </div>
-        ),
-      },
-      position: {
-        x: i * 200 + 100,
-        y: 500,
-      },
-    };
-  });
-  const [key, setKey] = useState([]);
-  const elementKey = USERRESOURCE.map((v, i) => {
-    const accessKey = {};
-    return {
-      id: v.ACCESS_KEY_1,
-      type: "default",
-      style: { background: "transparent", width: 30 },
-      data: {
-        label: (
-          <div>
-            <VisKey />
-            {v.ACCESS_KEY_1}
-          </div>
-        ),
-      },
-      position: {
-        x: i * 200 + 100,
-        y: 500,
-      },
-    };
-  });
-  const elementConnect = [
-    { id: "1", source: "Group1", target: "User1", type: "straight" },
-    { id: "2", source: "Group1", target: "User3", type: "straight" },
-    { id: "3", source: "Group2", target: "User2", type: "straight" },
-    { id: "4", source: "Group2", target: "User6", type: "straight" },
-    { id: "5", source: "Group3", target: "User4", type: "straight" },
-    { id: "6", source: "Group3", target: "User5", type: "straight" },
-    { id: "7", source: "Group3", target: "User8", type: "straight" },
-    { id: "8", source: "Group4", target: "User7", type: "straight" },
-    { id: "9", source: "Group4", target: "User9", type: "straight" },
-    { id: "10", source: "root", target: "Group1", type: "straight" },
-    { id: "11", source: "root", target: "Group2", type: "straight" },
-    { id: "12", source: "root", target: "Group3", type: "straight" },
-    { id: "13", source: "root", target: "Group4", type: "straight" },
-    { id: "14", source: "User1", target: "accesskey1", type: "straight" },
-    { id: "15", source: "User6", target: "accesskey2", type: "straight" },
-    { id: "16", source: "User8", target: "accesskey3", type: "straight" },
-    { id: "17", source: "User9", target: "accesskey4", type: "straight" },
-    { id: "18", source: "User10", target: "accesskey5", type: "straight" },
-    { id: "19", source: "Nogroup", target: "User10", type: "straight" },
-  ];
-  const elements = [...elementUser, ...elementGroup, ...elementKey, ...elementRoot, ...elementNogroup, ...elementConnect];
 
+  const elementUser = data.user.map((v, i) => {
+    return {
+      id: v.source,
+      type: "default",
+      style:
+        scanChecked === true
+          ? v.warningStatusInfo === "0001"
+            ? { border: "3px solid #FA95EC", width: 30 }
+            : v.warningStatusInfo === "0010"
+            ? { border: "3px solid #FFFD91", width: 30 }
+            : v.warningStatusInfo === "0011"
+            ? { border: "3px solid #F4ABA1", width: 30 }
+            : { background: "transparent", width: 30 }
+          : { background: "transparent", width: 30 },
+      data: {
+        label: (
+          <div>
+            <VisUser />
+            {v.source}
+          </div>
+        ),
+      },
+      position: {
+        x: (1500 / (data.user.length + 1)) * (i + 1),
+        y: 400 + Math.random() * 30,
+      },
+    };
+  });
+
+  const elementAwsGroup = data.awsGroup.map((v, i) => {
+    if (awsChecked === true) {
+      if (v.source !== "") {
+        return {
+          id: v.source,
+          type: "default",
+          style: { background: "transparent", border: "3px solid #91B3E1", width: 30 },
+          data: {
+            label: (
+              <div>
+                <VisGroup />
+                {v.source}
+              </div>
+            ),
+          },
+          position: {
+            x: (1500 / (data.awsGroup.length + 1)) * (i + 1),
+            y: 200 + Math.random() * 20,
+          },
+        };
+      } else return [];
+    } else {
+      return [];
+    }
+  });
+  const elementOrgGroup = data.orgGroup.map((v, i) => {
+    if (orgChecked === true) {
+      return {
+        id: v.source,
+        type: "default",
+        style: { background: "transparent", border: "3px solid #94B693", width: 30 },
+        data: {
+          label: (
+            <div>
+              <VisGroup />
+              {v.source}
+            </div>
+          ),
+        },
+        position: {
+          x: (1300 / (data.orgGroup.length + 1)) * (i + 1),
+          y: 100 + Math.random() * 20,
+        },
+      };
+    } else {
+      return [];
+    }
+  });
+
+  const elementKey = data.user.map((v, i) => {
+    return {
+      id: v.target,
+      type: "default",
+      style: { background: "transparent", width: 30 },
+      data: {
+        label: (
+          <div>
+            <VisKey />
+            {v.target}
+          </div>
+        ),
+      },
+      position: {
+        x: (1500 / (data.user.length + 1)) * (i + 1) + Math.random() * 50 * (-1 ^ i % 2),
+        y: 570,
+      },
+    };
+  });
+  const rootToGroup = data.root.map((v, i) => {
+    return {
+      id: v.source + "to" + v.target,
+      source: v.source,
+      target: v.target,
+      type: "straight",
+    };
+  });
+  const awsGroupToUser = data.awsGroup.map((v, i) => {
+    return {
+      id: v.source + "to" + v.target,
+      source: v.source,
+      target: v.target,
+      type: "straight",
+    };
+  });
+  const orgGroupToUser = data.orgGroup.map((v, i) => {
+    return {
+      id: v.source + "to" + v.target,
+      source: v.source,
+      target: v.target,
+      type: "straight",
+    };
+  });
+  const noGroupToUser = data.awsGroup.map((v, i) => {
+    if (v.source === "") {
+      return {
+        id: "noGroupto" + v.target,
+        source: "Nogroup",
+        target: v.target,
+        type: "straight",
+      };
+    } else return [];
+  });
+  const userToKey = data.user.map((v, i) => {
+    return {
+      id: v.source + "to" + v.target,
+      source: v.source,
+      target: v.target,
+      type: "straight",
+    };
+  });
+  const elementConnect = [...rootToGroup, ...orgGroupToUser, ...awsGroupToUser, ...userToKey, ...noGroupToUser];
+  const elements = [...elementRoot, ...elementOrgGroup, ...elementAwsGroup, ...elementUser, ...elementKey, ...elementNogroup, ...elementConnect];
   const [tab, setTab] = useState(0);
-
-  const handleTabClick = (tabNumber) => () => {
+  const handleTabClick = (event, tabNumber) => {
     setTab(tabNumber);
   };
 
-  const Root1 = () => <ReactFlow elements={elements} onElementClick={openModal} />;
+  const Root1 = () => <ReactFlow elements={elements} onElementClick={onElementClick} />;
 
-  const Root2 = () => <ReactFlow elements={elements} onElementClick={openModal} />;
+  const Root2 = () => <ReactFlow elements={elements} onElementClick={onElementClick} />;
 
-  const Root3 = () => <ReactFlow elements={elements} onElementClick={openModal} />;
-
+  const Root3 = () => <ReactFlow elements={elements} onElementClick={onElementClick} />;
+  function a11yProps(index) {
+    return {
+      id: `simple-tab-${index}`,
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
+  }
   return (
     <>
       <h1
@@ -282,89 +335,52 @@ const Visualization = ({ user, group, poweruser, access }) => {
       >
         Visualization
       </h1>
-      <Div>
-        <div style={{ height: "25px", width: "100%", display: "flex" }}>
-          <span
-            style={{
-              backgroundColor: tab === 0 ? "#efefef" : "#e0e0e0",
-              border: "2px solid black",
-              borderRight: "none",
-              borderBottom: tab === 0 ? "none" : "1px solid black",
-              width: "150px",
-              textAlign: "center",
-              fontWeight: tab === 0 ? "bold" : "normal",
-            }}
-            onClick={handleTabClick(0)}
-          >
-            root1
-          </span>
-          <span
-            style={{
-              backgroundColor: tab === 1 ? "#efefef" : "#e0e0e0",
-              border: "2px solid black",
-              borderRight: "none",
-              borderBottom: tab === 1 ? "none" : "1px solid black",
-              width: "150px",
-              textAlign: "center",
-              fontWeight: tab === 1 ? "bold" : "normal",
-            }}
-            onClick={handleTabClick(1)}
-          >
-            root2
-          </span>
-          <span
-            style={{
-              backgroundColor: tab === 2 ? "#efefef" : "#e0e0e0",
-              border: "2px solid black",
-              borderBottom: tab === 2 ? "none" : "1px solid black",
-              width: "150px",
-              textAlign: "center",
-              fontWeight: tab === 2 ? "bold" : "normal",
-            }}
-            onClick={handleTabClick(2)}
-          >
-            root3
-          </span>
-          <span
-            style={{
-              backgroundColor: "#efefef",
-              borderBottom: "2px solid black",
-              flex: 1,
-            }}
-          ></span>
-        </div>
-        <div
-          style={{
-            width: "99.7%",
-            height: "calc(100% - 30px)",
-            border: "2px solid black",
-            borderTop: "none",
-          }}
-        >
-          <form>
-            <label style={labelStyle}>
-              <Switch checked={perchecked} onChange={perhandleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
-              <strong>권한 분리 그룹</strong>
-            </label>
-          </form>
-          <form>
-            <label style={labelStyle}>
-              <Switch checked={awschecked} onChange={awshandleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />
-              <strong>AWS 그룹</strong>
-            </label>
-          </form>
-          <form>
-            <label style={labelStyle}>
-              <Switch checked={scanchecked} onChange={scanhandleChange} inputProps={{ "aria-label": "controlled" }} color="error" />
-              <strong>스캐닝 결과 반영</strong>
-            </label>
-          </form>
-          {tab === 0 && <Root1 />}
-          {tab === 1 && <Root2 />}
-          {tab === 2 && <Root3 />}
+      <Div style={{ position: "relative" }}>
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs value={tab} onChange={handleTabClick} aria-label="basic tabs example">
+              <Tab label="root1" {...a11yProps(0)} />
+              <Tab label="root2" {...a11yProps(1)} />
+              <Tab label="root3" {...a11yProps(2)} />
+            </Tabs>
+          </Box>
+        </Box>
+        <div style={{ display: "flex", flexDirection: "row-reverse", height: "100%" }}>
+          <VisualizationNav>
+            <div>
+              <div>
+                <Switch checked={awsChecked} onChange={awsHandleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />
+                <strong>AWS 그룹</strong>
+              </div>
+              <div>
+                <Switch checked={orgChecked} onChange={orgHandleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
+                <strong>권한 분리 그룹</strong>
+              </div>
+              <div>
+                <Switch checked={scanChecked} onChange={scanHandleChange} inputProps={{ "aria-label": "controlled" }} color="error" />
+                <strong>스캐닝 결과 반영</strong>
+              </div>
+            </div>
+            <div>
+              <div>
+                <CircleIcon style={{ color: "#FA95EC" }} /> <span style={{ verticalAlign: "super" }}>잘못된 구성</span>
+              </div>
+              <div>
+                <CircleIcon style={{ color: "#F4ABA1" }} /> <span style={{ verticalAlign: "super" }}>권한 분리</span>
+              </div>
+              <div>
+                <CircleIcon style={{ color: "#FFFD91" }} /> <span style={{ verticalAlign: "super" }}>둘 다 해당</span>
+              </div>
+            </div>
+          </VisualizationNav>
+          <div style={{ width: "calc(100% - 250px)" }}>
+            {tab === 0 && <Root1 />}
+            {tab === 1 && <Root2 />}
+            {tab === 2 && <Root3 />}
+          </div>
         </div>
       </Div>
-      {modalOpen && <ModalVisual modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {modalOpen && <ModalVisual modalOpen={modalOpen} setmodalOpen={setmodalOpen} resource={resource} />}
     </>
   );
 };

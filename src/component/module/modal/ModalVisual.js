@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import HorizontalFlow from "../../service/visualization/HorizontalFlow";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Clear } from "@mui/icons-material";
 
-const ModalVisual = ({ modalOpen, setmodalOpen }) => {
-  const index = ["클라우드 이름", "리소스 이름", "권한 분리 그룹", "생성 시간", "마지막 사용 시간", "MFA", "Access Key", "올바른 구성 스캔 결과", "권한 분리 스캔 결과"];
+const ModalVisual = ({ modalOpen, setmodalOpen, resource }) => {
+  // const [visualModalData, setVisualModalData] = useState(null);
+  // const fetchVisualModalData = async () => {
+  //   const response = await axios.get("http://54.180.115.206:8000/mock/visualization", { params: { iamResourceArn: resource } });
+  //   setVisualModalData(response);
+  //   console.log(response);
+  //   console.log(visualModalData);
+  // };
+  // useEffect(() => {
+  //   fetchVisualModalData();
+  // }, []);
   const style = {
     position: "absolute",
     top: "50%",
@@ -33,15 +43,9 @@ const ModalVisual = ({ modalOpen, setmodalOpen }) => {
   };
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal open={modalOpen} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <div>{resource}</div>
           <Clear
             style={{ fontSize: "26px", cursor: "pointer" }}
             onClick={() => {

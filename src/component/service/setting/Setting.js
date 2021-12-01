@@ -8,8 +8,10 @@ import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import TimePicker from "@mui/lab/TimePicker";
+import MobileTimePicker from "@mui/lab/MobileTimePicker";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import Box from "@mui/material/Box";
+import { createTheme } from "@mui/material/styles";
 
 const SettingDiv = styled.div`
   display: flex;
@@ -30,12 +32,47 @@ const SettingForm = styled.form`
   flex-direction: row;
 `;
 
+const TimeDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const customTheme = createTheme({
+  overrides: {
+    MuiPickersBasePicker: {
+      pickerView: {
+        backgroundColor: "black",
+      },
+    },
+    MuiPickersDay: {
+      day: {
+        color: "light-gray",
+        fontFamily: '"Do Hyeon", sans-serif',
+        backgroundColor: "white",
+        borderRadius: "0px",
+      },
+      container: {
+        backgroundColor: "black",
+      },
+      daySelected: {
+        backgroundColor: "",
+        color: "light-gray",
+      },
+      dayDisabled: {
+        color: "black",
+      },
+      current: {
+        color: "",
+      },
+    },
+  },
+});
+
 function BusinessTime() {
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [Time, setTime] = useState({ start: "", end: "" });
-  const onSubmit = (event) => {
-    event.preventDefault();
+  const onTimeClick = () => {
     // console.log(startTime);
     // console.log(endTime);
     console.log(startTime.toTimeString().substr(0, 5));
@@ -46,35 +83,33 @@ function BusinessTime() {
     <SettingDiv>
       <SettingTitle>Setting BusinessTime</SettingTitle>
       <div>
-        <form onSubmit={onSubmit}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Stack spacing={10} style={{ display: "flex", flexDirection: "row" }}>
-              <div style={{ width: "300px" }}>
-                <TimePicker
-                  label="start time"
-                  value={startTime}
-                  onChange={(newValue) => {
-                    setStartTime(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </div>
-              <div style={{ width: "300px" }}>
-                <TimePicker
-                  label="end time"
-                  value={endTime}
-                  onChange={(newValue) => {
-                    setEndTime(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </div>
-              <div>
-                <input type="submit" />
-              </div>
-            </Stack>
-          </LocalizationProvider>
-        </form>
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <TimeDiv>
+            <div>
+              <MobileTimePicker
+                label="start time"
+                value={startTime}
+                onChange={(newValue) => {
+                  setStartTime(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </div>
+            <div>
+              <MobileTimePicker
+                label="end time"
+                value={endTime}
+                onChange={(newValue) => {
+                  setEndTime(newValue);
+                }}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </div>
+            <div>
+              <button onClick={onTimeClick}>click</button>
+            </div>
+          </TimeDiv>
+        </LocalizationProvider>
       </div>
       <div>
         <div style={{ fontSize: "30px" }}>
@@ -109,6 +144,7 @@ function NotificationSetting() {
       {
         resource: { resource },
         date: { endDate },
+        text: { text },
       },
     ]);
     console.log(notification);
