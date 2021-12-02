@@ -10,7 +10,6 @@ import axios from "axios";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import dagre from "dagre";
 import CircleIcon from "@mui/icons-material/Circle";
 import styled from "styled-components";
 
@@ -141,7 +140,6 @@ const Visualization = () => {
     await setResource(element.id);
     setmodalOpen(true);
   };
-  const g = new dagre.graphlib.Graph();
   const elementRoot = data.root.map((v, i) => {
     return {
       id: v.source,

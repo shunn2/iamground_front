@@ -2,153 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Tdiv } from "../style/styled-compo";
 import { ResponsiveLine } from "@nivo/line";
 import { Link } from "react-router-dom";
-import DescriptionIcon from "@mui/icons-material/Description";
 import TableMaterial from "../../module/TableMaterial";
 import axios from "axios";
 
 function Scanning() {
-  // useEffect(() => {
-  //   ScanningAccounts();
-  // }, []);
-
-  // const ScanningAccounts = async () => {
-  //   const url = "http://54.180.115.206:8000/mock/scan";
-  //   const response = await axios.get(url);
-  //   // const result = await response.json();
-  //   console.log(response);
-  // };
   const [accounts, setAccounts] = useState([]);
   const fetchAccounts = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/mock/scan");
-    setAccounts(response.data.cloudList);
-    console.log(accounts);
+    const responseAccount = await axios.get("http://54.180.115.206:8000/mock/scan");
+    setAccounts(responseAccount.data.cloudList);
+    console.log("responseAccount", responseAccount);
   };
   useEffect(() => {
     fetchAccounts();
   }, []);
 
-  const gdata = [
-    {
-      id: "Dev",
-      color: "hsl(269, 70%, 50%)",
-      data: [
-        {
-          x: "11/10",
-          y: 40,
-        },
-        {
-          x: "11/11",
-          y: 85,
-        },
-        {
-          x: "11/12",
-          y: 44,
-        },
-        {
-          x: "11/13",
-          y: 150,
-        },
-        {
-          x: "11/14",
-          y: 100,
-        },
-        {
-          x: "11/15",
-          y: 78,
-        },
-      ],
-    },
-    {
-      id: "Res",
-      color: "hsl(263, 70%, 50%)",
-      data: [
-        {
-          x: "11/10",
-          y: 40,
-        },
-        {
-          x: "11/11",
-          y: 85,
-        },
-        {
-          x: "11/12",
-          y: 44,
-        },
-        {
-          x: "11/13",
-          y: 150,
-        },
-        {
-          x: "11/14",
-          y: 100,
-        },
-        {
-          x: "11/15",
-          y: 78,
-        },
-      ],
-    },
-    {
-      id: "Sec",
-      color: "hsl(269, 70%, 50%)",
-      data: [
-        {
-          x: "11/10",
-          y: 150,
-        },
-        {
-          x: "11/11",
-          y: 85,
-        },
-        {
-          x: "11/12",
-          y: 44,
-        },
-        {
-          x: "11/13",
-          y: 30,
-        },
-        {
-          x: "11/14",
-          y: 20,
-        },
-        {
-          x: "11/15",
-          y: 5,
-        },
-      ],
-    },
-    {
-      id: "Test",
-      color: "hsl(269, 70%, 50%)",
-      data: [
-        {
-          x: "11/10",
-          y: 40,
-        },
-        {
-          x: "11/11",
-          y: 85,
-        },
-        {
-          x: "11/12",
-          y: 44,
-        },
-        {
-          x: "11/13",
-          y: 150,
-        },
-        {
-          x: "11/14",
-          y: 100,
-        },
-        {
-          x: "11/15",
-          y: 78,
-        },
-      ],
-    },
-  ];
+  const [recommandations, setRecommandations] = useState([]);
+  const fetchRecommandations = async () => {
+    const responseRecommand = await axios.get("http://54.180.115.206:8000/mock/scan/summary");
+    setRecommandations(responseRecommand.data.summaryList);
+    console.log("responseRecommand", responseRecommand);
+  };
+  useEffect(() => {
+    fetchRecommandations();
+  }, []);
 
   const MyResponsiveLine = ({ gdata }) => (
     <ResponsiveLine
@@ -222,7 +98,19 @@ function Scanning() {
     <>
       <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px", height: "35px" }}>Scanning</h1>
       <div style={{ height: "45%", width: "100%", backgroundColor: "white", border: "1px solid #D6D6D6" }}>
-        <MyResponsiveLine gdata={gdata} />
+        <MyResponsiveLine
+          gdata={recommandations.map((v, i) => {
+            return {
+              id: v.name,
+              data: v.recommandCountList.map((data, index) => {
+                return {
+                  x: data.date,
+                  y: data.value,
+                };
+              }),
+            };
+          })}
+        />
       </div>
       <div></div>
       <Tdiv>
@@ -242,10 +130,10 @@ function Scanning() {
               last_scanned: v.lastScan,
               per: v.permissionCount,
               config: v.configCount,
-              scan: <button>Scan</button>,
+              scan: <button>스캔 하기</button>,
               result: (
-                <Link to="/scan/report/summary">
-                  <DescriptionIcon />
+                <Link to={`/scan/report/summary?report_id=${v.reportList[v.reportList.length - 1]}`}>
+                  <button>결과 보기</button>
                 </Link>
               ),
             };

@@ -9,22 +9,17 @@ import TableMaterial from "../../module/TableMaterial";
 import axios from "axios";
 
 const ScanningSummary = ({ report_id }) => {
-  const [summaryData, setSummaryData] = useState(null);
-  // const fetchData = async () => {
-  //   const response = await axios.get("http://54.180.115.206:8000/mock/scan/report/summary?report_id=0");
-  //   setSummaryData(response.data.summaryList);
-  //   console.log("response", response.data.summaryList);
-  //   console.log("summaryData", summaryData);
-  // };
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  const [summaryData, setSummaryData] = useState([]);
+  const fetchData = async () => {
+    const response = await axios.get(`http://54.180.115.206:8000/mock/scan/report/summary?report_id=${report_id}`);
+    setSummaryData(response.data.summaryList);
+    console.log("response", response);
+    console.log("summaryData", summaryData);
+  };
   useEffect(() => {
-    axios.get("http://54.180.115.206:8000/mock/scan/report/summary?report_id=0").then((response) => {
-      setSummaryData(response);
-      console.log(summaryData);
-    });
+    fetchData();
   }, []);
+
   /* ********************반원 그래프******************** */
 
   // const data1 = [

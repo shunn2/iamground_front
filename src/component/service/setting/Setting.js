@@ -106,7 +106,7 @@ function BusinessTime() {
               />
             </div>
             <div>
-              <button onClick={onTimeClick}>click</button>
+              <button onClick={onTimeClick}>저장</button>
             </div>
           </TimeDiv>
         </LocalizationProvider>
