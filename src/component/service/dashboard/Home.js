@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -10,7 +10,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import TableMaterial from "../../module/TableMaterial";
 
 function Home() {
-  const [age, setAge] = React.useState("");
+  const [age, setAge] = useState("");
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -252,74 +252,6 @@ function Home() {
               </div>
             </div>
           </div>
-          {/* {JSON.stringify(
-            {
-              version: "0",
-              id: "ce5645a3-2791-73ef-9db9-73c889bbe0e9",
-              "detail-type": "AWS API Call via CloudTrail",
-              source: "aws.iam",
-              account: "962110289919",
-              time: "2021-10-09T15:32:13Z",
-              region: "us-east-1",
-              resources: [],
-              detail: {
-                eventVersion: "1.08",
-                userIdentity: {
-                  type: "Root",
-                  principalId: "962110289919",
-                  arn: "arn:aws:iam::962110289919:root",
-                  accountId: "962110289919",
-                  accessKeyId: "ASIA6AAR5677ZZ2VY24L",
-                  sessionContext: {
-                    sessionIssuer: {},
-                    webIdFederationData: {},
-                    attributes: {
-                      creationDate: "2021-10-09T11:54:21Z",
-                      mfaAuthenticated: "false",
-                    },
-                  },
-                },
-                eventTime: "2021-10-09T15:32:13Z",
-                eventSource: "iam.amazonaws.com",
-                eventName: "CreatePolicy",
-                awsRegion: "us-east-1",
-                sourceIPAddress: "221.149.235.161",
-                userAgent: "console.amazonaws.com",
-                requestParameters: {
-                  policyName: "trailTest",
-                  policyDocument:
-                    "{\n    'Version': '2012-10-17',\n    'Statement': [\n        {\n            'Sid': 'VisualEditor0',\n            'Effect': 'Allow',\n            'Action': 'cloudtrail:',\n            'Resource': ''\n        }\n    ]\n}",
-                  description: "trail ALL",
-                  tags: [],
-                },
-                responseElements: {
-                  policy: {
-                    policyName: "trailTest",
-                    policyId: "ANPA6AAR5677WZIUJRAYD",
-                    arn: "arn:aws:iam::962110289919:policy/trailTest",
-                    path: "/",
-                    defaultVersionId: "v1",
-                    attachmentCount: 0,
-                    permissionsBoundaryUsageCount: 0,
-                    isAttachable: true,
-                    createDate: "Oct 9, 2021 3:32:13 PM",
-                    updateDate: "Oct 9, 2021 3:32:13 PM",
-                    tags: [],
-                  },
-                },
-                requestID: "aaf7a930-75b8-4ffe-9c9d-ec565090c403",
-                eventID: "c163e542-af25-4cbd-b56a-b2e5d0bb437a",
-                readOnly: false,
-                eventType: "AwsApiCall",
-                managementEvent: true,
-                recipientAccountId: "962110289919",
-                eventCategory: "Management",
-                sessionCredentialFromConsole: true,
-              },
-            },
-            null,
-            4
-          )} */}
         </div>
       </div>
 

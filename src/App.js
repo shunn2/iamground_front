@@ -15,6 +15,7 @@ import CloudRegister from "./component/service/asset/CloudRegister";
 import Organization from "./component/service/asset/Organization";
 import Home from "./component/service/dashboard/Home";
 import Notification from "./component/service/notification/Notification";
+import LogIn from "./component/service/LogIn.js/LogIn";
 
 function App() {
   const user = ["User1", "User2", "User4", "User5", "User7", "User10"];
@@ -40,6 +41,7 @@ function App() {
           <Route path="/cloud/register" element={<CloudRegister />} />
           <Route path="/organization" element={<Organization />} />
           <Route path="/notification" element={<Notification />} />
+          <Route path="/login" element={<LogIn />} />
         </Routes>
       </Layout>
     </Router>
