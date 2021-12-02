@@ -175,7 +175,8 @@ function Home() {
     <>
       <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px" }}>Dashboard</h1>
       <div style={{ width: "calc(100% - 30px)", height: "145px", backgroundColor: "#dedede", padding: "15px", marginBottom: "30px" }}>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <div style={{ float: "left", color: "#787878", fontSize: "18px" }}>Percentage of dangerous IAM resources</div>
+        <div style={{ float: "right", display: "flex", justifyContent: "flex-end" }}>
           <div style={{ width: "120px", backgroundColor: "#ffffff", borderRadius: "4px" }}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Filter</InputLabel>
@@ -187,64 +188,65 @@ function Home() {
             </FormControl>
           </div>
         </div>
-
-        <div style={{ display: "flex", gap: "0px 2%", marginTop: "15px" }}>
-          <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
-            <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-              <span style={{ fontWeight: "bold" }}>128</span> IAM USERS
-            </div>
-            <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-              <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>16%</div>
-              <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                <div style={{ width: "16%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+        <div>
+          <div style={{ display: "flex", gap: "0px 2%", marginTop: "15px" }}>
+            <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
+              <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
+                <span style={{ fontWeight: "bold" }}>128</span> IAM USERS
+              </div>
+              <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>16%</div>
+                <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
+                  <div style={{ width: "16%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
-            <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-              <span style={{ fontWeight: "bold" }}>37</span> IAM SERVICE IDS
-            </div>
-            <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-              <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>29%</div>
-              <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                <div style={{ width: "29%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+            <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
+              <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
+                <span style={{ fontWeight: "bold" }}>37</span> IAM SERVICE IDS
+              </div>
+              <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>29%</div>
+                <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
+                  <div style={{ width: "29%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
-            <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-              <span style={{ fontWeight: "bold" }}>24</span> IAM GROUPS
-            </div>
-            <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-              <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>27%</div>
-              <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                <div style={{ width: "27%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+            <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
+              <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
+                <span style={{ fontWeight: "bold" }}>24</span> IAM GROUPS
+              </div>
+              <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>27%</div>
+                <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
+                  <div style={{ width: "27%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
-            <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-              <span style={{ fontWeight: "bold" }}>30</span> IAM ROLES
-            </div>
-            <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-              <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>70%</div>
-              <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                <div style={{ width: "70%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+            <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
+              <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
+                <span style={{ fontWeight: "bold" }}>30</span> IAM ROLES
+              </div>
+              <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>70%</div>
+                <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
+                  <div style={{ width: "70%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
-            <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-              <span style={{ fontWeight: "bold" }}>200</span> IAM POLICIES
-            </div>
-            <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-              <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>52%</div>
-              <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                <div style={{ width: "52%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+            <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
+              <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
+                <span style={{ fontWeight: "bold" }}>200</span> IAM POLICIES
+              </div>
+              <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>52%</div>
+                <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
+                  <div style={{ width: "52%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                </div>
               </div>
             </div>
           </div>
