@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -8,6 +8,7 @@ import { ResponsivePie } from "@nivo/pie";
 import { Link } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
 import TableMaterial from "../../module/TableMaterial";
+import axios from "axios";
 
 function Home() {
   const [age, setAge] = React.useState("");
@@ -15,62 +16,75 @@ function Home() {
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  const data = [
-    {
-      id: "korea",
-      color: "#90CAF9",
-      data: [
-        {
-          x: "12-01",
-          y: 142,
-        },
-        {
-          x: "12-02",
-          y: 168,
-        },
-        {
-          x: "12-03",
-          y: 224,
-        },
-        {
-          x: "12-04",
-          y: 212,
-        },
-        {
-          x: "12-05",
-          y: 146,
-        },
-        {
-          x: "12-06",
-          y: 148,
-        },
-        {
-          x: "12-07",
-          y: 64,
-        },
-        {
-          x: "12-08",
-          y: 161,
-        },
-        {
-          x: "12-09",
-          y: 237,
-        },
-        {
-          x: "12-10",
-          y: 142,
-        },
-        {
-          x: "12-11",
-          y: 19,
-        },
-        {
-          x: "12-12",
-          y: 258,
-        },
-      ],
+
+  // FAKE DATA
+  const dashboardData = {
+    code: "200",
+    resourceList: {
+      allUser: 128,
+      dangerousUser: 20,
+
+      allServiceID: 37,
+      dangerousServiceID: 5,
+
+      allGroup: 24,
+      dangerousGroup: 5,
+
+      allRole: 30,
+      dangerousRole: 4,
+
+      allPolicy: 247,
+      dangerousPolicy: 55,
     },
-  ];
+    eventGraph: [
+      {
+        time: "19:00",
+        count: 142,
+      },
+      {
+        time: "19:05",
+        count: 140,
+      },
+      {
+        time: "19:10",
+        count: 149,
+      },
+      {
+        time: "19:15",
+        count: 160,
+      },
+      {
+        time: "19:20",
+        count: 180,
+      },
+      {
+        time: "19:25",
+        count: 90,
+      },
+    ],
+    dangerousUserCount: 75,
+  };
+
+  // const [dashboardData, setDashboardData] = useState([]);
+  // const fetchDashboardData = async () => {
+  //   const response = await axios.get("http://54.180.115.206:8000/mock/main");
+  //   setDashboardData(response.data.dashboardData);
+  //   // console.log("response", response);
+  //   // console.log("dashboardData", dashboardData);
+  // };
+  // useEffect(() => {
+  //   fetchdDshboardData();
+  // }, []);
+
+  const [clouds, setClouds] = useState([]);
+  const fetchClouds = async () => {
+    const responseCloud = await axios.get("http://54.180.115.206:8000/mock/cloud");
+    setClouds(responseCloud.data.cloudList);
+    console.log("responseCloud", responseCloud);
+  };
+  useEffect(() => {
+    fetchClouds();
+  }, []);
 
   const MyResponsiveLine = ({ data }) => (
     <ResponsiveLine
@@ -78,7 +92,7 @@ function Home() {
       curve="monotoneX"
       colors="#90CAF9"
       margin={{ top: 20, right: 20, bottom: 50, left: 60 }}
-      yScale={{ type: "linear", min: "auto", max: "auto", stacked: true, reverse: false }}
+      yScale={{ type: "linear", min: "0", max: "auto", stacked: true, reverse: false }}
       yFormat=" >-.2f"
       axisTop={null}
       axisRight={null}
@@ -87,7 +101,7 @@ function Home() {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "date",
+        legend: "time",
         legendOffset: 36,
         legendPosition: "middle",
       }}
@@ -136,38 +150,6 @@ function Home() {
       arcLinkLabelsColor={{ from: "color" }}
       arcLabelsSkipAngle={10}
       arcLabelsTextColor={(pie) => pieData.find((v) => v.id === pie.id).color}
-      defs={[
-        {
-          id: "dots",
-          background: "inherit",
-          color: "#F47560",
-          size: 4,
-          padding: 1,
-          stagger: true,
-        },
-        {
-          id: "lines",
-          background: "inherit",
-          color: "#61CDBB",
-          rotation: -45,
-          lineWidth: 6,
-          spacing: 10,
-        },
-      ]}
-      fill={[
-        {
-          match: {
-            id: "hack",
-          },
-          id: "dots",
-        },
-        {
-          match: {
-            id: "c",
-          },
-          id: "lines",
-        },
-      ]}
     />
   );
 
@@ -182,9 +164,22 @@ function Home() {
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Filter</InputLabel>
                 <Select labelId="demo-simple-select-label" id="demo-simple-select" value={age} label="Age" onChange={handleChange}>
-                  <MenuItem value={10}>ALL</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  {clouds.map((v, i) => {
+                    return (
+                      <div style={{ textAlign: "center", fontSize: "26px" }}>
+                        <MenuItem value={10 * i}>{v.nickName}</MenuItem>
+                      </div>
+                    );
+                  })}
+                  {/* <div style={{ textAlign: "center", fontSize: "26px" }}>
+                    <MenuItem value={10}>ALL</MenuItem>
+                  </div>
+                  <div style={{ textAlign: "center", fontSize: "26px" }}>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                  </div>
+                  <div style={{ textAlign: "center", fontSize: "26px" }}>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </div> */}
                 </Select>
               </FormControl>
             </div>
@@ -194,10 +189,10 @@ function Home() {
           <div style={{ display: "flex", gap: "0px 2%", marginTop: "15px" }}>
             <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
               <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-                <span style={{ fontWeight: "bold" }}>128</span> IAM USERS
+                <span style={{ fontWeight: "bold" }}>{dashboardData.resourceList.allUser}</span> IAM USERS
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>16%</div>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousUser / dashboardData.resourceList.allUser) * 100)}%</div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div style={{ width: "16%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
                 </div>
@@ -206,10 +201,12 @@ function Home() {
 
             <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
               <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-                <span style={{ fontWeight: "bold" }}>37</span> IAM SERVICE IDS
+                <span style={{ fontWeight: "bold" }}>{dashboardData.resourceList.allServiceID}</span> IAM SERVICE IDS
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>29%</div>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>
+                  {parseInt((dashboardData.resourceList.dangerousServiceID / dashboardData.resourceList.allServiceID) * 100)}%
+                </div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div style={{ width: "29%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
                 </div>
@@ -218,10 +215,10 @@ function Home() {
 
             <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
               <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-                <span style={{ fontWeight: "bold" }}>24</span> IAM GROUPS
+                <span style={{ fontWeight: "bold" }}>{dashboardData.resourceList.allGroup}</span> IAM GROUPS
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>27%</div>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousGroup / dashboardData.resourceList.allGroup) * 100)}%</div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div style={{ width: "27%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
                 </div>
@@ -230,10 +227,10 @@ function Home() {
 
             <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
               <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-                <span style={{ fontWeight: "bold" }}>30</span> IAM ROLES
+                <span style={{ fontWeight: "bold" }}>{dashboardData.resourceList.allRole}</span> IAM ROLES
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>70%</div>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousRole / dashboardData.resourceList.allRole) * 100)}%</div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div style={{ width: "70%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
                 </div>
@@ -242,84 +239,16 @@ function Home() {
 
             <div style={{ width: "calc(18.4% - 20px)", height: "60px", backgroundColor: "#ffffff", borderRadius: "8px", padding: "10px" }}>
               <div style={{ textAlign: "center", fontSize: "14px", fontWeight: "500", height: "19px" }}>
-                <span style={{ fontWeight: "bold" }}>200</span> IAM POLICIES
+                <span style={{ fontWeight: "bold" }}>{dashboardData.resourceList.allPolicy}</span> IAM POLICIES
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>52%</div>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousPolicy / dashboardData.resourceList.allPolicy) * 100)}%</div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div style={{ width: "52%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
                 </div>
               </div>
             </div>
           </div>
-          {/* {JSON.stringify(
-            {
-              version: "0",
-              id: "ce5645a3-2791-73ef-9db9-73c889bbe0e9",
-              "detail-type": "AWS API Call via CloudTrail",
-              source: "aws.iam",
-              account: "962110289919",
-              time: "2021-10-09T15:32:13Z",
-              region: "us-east-1",
-              resources: [],
-              detail: {
-                eventVersion: "1.08",
-                userIdentity: {
-                  type: "Root",
-                  principalId: "962110289919",
-                  arn: "arn:aws:iam::962110289919:root",
-                  accountId: "962110289919",
-                  accessKeyId: "ASIA6AAR5677ZZ2VY24L",
-                  sessionContext: {
-                    sessionIssuer: {},
-                    webIdFederationData: {},
-                    attributes: {
-                      creationDate: "2021-10-09T11:54:21Z",
-                      mfaAuthenticated: "false",
-                    },
-                  },
-                },
-                eventTime: "2021-10-09T15:32:13Z",
-                eventSource: "iam.amazonaws.com",
-                eventName: "CreatePolicy",
-                awsRegion: "us-east-1",
-                sourceIPAddress: "221.149.235.161",
-                userAgent: "console.amazonaws.com",
-                requestParameters: {
-                  policyName: "trailTest",
-                  policyDocument:
-                    "{\n    'Version': '2012-10-17',\n    'Statement': [\n        {\n            'Sid': 'VisualEditor0',\n            'Effect': 'Allow',\n            'Action': 'cloudtrail:',\n            'Resource': ''\n        }\n    ]\n}",
-                  description: "trail ALL",
-                  tags: [],
-                },
-                responseElements: {
-                  policy: {
-                    policyName: "trailTest",
-                    policyId: "ANPA6AAR5677WZIUJRAYD",
-                    arn: "arn:aws:iam::962110289919:policy/trailTest",
-                    path: "/",
-                    defaultVersionId: "v1",
-                    attachmentCount: 0,
-                    permissionsBoundaryUsageCount: 0,
-                    isAttachable: true,
-                    createDate: "Oct 9, 2021 3:32:13 PM",
-                    updateDate: "Oct 9, 2021 3:32:13 PM",
-                    tags: [],
-                  },
-                },
-                requestID: "aaf7a930-75b8-4ffe-9c9d-ec565090c403",
-                eventID: "c163e542-af25-4cbd-b56a-b2e5d0bb437a",
-                readOnly: false,
-                eventType: "AwsApiCall",
-                managementEvent: true,
-                recipientAccountId: "962110289919",
-                eventCategory: "Management",
-                sessionCredentialFromConsole: true,
-              },
-            },
-            null,
-            4
-          )} */}
         </div>
       </div>
 
@@ -327,14 +256,42 @@ function Home() {
         <div style={{ width: "70%", height: "100%", backgroundColor: "white", borderRadius: "5px" }}>
           <div style={{ color: "#787878", fontSize: "20px", paddingLeft: "10px", paddingTop: "10px" }}>Number of Events</div>
           <div style={{ width: "100%", height: "90%" }}>
-            <MyResponsiveLine data={data} />
+            <MyResponsiveLine
+              data={[
+                {
+                  id: "a",
+                  color: "a",
+                  data: dashboardData.eventGraph.map((v, i) => {
+                    return {
+                      x: v.time,
+                      y: v.count,
+                    };
+                  }),
+                },
+              ]}
+            />
           </div>
         </div>
 
         <div style={{ width: "30%", height: "100%" }}>
-          <MyResponsivePie data={pieData} />
+          <MyResponsivePie
+            data={[
+              {
+                id: "안전한 유저",
+                label: "안전한 유저",
+                value: dashboardData.resourceList.allUser - dashboardData.dangerousUserCount,
+                color: "#61CDBB",
+              },
+              {
+                id: "위험한 로그가 발생한 유저",
+                label: "위험한 로그가 발생한 유저",
+                value: dashboardData.dangerousUserCount,
+                color: "#F47560",
+              },
+            ]}
+          />
           <div style={{ position: "relative", textAlign: "center", bottom: "180px" }}>
-            <span style={{ color: "#e0452b" }}>75</span> / 100
+            <span style={{ color: "#e0452b" }}>{dashboardData.dangerousUserCount}</span> / {dashboardData.resourceList.allUser}
           </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "-65px" }}>
             <div style={{ width: "12px", height: "12px", borderRadius: "16px", backgroundColor: "#F47560", marginRight: "6px" }} />
@@ -351,28 +308,18 @@ function Home() {
             { title: "Status", field: "status" },
             { title: "Result", field: "result" },
           ]}
-          cdata={[
-            {
-              cloudName: "IAMGROUND",
-              lastScanTime: "Sat Nov 20 2021 02:47:47",
-              status: "활성화",
+          cdata={clouds.map((v, i) => {
+            return {
+              cloudName: v.nickName,
+              lastScanTime: v.lastScan,
+              status: v.status === 1 ? "활성화" : "비활성화",
               result: (
                 <Link to="/scan/report/summary">
                   <DescriptionIcon />
                 </Link>
               ),
-            },
-            {
-              cloudName: "DEMO",
-              lastScanTime: "Sat Nov 20 2021 02:47:46",
-              status: "활성화",
-              result: (
-                <Link to="/scan/report/summary">
-                  <DescriptionIcon />
-                </Link>
-              ),
-            },
-          ]}
+            };
+          })}
           title="Clouds"
           type="main"
         />

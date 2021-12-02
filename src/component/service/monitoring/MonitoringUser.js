@@ -8,7 +8,7 @@ import GroupsIcon from "@mui/icons-material/Groups";
 import ModalGroup from "../../module/modal/ModalGroup";
 import axios from "axios";
 
-const MonitoringUser = ({ group, user, poweruser }) => {
+const MonitoringUser = () => {
   // const [users, setUsers] = useState([]);
   // const fetchUsers = async () => {
   //   const response = await axios.get("http://54.180.115.206:8000/mock/monitoring/log");
@@ -21,9 +21,12 @@ const MonitoringUser = ({ group, user, poweruser }) => {
   // }, []);
 
   const users = [
-    { userArn: "userArn1", warningStatusInfo: "15", warningEventCount: "11" },
-    { userArn: "userArn2", warningStatusInfo: "0", warningEventCount: "23" },
-    { userArn: "userArn3", warningStatusInfo: "0", warningEventCount: "123" },
+    { userName: "User1", userArn: "userArn1", warningStatusInfo: "15", warningEventCount: "11" },
+    { userName: "User2", userArn: "userArn2", warningStatusInfo: "0", warningEventCount: "23" },
+    { userName: "User3", userArn: "userArn3", warningStatusInfo: "0", warningEventCount: "123" },
+    { userName: "User4", userArn: "userArn4", warningStatusInfo: "15", warningEventCount: "10" },
+    { userName: "User5", userArn: "userArn5", warningStatusInfo: "0", warningEventCount: "27" },
+    { userName: "User6", userArn: "userArn6", warningStatusInfo: "0", warningEventCount: "50" },
   ];
 
   const [bookmarks, setBookmarks] = useState([]);
@@ -43,13 +46,21 @@ const MonitoringUser = ({ group, user, poweruser }) => {
     setmodalOpen(true);
   };
 
+  const CountLogs = (list) => {
+    let count = 0;
+    for (var i = 0; i < list.length; i++) {
+      count = count + Number(list[i].warningEventCount);
+    }
+    return count;
+  };
+
   return (
     <>
       <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px", height: "35px" }}>Monitoring</h1>
       <Div>
         <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Groups</div>
         <div style={{ display: "flex", fontWeight: "bold", alignItems: "center", justifyContent: "space-evenly", padding: "10px" }}>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}>
+          {/* <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}>
             <button style={{ border: "none" }}>
               <div
                 style={{
@@ -69,18 +80,18 @@ const MonitoringUser = ({ group, user, poweruser }) => {
                   left: "160px",
                 }}
               >
-                177
+                {CountLogs(users)}
               </div>
               <GroupsIcon style={{ marginTop: "-11px", fontSize: "150px", color: "#3B434D" }} />
             </button>
             <div style={{ marginTop: "-30px" }}>All</div>
-          </div>
+          </div> */}
 
           {/* **************************Groups************************** */}
           {bookmarks.map((group, index) => (
             <SideSpan key={group.name}>
               <Link
-                to={`/monitoring/user/log?bookmark_id=${group.id}`}
+                to={`/monitoring/user/log?bookmark_id=${group.name}`}
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
               >
                 <div
@@ -101,7 +112,7 @@ const MonitoringUser = ({ group, user, poweruser }) => {
                     left: "60px",
                   }}
                 >
-                  {Math.floor(Math.random() * 60)}
+                  {CountLogs(users.filter((user) => group.members.includes(user.userArn)))}
                 </div>
                 <PeopleAltIcon style={{ fontSize: "120px", color: "#3B434D" }} />
                 <div style={{ marginTop: "-10px" }}>{group.name}</div>
@@ -125,9 +136,9 @@ const MonitoringUser = ({ group, user, poweruser }) => {
             {users
               .filter((user) => user.warningStatusInfo !== "0")
               .map((poweruser, index) => (
-                <SideSpan key={poweruser.userArn}>
+                <SideSpan key={poweruser.userName}>
                   <Link
-                    to={`/monitoring/user/log?iam_user_arn=${poweruser.userArn}`}
+                    to={`/monitoring/user/log?iam_user_arn=${poweruser.userName}`}
                     style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
                   >
                     <div
@@ -151,7 +162,7 @@ const MonitoringUser = ({ group, user, poweruser }) => {
                       {poweruser.warningEventCount}
                     </div>
                     <AccountCircleIcon style={{ fontSize: "120px", color: "#F32668" }} />
-                    <div style={{ marginTop: "-10px" }}>{poweruser.userArn}</div>
+                    <div style={{ marginTop: "-10px" }}>{poweruser.userName}</div>
                   </Link>
                 </SideSpan>
               ))}
@@ -164,9 +175,9 @@ const MonitoringUser = ({ group, user, poweruser }) => {
             {users
               .filter((user) => user.warningStatusInfo === "0")
               .map((user, index) => (
-                <SideSpan key={user.userArn}>
+                <SideSpan key={user.userName}>
                   <Link
-                    to={`/monitoring/user/log?iam_user_arn=${user.userArn}`}
+                    to={`/monitoring/user/log?iam_user_arn=${user.userName}`}
                     style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
                   >
                     <div
@@ -190,7 +201,7 @@ const MonitoringUser = ({ group, user, poweruser }) => {
                       {user.warningEventCount}
                     </div>
                     <AccountCircleIcon style={{ fontSize: "120px", color: "#3B434D" }} />
-                    <div style={{ marginTop: "-10px" }}>{user.userArn}</div>
+                    <div style={{ marginTop: "-10px" }}>{user.userName}</div>
                   </Link>
                 </SideSpan>
               ))}
