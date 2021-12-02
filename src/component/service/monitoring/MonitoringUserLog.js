@@ -1,139 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import qs from "qs";
-import { Div, UserName } from "../style/styled-compo";
+import { Div } from "../style/styled-compo";
 import { Link, useLocation } from "react-router-dom";
 import { Personbutton, Groupbutton } from "../style/Icons";
 import Button from "@mui/material/Button";
 import TableMaterial from "../../module/TableMaterial";
+import axios from "axios";
 
-const MonitoringUserLog = ({ group, user, poweruser }) => {
+const MonitoringUserLog = () => {
   const location = useLocation();
   const query = qs.parse(location.search, {
     ignoreQueryPrefix: true,
   });
-  const decideWho = query.userName.substring(0, 4);
-  const data = [
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-  ];
+  const decideWho = () => {
+    if (query.iam_user_arn) return query.iam_user_arn;
+    else return query.bookmark_id;
+  };
+
+  const [logs, setLogs] = useState([]);
+  const fetchLogs = async () => {
+    const response =
+      decideWho().substring(0, 4) === "User"
+        ? await axios.get(`http://54.180.115.206:8000/mock/monitoring/log?iam_user_arn=${decideWho()}`)
+        : await axios.get(`http://54.180.115.206:8000/mock/monitoring/log?bookmark_id=${decideWho()}`);
+    setLogs(response.data.resourceLogs);
+    console.log("response", response);
+    console.log("logs", logs);
+  };
+  useEffect(() => {
+    fetchLogs();
+  }, []);
 
   return (
     <>
@@ -154,24 +50,35 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
           alignItems: "center",
         }}
       >
-        {decideWho === "User" ? (
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Personbutton />
-            <div style={{ fontSize: "24px" }}>{query.userName}</div>
-          </div>
+        {decideWho().substring(0, 4) === "User" ? (
+          <>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Personbutton />
+              <div style={{ fontSize: "24px", fontWeight: "bolder" }}>{query.iam_user_arn}</div>
+            </div>
+            <div style={{ paddingRight: "10px" }}>
+              <Link to="/visualization" style={{ textDecoration: "none" }}>
+                <Button variant="contained" style={{ backgroundColor: "#D6D6D6", color: "black" }}>
+                  {query.iam_user_arn} 정보 보기
+                </Button>
+              </Link>
+            </div>
+          </>
         ) : (
-          <div>
-            <Groupbutton />
-            <UserName>{query.userName}</UserName>
-          </div>
+          <>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <Groupbutton />
+              <div style={{ fontSize: "24px", fontWeight: "bolder" }}>{query.bookmark_id}</div>
+            </div>
+            <div style={{ paddingRight: "10px" }}>
+              <Link to="/visualization" style={{ textDecoration: "none" }}>
+                <Button variant="contained" style={{ backgroundColor: "#D6D6D6", color: "black" }}>
+                  {query.bookmark_id} 정보 보기
+                </Button>
+              </Link>
+            </div>
+          </>
         )}
-        <div style={{ paddingRight: "10px" }}>
-          <Link to="/visualization" style={{ textDecoration: "none" }}>
-            <Button variant="contained" style={{ backgroundColor: "#D6D6D6", color: "black" }}>
-              {query.userName} 정보 보기
-            </Button>
-          </Link>
-        </div>
       </div>
       <Div>
         <div style={{ width: "calc(100%-30px)" }}>
@@ -185,7 +92,18 @@ const MonitoringUserLog = ({ group, user, poweruser }) => {
               { title: "Reason", field: "reason" },
               { title: "Ip", field: "ip" },
             ]}
-            cdata={data}
+            cdata={logs.map((v, i) => {
+              return {
+                time: v.creation,
+                user: v.identityName,
+                resource: v.resourseName,
+                activity: v.apiName,
+                result: v.result === 1 ? "Success" : "Fail",
+                reason: v.reasonCategory,
+                ip: v.accessIp,
+                caution: v.reasonCategory ? true : false,
+              };
+            })}
             title="User Log"
             type="monitoring"
           />
