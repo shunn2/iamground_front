@@ -175,17 +175,19 @@ function Home() {
     <>
       <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px" }}>Dashboard</h1>
       <div style={{ width: "calc(100% - 30px)", height: "145px", backgroundColor: "#dedede", padding: "15px", marginBottom: "30px" }}>
-        <div style={{ float: "left", color: "#787878", fontSize: "18px" }}>Percentage of dangerous IAM resources</div>
-        <div style={{ float: "right", display: "flex", justifyContent: "flex-end" }}>
-          <div style={{ width: "120px", backgroundColor: "#ffffff", borderRadius: "4px" }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Filter</InputLabel>
-              <Select labelId="demo-simple-select-label" id="demo-simple-select" value={age} label="Age" onChange={handleChange}>
-                <MenuItem value={10}>ALL</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
-            </FormControl>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+          <div style={{ color: "#787878", fontSize: "20px" }}>Percentage of Dangerous IAM Resources</div>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <div style={{ width: "120px", backgroundColor: "#ffffff", borderRadius: "4px" }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Filter</InputLabel>
+                <Select labelId="demo-simple-select-label" id="demo-simple-select" value={age} label="Age" onChange={handleChange}>
+                  <MenuItem value={10}>ALL</MenuItem>
+                  <MenuItem value={20}>Twenty</MenuItem>
+                  <MenuItem value={30}>Thirty</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
           </div>
         </div>
         <div>
@@ -323,7 +325,10 @@ function Home() {
 
       <div style={{ width: "calc(100% - 30px)", height: "300px", backgroundColor: "#dedede", padding: "15px", display: "flex", marginBottom: "30px" }}>
         <div style={{ width: "70%", height: "100%", backgroundColor: "white", borderRadius: "5px" }}>
-          <MyResponsiveLine data={data} />
+          <div style={{ color: "#787878", fontSize: "20px", paddingLeft: "10px", paddingTop: "10px" }}>Number of Events</div>
+          <div style={{ width: "100%", height: "90%" }}>
+            <MyResponsiveLine data={data} />
+          </div>
         </div>
 
         <div style={{ width: "30%", height: "100%" }}>

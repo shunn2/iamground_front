@@ -135,7 +135,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
             showTextRowsSelected: false,
             selectionProps: (rowData) => ({ color: "primary" }),
             columnsButton: true,
-            rowStyle: (data, index) => (data.cau === true ? { background: "Pink" } : null),
+            rowStyle: (data, index) => (data.caution === true ? { background: "Pink" } : null),
             headerStyle: { background: "#d6d6d6", fontSize: "16px", fontWeight: "bold" },
             maxBodyHeight: type === "monitoring" || type === "scanningper" || type === "scanningconfig" || type === "notification" ? "650px" : type === "main" ? "150px" : "300px",
             exportButton: type === "monitoring" || type === "scanningper" || type === "scanningconfig" || type === "notification" ? true : false,
