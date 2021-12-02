@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { Div } from "../style/styled-compo";
 import ReactFlow, { ReactFlowProvider, isNode } from "react-flow-renderer";
-import { VisGroup, VisUser, VisKey } from "../style/Icons";
+import { VisGroup, VisUser, VisKey, VisRoot } from "../style/Icons";
 import Switch from "@mui/material/Switch";
 import qs from "qs";
 import ModalVisual from "../../module/modal/ModalVisual";
@@ -12,6 +12,9 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import CircleIcon from "@mui/icons-material/Circle";
 import styled from "styled-components";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import _ from "lodash";
 
 const VisualizationNav = styled.nav`
   height: 30%;
@@ -19,17 +22,66 @@ const VisualizationNav = styled.nav`
   float: right;
   position: absoulute;
 `;
+function ElementHover({ icon, element }) {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handlePopoverOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+
+  return (
+    <div>
+      <Typography aria-owns={open ? "mouse-over-popover" : undefined} aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+        <div>
+          {icon}
+          {element.source}
+        </div>
+      </Typography>
+      <Popover
+        id="mouse-over-popover"
+        sx={{
+          pointerEvents: "none",
+        }}
+        open={open}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        onClose={handlePopoverClose}
+        disableRestoreFocus
+      >
+        <Typography sx={{ p: 1 }}>
+          <div>
+            <div>user: {element.source}</div>
+            <div>name: {element.name}</div>
+            <div>access key: {element.target}</div>
+            <div>email: {element.email}</div>
+            <div>phone number: {element.phone}</div>
+            <div>
+              scanning result:{element.warningStatusInfo === "0001" && <span>잘못된 구성</span>}
+              {element.warningStatusInfo === "0010" && <span>권한 분리 추천</span>}
+              {element.warningStatusInfo === "0011" && <span>잘못된 구성 & 권한 분리 추천</span>}
+              {element.warningStatusInfo === "0000" && <span>해당 없음</span>}
+            </div>
+          </div>
+        </Typography>
+      </Popover>
+    </div>
+  );
+}
 
 const Visualization = () => {
-  const location = useLocation();
-  const query = qs.parse(location.search, {
-    ignoreQueryPrefix: true,
-  });
-  const labelStyle = {
-    position: "relative",
-    top: "10px",
-    left: "1000px",
-  };
   // const [visualData, setVisualData] = useState(null);
   // const fetchVisualData = async () => {
   //   const response = await axios.get("http://54.180.115.206:8000/mock/visualization");
@@ -51,6 +103,14 @@ const Visualization = () => {
         warningStatusInfo: "0001", //잘못된 구성 <<< 변환해서 String으로 주는 걸로
       },
       {
+        source: "user1",
+        target: "accesskey6",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0001", //잘못된 구성 <<< 변환해서 String으로 주는 걸로
+      },
+      {
         source: "user2",
         target: "accesskey5",
         name: "suheon",
@@ -61,6 +121,14 @@ const Visualization = () => {
       {
         source: "user3",
         target: "accesskey2",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0011", //둘 다
+      },
+      {
+        source: "user3",
+        target: "accesskey15",
         name: "suheon",
         email: "asdf@naver.com",
         phone: "010-1234-8756",
@@ -103,6 +171,10 @@ const Visualization = () => {
         target: "user2",
       },
       {
+        source: "awsGroup3",
+        target: "user4",
+      },
+      {
         source: "",
         target: "user5",
       },
@@ -115,6 +187,10 @@ const Visualization = () => {
       {
         source: "root1",
         target: "awsGroup2",
+      },
+      {
+        source: "root1",
+        target: "awsGroup3",
       },
     ],
   };
@@ -146,11 +222,18 @@ const Visualization = () => {
       type: "default",
       style: {
         background: "#e0e0e0",
-        width: 50,
+        width: 70,
         fontWeight: "bold",
         fontSize: "1.2em",
       },
-      data: { label: <div>{v.source}</div> },
+      data: {
+        label: (
+          <div>
+            <VisRoot />
+            {v.source}
+          </div>
+        ),
+      },
       position: { x: 700, y: 50 },
     };
   });
@@ -158,7 +241,7 @@ const Visualization = () => {
     {
       id: "Nogroup",
       type: "default",
-      style: { background: "transparent", width: 30 },
+      style: { border: "1px solid black", width: 50 },
       data: { label: "No group" },
       position: { x: 1200, y: 200 },
     },
@@ -171,24 +254,23 @@ const Visualization = () => {
       style:
         scanChecked === true
           ? v.warningStatusInfo === "0001"
-            ? { border: "3px solid #FA95EC", width: 30 }
+            ? { border: "3px solid #FA95EC", width: 50 }
             : v.warningStatusInfo === "0010"
-            ? { border: "3px solid #FFFD91", width: 30 }
+            ? { border: "3px solid #FFFD91", width: 50 }
             : v.warningStatusInfo === "0011"
-            ? { border: "3px solid #F4ABA1", width: 30 }
-            : { background: "transparent", width: 30 }
-          : { background: "transparent", width: 30 },
+            ? { border: "3px solid #F4ABA1", width: 50 }
+            : { border: "1px solid #3B434D", width: 50 }
+          : { border: "1px solid #3B434D", width: 50 },
       data: {
         label: (
           <div>
-            <VisUser />
-            {v.source}
+            <ElementHover icon={<VisUser />} element={v} />
           </div>
         ),
       },
       position: {
-        x: (1500 / (data.user.length + 1)) * (i + 1),
-        y: 400 + Math.random() * 30,
+        x: (1250 / (data.user.length + 1)) * (i + 1),
+        y: 400,
       },
     };
   });
@@ -199,7 +281,7 @@ const Visualization = () => {
         return {
           id: v.source,
           type: "default",
-          style: { background: "transparent", border: "3px solid #91B3E1", width: 30 },
+          style: { border: "3px solid #91B3E1", width: 50 },
           data: {
             label: (
               <div>
@@ -210,7 +292,7 @@ const Visualization = () => {
           },
           position: {
             x: (1500 / (data.awsGroup.length + 1)) * (i + 1),
-            y: 200 + Math.random() * 20,
+            y: 200,
           },
         };
       } else return [];
@@ -223,7 +305,7 @@ const Visualization = () => {
       return {
         id: v.source,
         type: "default",
-        style: { background: "transparent", border: "3px solid #94B693", width: 30 },
+        style: { background: "transparent", border: "3px solid #94B693", width: 50 },
         data: {
           label: (
             <div>
@@ -234,7 +316,7 @@ const Visualization = () => {
         },
         position: {
           x: (1300 / (data.orgGroup.length + 1)) * (i + 1),
-          y: 100 + Math.random() * 20,
+          y: 100,
         },
       };
     } else {
@@ -246,7 +328,7 @@ const Visualization = () => {
     return {
       id: v.target,
       type: "default",
-      style: { background: "transparent", width: 30 },
+      style: { width: 50 },
       data: {
         label: (
           <div>
@@ -256,7 +338,7 @@ const Visualization = () => {
         ),
       },
       position: {
-        x: (1500 / (data.user.length + 1)) * (i + 1) + Math.random() * 50 * (-1 ^ i % 2),
+        x: (1250 / (data.user.length + 1)) * (i + 1),
         y: 570,
       },
     };
@@ -305,16 +387,17 @@ const Visualization = () => {
   });
   const elementConnect = [...rootToGroup, ...orgGroupToUser, ...awsGroupToUser, ...userToKey, ...noGroupToUser];
   const elements = [...elementRoot, ...elementOrgGroup, ...elementAwsGroup, ...elementUser, ...elementKey, ...elementNogroup, ...elementConnect];
+  const uniqueElements = _.uniqBy(elements, "id");
   const [tab, setTab] = useState(0);
   const handleTabClick = (event, tabNumber) => {
     setTab(tabNumber);
   };
 
-  const Root1 = () => <ReactFlow elements={elements} onElementClick={onElementClick} />;
+  const Root1 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
 
-  const Root2 = () => <ReactFlow elements={elements} onElementClick={onElementClick} />;
+  const Root2 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
 
-  const Root3 = () => <ReactFlow elements={elements} onElementClick={onElementClick} />;
+  const Root3 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
@@ -345,29 +428,29 @@ const Visualization = () => {
         </Box>
         <div style={{ display: "flex", flexDirection: "row-reverse", height: "100%" }}>
           <VisualizationNav>
-            <div>
+            <div style={{ paddingTop: "20px" }}>
               <div>
                 <Switch checked={awsChecked} onChange={awsHandleChange} inputProps={{ "aria-label": "controlled" }} color="primary" />
-                <strong>AWS 그룹</strong>
+                <strong style={{ fontSize: "20px" }}>AWS 그룹</strong>
               </div>
               <div>
                 <Switch checked={orgChecked} onChange={orgHandleChange} inputProps={{ "aria-label": "controlled" }} color="success" />
-                <strong>권한 분리 그룹</strong>
+                <strong style={{ fontSize: "20px" }}>권한 분리 그룹</strong>
               </div>
               <div>
                 <Switch checked={scanChecked} onChange={scanHandleChange} inputProps={{ "aria-label": "controlled" }} color="error" />
-                <strong>스캐닝 결과 반영</strong>
+                <strong style={{ fontSize: "20px" }}>스캐닝 결과 반영</strong>
               </div>
             </div>
-            <div>
+            <div style={{ paddingLeft: "65px" }}>
               <div>
-                <CircleIcon style={{ color: "#FA95EC" }} /> <span style={{ verticalAlign: "super" }}>잘못된 구성</span>
+                <CircleIcon style={{ color: "#FA95EC" }} /> <strong style={{ verticalAlign: "super" }}>잘못된 구성</strong>
               </div>
               <div>
-                <CircleIcon style={{ color: "#F4ABA1" }} /> <span style={{ verticalAlign: "super" }}>권한 분리</span>
+                <CircleIcon style={{ color: "#F4ABA1" }} /> <strong style={{ verticalAlign: "super" }}>권한 분리</strong>
               </div>
               <div>
-                <CircleIcon style={{ color: "#FFFD91" }} /> <span style={{ verticalAlign: "super" }}>둘 다 해당</span>
+                <CircleIcon style={{ color: "#FFFD91" }} /> <strong style={{ verticalAlign: "super" }}>둘 다 해당</strong>
               </div>
             </div>
           </VisualizationNav>

@@ -6,6 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
+import FilterDramaIcon from "@mui/icons-material/FilterDrama";
 
 export const Homeicon = () => {
   return <HomeIcon style={{ marginRight: "6px", fontSize: "24px", color: "#d6d6d6" }} />;
@@ -29,14 +30,17 @@ export const PowerPbutton = () => {
   return <AccountCircleOutlinedIcon sx={{ fontSize: 80 }} style={{ marginRight: "6px", fontSize: "80px", color: "#FA255D" }} />;
 };
 export const VisGroup = () => {
-  return <PeopleOutlineIcon style={{ color: "#2C2E31", fontSize: "26px" }} />;
+  return <PeopleOutlineIcon style={{ color: "#2C2E31", fontSize: "40px" }} />;
 };
 export const VisUser = () => {
-  return <AccountCircleOutlinedIcon style={{ color: "#2C2E31" }} />;
+  return <AccountCircleOutlinedIcon style={{ color: "#2C2E31", fontSize: "35px" }} />;
 };
 export const VisPUser = () => {
   return <AccountCircleOutlinedIcon style={{ color: "#2C2E31" }} />;
 };
 export const VisKey = () => {
-  return <VpnKeyOutlinedIcon style={{ color: "#2C2E31" }} />;
+  return <VpnKeyOutlinedIcon style={{ color: "#2C2E31", fontSize: "30px" }} />;
+};
+export const VisRoot = () => {
+  return <FilterDramaIcon style={{ color: "#2C2E31", fontSize: "40px" }} />;
 };
