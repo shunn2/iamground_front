@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Switch from "@mui/material/Switch";
 import { Div } from "../style/styled-compo";
 import TableMaterial from "../../module/TableMaterial";
-
-const labelStyle = {
-  position: "relative",
-  top: "10px",
-  left: "1000px",
-};
+import axios from "axios";
 
 function Monitoring() {
+  const [logs, setLogs] = useState([]);
+  const fetchLogs = async () => {
+    const response = await axios.get("http://54.180.115.206:8000/mock/monitoring/iam");
+    setLogs(response.data.iamLogs);
+    console.log("response", response);
+    console.log("logs", logs);
+  };
+  useEffect(() => {
+    fetchLogs();
+  }, []);
+
   const [checked, setChecked] = useState(true);
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -24,106 +30,6 @@ function Monitoring() {
       reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
       ip: "112.34.212.120",
       cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: true,
-    },
-    {
-      time: "2021-11-25 14:47:10",
-      user: "User5",
-      resource: "emptyUser",
-      activity: "AttachPolicy",
-      result: "Success",
-      reason: "IAM GROUP에게 연결된 서비스, 권한, 리소스 중 90일 이내 사용하지 않은 것이 존재합니다.",
-      ip: "112.34.212.120",
-      cau: false,
     },
     {
       time: "2021-11-25 14:47:10",
@@ -166,7 +72,6 @@ function Monitoring() {
           </div>
         </form>
         <div style={{ width: "calc(100%-30px)", paddingTop: "33px" }}>
-          {/* {checked && ( */}
           <TableMaterial
             columns={[
               { title: "Time", field: "time" },
@@ -177,11 +82,34 @@ function Monitoring() {
               { title: "Reason", field: "reason" },
               { title: "Ip", field: "ip" },
             ]}
-            cdata={ReturnData(data)}
+            cdata={logs.map((v, i) => {
+              if (checked) {
+                if (v.reasonCategory)
+                  return {
+                    time: v.creation,
+                    user: v.identityName,
+                    resource: v.resourseName,
+                    activity: v.apiName,
+                    result: v.result === 1 ? "Success" : "Fail",
+                    reason: v.reasonCategory,
+                    ip: v.accessIp,
+                    caution: v.reasonCategory ? true : false,
+                  };
+              } else
+                return {
+                  time: v.creation,
+                  user: v.identityName,
+                  resource: v.resourseName,
+                  activity: v.apiName,
+                  result: v.result === 1 ? "Success" : "Fail",
+                  reason: v.reasonCategory,
+                  ip: v.accessIp,
+                  caution: v.reasonCategory ? true : false,
+                };
+            })}
             title="Monitoring Log"
             type="monitoring"
           />
-          {/* )} */}
         </div>
       </Div>
     </>

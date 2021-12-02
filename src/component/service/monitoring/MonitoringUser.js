@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Div, SideSpan } from "../style/styled-compo";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -6,9 +6,37 @@ import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import GroupsIcon from "@mui/icons-material/Groups";
 import ModalGroup from "../../module/modal/ModalGroup";
-import { useState } from "react";
+import axios from "axios";
 
 const MonitoringUser = ({ group, user, poweruser }) => {
+  // const [users, setUsers] = useState([]);
+  // const fetchUsers = async () => {
+  //   const response = await axios.get("http://54.180.115.206:8000/mock/monitoring/log");
+  //   setUsers(response.data.users);
+  //   console.log("response", response.data.users);
+  //   console.log("users", users);
+  // };
+  // useEffect(() => {
+  //   fetchUsers();
+  // }, []);
+
+  const users = [
+    { userArn: "userArn1", warningStatusInfo: "15", warningEventCount: "11" },
+    { userArn: "userArn2", warningStatusInfo: "0", warningEventCount: "23" },
+    { userArn: "userArn3", warningStatusInfo: "0", warningEventCount: "123" },
+  ];
+
+  const [bookmarks, setBookmarks] = useState([]);
+  const fetchBookmarks = async () => {
+    const response = await axios.get("http://54.180.115.206:8000/mock/monitoring/log/bookmark");
+    setBookmarks(response.data.bookmarkList);
+    console.log("response", response.data.bookmarkList);
+    console.log("bookmarks", bookmarks);
+  };
+  useEffect(() => {
+    fetchBookmarks();
+  }, []);
+
   const [modalOpen, setmodalOpen] = useState(false);
 
   const openModal = () => {
@@ -49,9 +77,12 @@ const MonitoringUser = ({ group, user, poweruser }) => {
           </div>
 
           {/* **************************Groups************************** */}
-          {group.map((group, index) => (
-            <SideSpan key={`group-${index}`}>
-              <Link to={`/monitoring/user/log?userName=${group}`} style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}>
+          {bookmarks.map((group, index) => (
+            <SideSpan key={group.name}>
+              <Link
+                to={`/monitoring/user/log?bookmark_id=${group.id}`}
+                style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
+              >
                 <div
                   style={{
                     color: "white",
@@ -73,7 +104,7 @@ const MonitoringUser = ({ group, user, poweruser }) => {
                   {Math.floor(Math.random() * 60)}
                 </div>
                 <PeopleAltIcon style={{ fontSize: "120px", color: "#3B434D" }} />
-                <div style={{ marginTop: "-10px" }}>{group}</div>
+                <div style={{ marginTop: "-10px" }}>{group.name}</div>
               </Link>
             </SideSpan>
           ))}
@@ -91,74 +122,78 @@ const MonitoringUser = ({ group, user, poweruser }) => {
         <div>
           <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Power Users</div>
           <div style={{ display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
-            {poweruser.map((poweruser, index) => (
-              <SideSpan key={`poweruser-${index}`}>
-                <Link
-                  to={`/monitoring/user/log?userName=${poweruser}`}
-                  style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
-                >
-                  <div
-                    style={{
-                      color: "white",
-                      border: "2px solid red",
-                      borderRadius: "20px",
-                      width: "30px",
-                      height: "30px",
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontWeight: "bold",
-                      backgroundColor: "red",
-                      position: "relative",
-                      top: "20px",
-                      left: "60px",
-                    }}
+            {users
+              .filter((user) => user.warningStatusInfo !== "0")
+              .map((poweruser, index) => (
+                <SideSpan key={poweruser.userArn}>
+                  <Link
+                    to={`/monitoring/user/log?iam_user_arn=${poweruser.userArn}`}
+                    style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
                   >
-                    {Math.floor(Math.random() * 60)}
-                  </div>
-                  <AccountCircleIcon style={{ fontSize: "120px", color: "#F32668" }} />
-                  <div style={{ marginTop: "-10px" }}>{poweruser}</div>
-                </Link>
-              </SideSpan>
-            ))}
+                    <div
+                      style={{
+                        color: "white",
+                        border: "2px solid red",
+                        borderRadius: "20px",
+                        width: "30px",
+                        height: "30px",
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: "bold",
+                        backgroundColor: "red",
+                        position: "relative",
+                        top: "20px",
+                        left: "60px",
+                      }}
+                    >
+                      {poweruser.warningEventCount}
+                    </div>
+                    <AccountCircleIcon style={{ fontSize: "120px", color: "#F32668" }} />
+                    <div style={{ marginTop: "-10px" }}>{poweruser.userArn}</div>
+                  </Link>
+                </SideSpan>
+              ))}
           </div>
         </div>
         {/* **************************Users************************** */}
         <div>
           <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Users</div>
           <div style={{ display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
-            {user.map((user, index) => (
-              <SideSpan key={`user-${index}`}>
-                <Link
-                  to={`/monitoring/user/log?userName=${user}`}
-                  style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
-                >
-                  <div
-                    style={{
-                      color: "white",
-                      border: "2px solid red",
-                      borderRadius: "20px",
-                      width: "30px",
-                      height: "30px",
-                      fontSize: "16px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontWeight: "bold",
-                      backgroundColor: "red",
-                      position: "relative",
-                      top: "20px",
-                      left: "60px",
-                    }}
+            {users
+              .filter((user) => user.warningStatusInfo === "0")
+              .map((user, index) => (
+                <SideSpan key={user.userArn}>
+                  <Link
+                    to={`/monitoring/user/log?iam_user_arn=${user.userArn}`}
+                    style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
                   >
-                    {Math.floor(Math.random() * 60)}
-                  </div>
-                  <AccountCircleIcon style={{ fontSize: "120px", color: "#3B434D" }} />
-                  <div style={{ marginTop: "-10px" }}>{user}</div>
-                </Link>
-              </SideSpan>
-            ))}
+                    <div
+                      style={{
+                        color: "white",
+                        border: "2px solid red",
+                        borderRadius: "20px",
+                        width: "30px",
+                        height: "30px",
+                        fontSize: "16px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: "bold",
+                        backgroundColor: "red",
+                        position: "relative",
+                        top: "20px",
+                        left: "60px",
+                      }}
+                    >
+                      {user.warningEventCount}
+                    </div>
+                    <AccountCircleIcon style={{ fontSize: "120px", color: "#3B434D" }} />
+                    <div style={{ marginTop: "-10px" }}>{user.userArn}</div>
+                  </Link>
+                </SideSpan>
+              ))}
           </div>
         </div>
       </Div>
