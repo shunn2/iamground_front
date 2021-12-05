@@ -157,8 +157,56 @@ const initialElements = [
 const edgeTypes = {
   custom: CustomEdge,
 };
-const HorizontalFlow = () => {
+const HorizontalFlow = ({ resource, subject }) => {
+  const abcd = {
+    group: [
+      {
+        source: "arn:user/kim1234",
+        target: "arn:group/group1",
+        lineColor: 1,
+      },
+    ],
+    policy: [
+      {
+        source: "arn:group/group1",
+        target: "arn:policy/policy1",
+        lineColor: 1,
+      },
+      {
+        source: "arn:group/group1",
+        target: "arn:policy/policy2",
+        lineColor: 3,
+      },
+      {
+        source: "arn:group/group1",
+        target: "arn:policy/policy3",
+        lineColor: 2,
+      },
+    ],
+  };
+  // const Elements1 = abcd.group.map((v, i) => {
+  //   return {
+  //     id: v.source,
+  //     sourcePosition: "right",
+  //     targetPosition: "left",
+  //     data: { label: <span style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.source}</span> },
+  //     position: { x: 690, y: 490 },
+  //     style: { width: 120, height: 30 },
+  //   };
+  // });
+  // const Elements2 = abcd.policy.map((v, i) => {
+  //   return {
+  //     id: v.source,
+  //     sourcePosition: "top",
+  //     targetPosition: "bottom",
+  //     data: { label: <span style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.source}</span> },
+  //     position: { x: 690 + i * 100, y: 490 + i * 100 },
+  //     style: { width: 120, height: 30 },
+  //   };
+  // });
+  // const abcdElements = [...Elements1, ...Elements2];
   const [elements, setElements] = useState(initialElements);
+  // const [elements, setElements] = useState(abcdElements);
   const onElementsRemove = (elementsToRemove) => setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params) => setElements((els) => addEdge(params, els));
   const changeClassName = () => {

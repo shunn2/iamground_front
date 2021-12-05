@@ -76,6 +76,7 @@ function Monitoring() {
             })}
             title="Monitoring Log"
             type="monitoring"
+            Id={logs.logId}
           />
         </div>
       </Div>

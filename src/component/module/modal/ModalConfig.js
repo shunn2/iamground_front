@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HorizontalFlow from "../../service/visualization/HorizontalFlow";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Clear } from "@mui/icons-material";
+import axios from "axios";
 
-const ModalVisual = ({ modalOpen, setmodalOpen }) => {
-  const index = ["클라우드 이름", "리소스 이름", "권한 분리 그룹", "생성 시간", "마지막 사용 시간", "MFA", "Access Key", "올바른 구성 스캔 결과", "권한 분리 스캔 결과"];
+const ModalConfig = ({ modalOpen, setmodalOpen, Id }) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -18,7 +18,14 @@ const ModalVisual = ({ modalOpen, setmodalOpen }) => {
     boxShadow: 24,
     p: 4,
   };
-
+  const [infoData, setInfoData] = useState(null);
+  const fetchData = async () => {
+    const response = await axios.get(`http://54.180.115.206:8000/mock/scan/report?info_id=${Id}`);
+    setInfoData(response.data.infoDetail);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
   const data = () => {
     <>
       <div style={{ display: "flex" }}>
@@ -54,4 +61,4 @@ const ModalVisual = ({ modalOpen, setmodalOpen }) => {
   );
 };
 
-export default ModalVisual;
+export default ModalConfig;

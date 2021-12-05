@@ -11,6 +11,11 @@ function ScanningPer({ report_id }) {
   useEffect(() => {
     fetchData();
   }, []);
+  const idArray = tableData.map((v, i) => {
+    return {
+      id: v.infoId,
+    };
+  });
   return (
     <>
       <div style={{ paddingTop: "50px" }}>
@@ -35,6 +40,7 @@ function ScanningPer({ report_id }) {
             })}
           title="Permissions"
           type="scanningper"
+          Id={idArray}
         />
       </div>
     </>

@@ -39,7 +39,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const TableMaterial = ({ columns, cdata, title, type }) => {
+const TableMaterial = ({ columns, cdata, title, type, Id }) => {
   const [modalOpen, setmodalOpen] = useState(false);
 
   const openModal = (event, data, index) => {
@@ -145,9 +145,9 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
           }}
         />
       )}
-      {modalOpen && type === "scanningper" && <ModalPer type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}\
-      {modalOpen && type === "scanningconfig" && <ModalConfig type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
-      {modalOpen && type === "monitoring" && <ModalInfo type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {modalOpen && type === "scanningper" && <ModalPer type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={Id} />}\
+      {modalOpen && type === "scanningconfig" && <ModalConfig type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={Id} />}
+      {modalOpen && type === "monitoring" && <ModalInfo type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} logId={Id} />}
     </div>
   );
 };

@@ -11,7 +11,11 @@ function ScanningConfig({ report_id }) {
   useEffect(() => {
     fetchData();
   }, []);
-
+  const idArray = tableData.map((v, i) => {
+    return {
+      id: v.infoId,
+    };
+  });
   return (
     <>
       <div style={{ paddingTop: "50px" }}>
@@ -36,6 +40,7 @@ function ScanningConfig({ report_id }) {
             })}
           title="Misconfigurations"
           type="scanningconfig"
+          Id={idArray.infoId}
         />
       </div>
     </>

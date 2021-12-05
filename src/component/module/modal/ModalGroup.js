@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Clear } from "@mui/icons-material";
 
-const ModalVisual = ({ modalOpen, setmodalOpen }) => {
+const ModalGroup = ({ modalOpen, setmodalOpen }) => {
   const index = ["클라우드 이름", "리소스 이름", "권한 분리 그룹", "생성 시간", "마지막 사용 시간", "MFA", "Access Key", "올바른 구성 스캔 결과", "권한 분리 스캔 결과"];
   const style = {
     position: "absolute",
@@ -54,4 +54,4 @@ const ModalVisual = ({ modalOpen, setmodalOpen }) => {
   );
 };
 
-export default ModalVisual;
+export default ModalGroup;

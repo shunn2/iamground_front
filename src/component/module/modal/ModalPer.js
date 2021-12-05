@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import HorizontalFlow from "../../service/visualization/HorizontalFlow";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Clear } from "@mui/icons-material";
+import axios from "axios";
 
-const ModalVisual = ({ modalOpen, setmodalOpen }) => {
-  const index = ["클라우드 이름", "리소스 이름", "권한 분리 그룹", "생성 시간", "마지막 사용 시간", "MFA", "Access Key", "올바른 구성 스캔 결과", "권한 분리 스캔 결과"];
+const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
   const style = {
     position: "absolute",
     top: "50%",
@@ -18,7 +18,58 @@ const ModalVisual = ({ modalOpen, setmodalOpen }) => {
     boxShadow: 24,
     p: 4,
   };
-
+  // const [infoData, setInfoData] = useState(null);
+  // const fetchData = async () => {
+  //   const response = await axios.get(`http://54.180.115.206:8000/mock/scan/report?info_id=${Id}`);
+  //   setInfoData(response.data.infoDetail);
+  // };
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+  const infoData = {
+    code: 200,
+    infoDetail: {
+      cloudName: "test-cloud",
+      resourseName: "test1",
+      resourseArn: "arn:aws:iam::486211121934:user/test1",
+      reasonCategory: "1.1.1",
+      reasonDetail: "IAM User test1이 255개 서비스에 권한을 가지고 있지만 21개 서비스만 사용했습니다.",
+      recommand: {
+        originPolicy: {
+          Version: "2012-10-17",
+          Statement: [
+            {
+              Sid: "VisualEditor0",
+              Effect: "Allow",
+              Action: "activate:*",
+              Resource: "*",
+            },
+          ],
+        },
+        deleteList: [
+          [
+            {
+              Sid: "VisualEditor0",
+              Effect: "Allow",
+              Action: "activate:*",
+              Resource: "*",
+            },
+          ],
+        ],
+        editPolicy: {
+          Version: "2012-10-17",
+          Statement: [
+            {
+              Sid: "VisualEditor0",
+              Effect: "Allow",
+              Action: "activate:*",
+              Resource: "*",
+            },
+          ],
+        },
+      },
+    },
+  };
   const data = () => {
     <>
       <div style={{ display: "flex" }}>
@@ -37,10 +88,10 @@ const ModalVisual = ({ modalOpen, setmodalOpen }) => {
       <Modal open={modalOpen} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Scanning Per{" "}
+            Scanning permissionList
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Scanning Per{" "}
+            Scanning Per
           </Typography>
           <Clear
             style={{ fontSize: "26px", cursor: "pointer" }}
@@ -54,4 +105,4 @@ const ModalVisual = ({ modalOpen, setmodalOpen }) => {
   );
 };
 
-export default ModalVisual;
+export default ModalPer;
