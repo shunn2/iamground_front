@@ -4,6 +4,7 @@ import { ResponsiveLine } from "@nivo/line";
 import { Link } from "react-router-dom";
 import TableMaterial from "../../module/TableMaterial";
 import axios from "axios";
+import moment from "moment";
 
 function Scanning() {
   const [accounts, setAccounts] = useState([]);
@@ -117,7 +118,7 @@ function Scanning() {
         <br />
         <TableMaterial
           columns={[
-            { title: "Root", field: "root" },
+            { title: "Clouds", field: "clouds" },
             { title: "Last Scanned", field: "last_scanned" },
             { title: "Per", field: "per", align: "center" },
             { title: "Config", field: "config", align: "center" },
@@ -126,8 +127,8 @@ function Scanning() {
           ]}
           cdata={accounts.map((v, i) => {
             return {
-              root: v.name,
-              last_scanned: v.lastScan,
+              clouds: v.name,
+              last_scanned: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
               per: v.permissionCount,
               config: v.configCount,
               scan: <button>스캔 하기</button>,

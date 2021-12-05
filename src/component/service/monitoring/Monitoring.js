@@ -3,6 +3,7 @@ import Switch from "@mui/material/Switch";
 import { Div } from "../style/styled-compo";
 import TableMaterial from "../../module/TableMaterial";
 import axios from "axios";
+import moment from "moment";
 
 function Monitoring() {
   const [logs, setLogs] = useState([]);
@@ -53,7 +54,7 @@ function Monitoring() {
               if (checked) {
                 if (v.reasonCategory)
                   return {
-                    time: v.creation,
+                    time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
                     user: v.identityName,
                     resource: v.resourseName,
                     activity: v.apiName,
@@ -64,7 +65,7 @@ function Monitoring() {
                   };
               } else
                 return {
-                  time: v.creation,
+                  time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
                   user: v.identityName,
                   resource: v.resourseName,
                   activity: v.apiName,

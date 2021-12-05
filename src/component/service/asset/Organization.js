@@ -1,18 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Div } from "../style/styled-compo";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import XLSX from "xlsx";
 import TableMaterial from "../../module/TableMaterial";
+import axios from "axios";
 
 function Organization() {
+  const [organizationData, setOrganizationData] = useState([]);
+  const fetchOrganizationData = async () => {
+    const response = await axios.get("http://54.180.115.206:8000/mock/organization");
+    setOrganizationData(response.data.organization);
+    console.log("responseData", response);
+    console.log("OrganizationData", organizationData);
+  };
+  useEffect(() => {
+    fetchOrganizationData();
+  }, []);
+
   const defaultColumns = [
-    { title: "Permission Group", field: "permission_group" },
-    { title: "Root Account", field: "root_account" },
-    { title: "user arn", field: "user_arn" },
+    { title: "Criteria", field: "criteria" },
+    { title: "Cloud Name", field: "cloudName" },
+    { title: "user arn", field: "userArn" },
     { title: "Name", field: "name" },
     { title: "email", field: "email" },
-    { field: "phone_number", title: "Phone Number" },
+    { title: "Phone Number", field: "phoneNumber" },
   ];
   const defaultData = [
     {
@@ -143,47 +155,29 @@ function Organization() {
         {visible ? csvList() : ""}
 
         <div style={{ width: "calc(100%-30px)", padding: "40px" }}>
-          <TableMaterial columns={colDef} cdata={data} title="Organization" type="organization" />
-          {/* <TableMaterial
+          <TableMaterial
             columns={[
-              { title: "Permission Group", field: "permission_group" },
-              { title: "Root Account", field: "root_account" },
-              { title: "user arn", field: "user_arn" },
+              { title: "Permission Group", field: "permissionGroup" },
+              { title: "Cloud Name", field: "cloudName" },
+              { title: "user arn", field: "userArn" },
               { title: "Name", field: "name" },
               { title: "email", field: "email" },
-              { field: "phone_number", title: "Phone Number" },
+              { title: "Phone Number", field: "phoneNumber" },
             ]}
-            cdata={[
-              {
-                permission_group: "Dev",
-                root_account: "IAMGROUND",
-                user_arn: "aws:iam::284264230655:user",
-                name: "김민경",
-                email: "5596molly@naver.com",
-                phone_number: "010-7552-5596",
-              },
-              {
-                permission_group: "Dev",
-                root_account: "IAMGROUND",
-                user_arn: "aws:iam::284264230655:user",
-                name: "김민경",
-                email: "5596molly@naver.com",
-                phone_number: "010-7552-5596",
-              },
-              {
-                permission_group: "Dev",
-                root_account: "IAMGROUND",
-                user_arn: "aws:iam::284264230655:user",
-                name: "김민경",
-                email: "5596molly@naver.com",
-                phone_number: "010-7552-5596",
-              },
-            ]}
-            columns={colDef}
-            cdata={data}
+            cdata={organizationData.map((v, i) => {
+              return {
+                permissionGroup: v.criteria,
+                cloudName: v.cloudName,
+                userArn: v.userArn,
+                name: v.name,
+                email: v.email,
+                phoneNunmer: v.phoneNunmer,
+              };
+            })}
+            // cdata={data}
             title="Organization"
             type="organization"
-          /> */}
+          />
         </div>
       </Div>
     </>
