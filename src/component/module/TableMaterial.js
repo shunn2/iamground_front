@@ -137,7 +137,7 @@ const TableMaterial = ({ columns, cdata, title, type, Id }) => {
             columnsButton: true,
             rowStyle: (data, index) => (data.caution === true ? { background: "Pink" } : null),
             headerStyle: { background: "#d6d6d6", fontSize: "16px", fontWeight: "bold" },
-            maxBodyHeight: type === "monitoring" || type === "scanningper" || type === "scanningconfig" || type === "notification" ? "650px" : type === "main" ? "150px" : "300px",
+            maxBodyHeight: type === "scanningsum" ? "250px" : type === "main" ? "150px" : "650px",
             exportButton: type === "monitoring" || type === "scanningper" || type === "scanningconfig" || type === "notification" ? true : false,
             selection: false,
             filtering: type === "monitoring" || type === "scanningper" || type === "scanningconfig" || type === "notification" ? true : false,

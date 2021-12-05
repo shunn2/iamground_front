@@ -60,7 +60,7 @@ const MonitoringUser = () => {
       <Div>
         <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Groups</div>
         <div style={{ display: "flex", fontWeight: "bold", alignItems: "center", justifyContent: "space-evenly", padding: "10px" }}>
-          {/* <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}>
+          <Link to={`/monitoring/user/log?bookmark_id=-1`} style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}>
             <button style={{ border: "none" }}>
               <div
                 style={{
@@ -85,13 +85,13 @@ const MonitoringUser = () => {
               <GroupsIcon style={{ marginTop: "-11px", fontSize: "150px", color: "#3B434D" }} />
             </button>
             <div style={{ marginTop: "-30px" }}>All</div>
-          </div> */}
+          </Link>
 
           {/* **************************Groups************************** */}
           {bookmarks.map((group, index) => (
             <SideSpan key={group.name}>
               <Link
-                to={`/monitoring/user/log?bookmark_id=${group.name}`}
+                to={`/monitoring/user/log?bookmark_id=${group.id}`}
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
               >
                 <div
@@ -138,7 +138,7 @@ const MonitoringUser = () => {
               .map((poweruser, index) => (
                 <SideSpan key={poweruser.userName}>
                   <Link
-                    to={`/monitoring/user/log?iam_user_arn=${poweruser.userName}`}
+                    to={`/monitoring/user/log?iam_user_arn=${poweruser.userArn}`}
                     style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
                   >
                     <div
@@ -177,7 +177,7 @@ const MonitoringUser = () => {
               .map((user, index) => (
                 <SideSpan key={user.userName}>
                   <Link
-                    to={`/monitoring/user/log?iam_user_arn=${user.userName}`}
+                    to={`/monitoring/user/log?iam_user_arn=${user.userArn}`}
                     style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
                   >
                     <div

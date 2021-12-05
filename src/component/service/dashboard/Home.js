@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import DescriptionIcon from "@mui/icons-material/Description";
 import TableMaterial from "../../module/TableMaterial";
 import axios from "axios";
+import moment from "moment";
 
 function Home() {
   const [age, setAge] = useState("");
@@ -17,64 +18,31 @@ function Home() {
     setAge(event.target.value);
   };
 
-  // FAKE DATA
-  const dashboardData = {
-    code: "200",
+  const [dashboardData, setDashboardData] = useState({
     resourceList: {
-      allUser: 128,
-      dangerousUser: 20,
-
-      allServiceID: 37,
-      dangerousServiceID: 5,
-
-      allGroup: 24,
-      dangerousGroup: 5,
-
-      allRole: 30,
-      dangerousRole: 4,
-
-      allPolicy: 247,
-      dangerousPolicy: 55,
+      allUser: 0,
+      dangerousUser: 0,
+      allServiceID: 0,
+      dangerousServiceID: 0,
+      allGroup: 0,
+      dangerousGroup: 0,
+      allRole: 0,
+      dangerousRole: 0,
+      allPolicy: 0,
+      dangerousPolicy: 0,
     },
-    eventGraph: [
-      {
-        time: "19:00",
-        count: 142,
-      },
-      {
-        time: "19:05",
-        count: 140,
-      },
-      {
-        time: "19:10",
-        count: 149,
-      },
-      {
-        time: "19:15",
-        count: 160,
-      },
-      {
-        time: "19:20",
-        count: 180,
-      },
-      {
-        time: "19:25",
-        count: 90,
-      },
-    ],
-    dangerousUserCount: 75,
+    eventGraph: [],
+    dangerousUserCount: 0,
+  });
+  const fetchDashboardData = async () => {
+    const response = await axios.get("http://54.180.115.206:8000/mock/dashboard");
+    setDashboardData(response.data.dashboardData);
+    console.log("responseData", response);
+    console.log("dashboardData", dashboardData);
   };
-
-  // const [dashboardData, setDashboardData] = useState([]);
-  // const fetchDashboardData = async () => {
-  //   const response = await axios.get("http://54.180.115.206:8000/mock/main");
-  //   setDashboardData(response.data.dashboardData);
-  //   // console.log("response", response);
-  //   // console.log("dashboardData", dashboardData);
-  // };
-  // useEffect(() => {
-  //   fetchdDshboardData();
-  // }, []);
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
 
   const [clouds, setClouds] = useState([]);
   const fetchClouds = async () => {
@@ -92,7 +60,7 @@ function Home() {
       curve="monotoneX"
       colors="#90CAF9"
       margin={{ top: 20, right: 20, bottom: 50, left: 60 }}
-      yScale={{ type: "linear", min: "0", max: "auto", stacked: true, reverse: false }}
+      yScale={{ type: "linear", min: "auto", max: "auto", stacked: true, reverse: false }}
       yFormat=" >-.2f"
       axisTop={null}
       axisRight={null}
@@ -171,15 +139,6 @@ function Home() {
                       </div>
                     );
                   })}
-                  {/* <div style={{ textAlign: "center", fontSize: "26px" }}>
-                    <MenuItem value={10}>ALL</MenuItem>
-                  </div>
-                  <div style={{ textAlign: "center", fontSize: "26px" }}>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                  </div>
-                  <div style={{ textAlign: "center", fontSize: "26px" }}>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </div> */}
                 </Select>
               </FormControl>
             </div>
@@ -194,7 +153,14 @@ function Home() {
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousUser / dashboardData.resourceList.allUser) * 100)}%</div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                  <div style={{ width: "16%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                  <div
+                    style={{
+                      width: `${parseInt((dashboardData.resourceList.dangerousUser / dashboardData.resourceList.allUser) * 100)}%`,
+                      height: "10px",
+                      backgroundColor: "#90CAF9",
+                      borderRadius: "4px",
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -208,7 +174,14 @@ function Home() {
                   {parseInt((dashboardData.resourceList.dangerousServiceID / dashboardData.resourceList.allServiceID) * 100)}%
                 </div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                  <div style={{ width: "29%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                  <div
+                    style={{
+                      width: `${parseInt((dashboardData.resourceList.dangerousServiceID / dashboardData.resourceList.allServiceID) * 100)}%`,
+                      height: "10px",
+                      backgroundColor: "#90CAF9",
+                      borderRadius: "4px",
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -220,7 +193,14 @@ function Home() {
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousGroup / dashboardData.resourceList.allGroup) * 100)}%</div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                  <div style={{ width: "27%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                  <div
+                    style={{
+                      width: `${parseInt((dashboardData.resourceList.dangerousGroup / dashboardData.resourceList.allGroup) * 100)}%`,
+                      height: "10px",
+                      backgroundColor: "#90CAF9",
+                      borderRadius: "4px",
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -232,7 +212,14 @@ function Home() {
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousRole / dashboardData.resourceList.allRole) * 100)}%</div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                  <div style={{ width: "70%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                  <div
+                    style={{
+                      width: `${parseInt((dashboardData.resourceList.dangerousRole / dashboardData.resourceList.allRole) * 100)}%`,
+                      height: "10px",
+                      backgroundColor: "#90CAF9",
+                      borderRadius: "4px",
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -244,7 +231,14 @@ function Home() {
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousPolicy / dashboardData.resourceList.allPolicy) * 100)}%</div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
-                  <div style={{ width: "52%", height: "10px", backgroundColor: "#90CAF9", borderRadius: "4px" }}></div>
+                  <div
+                    style={{
+                      width: `${parseInt((dashboardData.resourceList.dangerousPolicy / dashboardData.resourceList.allPolicy) * 100)}%`,
+                      height: "10px",
+                      backgroundColor: "#90CAF9",
+                      borderRadius: "4px",
+                    }}
+                  ></div>
                 </div>
               </div>
             </div>
@@ -254,7 +248,7 @@ function Home() {
 
       <div style={{ width: "calc(100% - 30px)", height: "300px", backgroundColor: "#dedede", padding: "15px", display: "flex", marginBottom: "30px" }}>
         <div style={{ width: "70%", height: "100%", backgroundColor: "white", borderRadius: "5px" }}>
-          <div style={{ color: "#787878", fontSize: "20px", paddingLeft: "10px", paddingTop: "10px" }}>Number of Events</div>
+          <div style={{ color: "#787878", fontSize: "20px", paddingLeft: "10px", paddingTop: "10px" }}>Change in the Number of Events</div>
           <div style={{ width: "100%", height: "90%" }}>
             <MyResponsiveLine
               data={[
@@ -264,7 +258,7 @@ function Home() {
                   data: dashboardData.eventGraph.map((v, i) => {
                     return {
                       x: v.time,
-                      y: v.count,
+                      y: i > 0 ? v.count - dashboardData.eventGraph[i - 1].count : 0,
                     };
                   }),
                 },
@@ -311,7 +305,7 @@ function Home() {
           cdata={clouds.map((v, i) => {
             return {
               cloudName: v.nickName,
-              lastScanTime: v.lastScan,
+              lastScanTime: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
               status: v.status === 1 ? "활성화" : "비활성화",
               result: (
                 <Link to="/scan/report/summary">

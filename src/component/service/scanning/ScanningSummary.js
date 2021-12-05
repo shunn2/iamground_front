@@ -9,7 +9,35 @@ import TableMaterial from "../../module/TableMaterial";
 import axios from "axios";
 
 const ScanningSummary = ({ report_id }) => {
-  const [summaryData, setSummaryData] = useState([]);
+  const [summaryData, setSummaryData] = useState({
+    configBarGraph: {
+      certificateCount: 0,
+      credentialCount: 0,
+      mfaCount: 0,
+      pwCount: 0,
+    },
+    configHalfGraph: {
+      normalCount: 0,
+      riskyCount: 0,
+    },
+    permissionBarGraph: {
+      groupCount: 0,
+      policyCount: 0,
+      roleCount: 0,
+      userCount: 0,
+    },
+    permissionHalfGraph: {
+      normalCount: 0,
+      riskyCount: 0,
+    },
+    recommenationChart: {
+      configCurrent: 0,
+      configLast: 0,
+      permissionCurrent: 0,
+      permissionLast: 0,
+    },
+    scanResultTable: [],
+  });
   const fetchData = async () => {
     const response = await axios.get(`http://54.180.115.206:8000/mock/scan/report/summary?report_id=${report_id}`);
     setSummaryData(response.data.summaryList);
@@ -324,11 +352,9 @@ const ScanningSummary = ({ report_id }) => {
     />
   );
 
-  /*********************테이블********************** */
-
   return (
     <SummaryWrapper>
-      {/* <Row>
+      <Row>
         <Div2>
           <Title>Permission</Title>
           <div style={{ width: "100%", height: "calc(100% - 100px)" }}>
@@ -463,11 +489,11 @@ const ScanningSummary = ({ report_id }) => {
                 };
               })}
               title="Recommendations"
-              type="scanning1"
+              type="scanningsum"
             />
           </div>
         </Div4>
-      </Row> */}
+      </Row>
     </SummaryWrapper>
   );
 };

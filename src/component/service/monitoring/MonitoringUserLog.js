@@ -6,6 +6,7 @@ import { Personbutton, Groupbutton } from "../style/Icons";
 import Button from "@mui/material/Button";
 import TableMaterial from "../../module/TableMaterial";
 import axios from "axios";
+import moment from "moment";
 
 const MonitoringUserLog = () => {
   const location = useLocation();
@@ -18,12 +19,14 @@ const MonitoringUserLog = () => {
   };
 
   const [logs, setLogs] = useState([]);
+  const [identityName, setIdentityName] = useState("");
   const fetchLogs = async () => {
     const response =
-      decideWho().substring(0, 4) === "User"
+      decideWho().substring(0, 4) === "user"
         ? await axios.get(`http://54.180.115.206:8000/mock/monitoring/log?iam_user_arn=${decideWho()}`)
         : await axios.get(`http://54.180.115.206:8000/mock/monitoring/log?bookmark_id=${decideWho()}`);
     setLogs(response.data.resourceLogs);
+    decideWho().substring(0, 4) === "user" ? setIdentityName(response.data.resourceName) : setIdentityName(response.data.bookmarkName);
     console.log("response", response);
     console.log("logs", logs);
   };
@@ -50,35 +53,17 @@ const MonitoringUserLog = () => {
           alignItems: "center",
         }}
       >
-        {decideWho().substring(0, 4) === "User" ? (
-          <>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Personbutton />
-              <div style={{ fontSize: "24px", fontWeight: "bolder" }}>{query.iam_user_arn}</div>
-            </div>
-            <div style={{ paddingRight: "10px" }}>
-              <Link to="/visualization" style={{ textDecoration: "none" }}>
-                <Button variant="contained" style={{ backgroundColor: "#D6D6D6", color: "black" }}>
-                  {query.iam_user_arn} 정보 보기
-                </Button>
-              </Link>
-            </div>
-          </>
-        ) : (
-          <>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <Groupbutton />
-              <div style={{ fontSize: "24px", fontWeight: "bolder" }}>{query.bookmark_id}</div>
-            </div>
-            <div style={{ paddingRight: "10px" }}>
-              <Link to="/visualization" style={{ textDecoration: "none" }}>
-                <Button variant="contained" style={{ backgroundColor: "#D6D6D6", color: "black" }}>
-                  {query.bookmark_id} 정보 보기
-                </Button>
-              </Link>
-            </div>
-          </>
-        )}
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Personbutton />
+          <div style={{ fontSize: "24px", fontWeight: "bolder" }}>{identityName}</div>
+        </div>
+        <div style={{ paddingRight: "10px" }}>
+          <Link to="/visualization" style={{ textDecoration: "none" }}>
+            <Button variant="contained" style={{ backgroundColor: "#D6D6D6", color: "black" }}>
+              {identityName} 정보 보기
+            </Button>
+          </Link>
+        </div>
       </div>
       <Div>
         <div style={{ width: "calc(100%-30px)" }}>
@@ -94,7 +79,7 @@ const MonitoringUserLog = () => {
             ]}
             cdata={logs.map((v, i) => {
               return {
-                time: v.creation,
+                time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
                 user: v.identityName,
                 resource: v.resourseName,
                 activity: v.apiName,

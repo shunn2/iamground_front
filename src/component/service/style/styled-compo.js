@@ -171,6 +171,9 @@ export const Title = styled.h2`
 export const SummaryWrapper = styled.div`
   width: 100%;
   height: 100%;
+  background-color: #ffffff;
+  margin-top: 10px;
+  border-radius: 10px;
 `;
 
 export const Row = styled.div`
