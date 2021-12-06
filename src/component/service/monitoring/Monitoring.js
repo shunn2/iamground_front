@@ -73,11 +73,11 @@ function Monitoring() {
                   reason: v.reasonCategory,
                   ip: v.accessIp,
                   caution: v.reasonCategory ? true : false,
+                  id: v.logId,
                 };
             })}
             title="Monitoring Log"
             type="monitoring"
-            Id={logs.logId}
           />
         </div>
       </Div>

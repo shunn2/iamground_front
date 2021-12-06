@@ -87,6 +87,7 @@ const MonitoringUserLog = () => {
                 reason: v.reasonCategory,
                 ip: v.accessIp,
                 caution: v.reasonCategory ? true : false,
+                id: v.logId,
               };
             })}
             title="User Log"

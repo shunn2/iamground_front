@@ -18,58 +18,16 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
     boxShadow: 24,
     p: 4,
   };
-  // const [infoData, setInfoData] = useState(null);
-  // const fetchData = async () => {
-  //   const response = await axios.get(`http://54.180.115.206:8000/mock/scan/report?info_id=${Id}`);
-  //   setInfoData(response.data.infoDetail);
-  // };
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
-  const infoData = {
-    code: 200,
-    infoDetail: {
-      cloudName: "test-cloud",
-      resourseName: "test1",
-      resourseArn: "arn:aws:iam::486211121934:user/test1",
-      reasonCategory: "1.1.1",
-      reasonDetail: "IAM User test1이 255개 서비스에 권한을 가지고 있지만 21개 서비스만 사용했습니다.",
-      recommand: {
-        originPolicy: {
-          Version: "2012-10-17",
-          Statement: [
-            {
-              Sid: "VisualEditor0",
-              Effect: "Allow",
-              Action: "activate:*",
-              Resource: "*",
-            },
-          ],
-        },
-        deleteList: [
-          [
-            {
-              Sid: "VisualEditor0",
-              Effect: "Allow",
-              Action: "activate:*",
-              Resource: "*",
-            },
-          ],
-        ],
-        editPolicy: {
-          Version: "2012-10-17",
-          Statement: [
-            {
-              Sid: "VisualEditor0",
-              Effect: "Allow",
-              Action: "activate:*",
-              Resource: "*",
-            },
-          ],
-        },
-      },
-    },
+  const [infoData, setInfoData] = useState([]);
+  const fetchData = async () => {
+    const response = await axios.get(`http://54.180.115.206:8000/mock/scan/report?info_id=${Id}`);
+    setInfoData(response.data.infoDetail);
+    console.log(response.data);
   };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const data = () => {
     <>
       <div style={{ display: "flex" }}>

@@ -39,13 +39,13 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-const TableMaterial = ({ columns, cdata, title, type, Id }) => {
+const TableMaterial = ({ columns, cdata, title, type }) => {
   const [modalOpen, setmodalOpen] = useState(false);
-
+  const [id, setId] = useState(0);
   const openModal = (event, data, index) => {
-    console.log(data.logId);
-    if (type === "monitoring" || type === "scanningper" || type === "scanningconfig") setmodalOpen(true);
-    else setmodalOpen(false);
+    if (type === "monitoring" || type === "scanningper" || type === "scanningconfig") {
+      setmodalOpen(true);
+    } else setmodalOpen(false);
   };
   const [tableData, setTableData] = useState();
   useEffect(() => {
@@ -118,7 +118,11 @@ const TableMaterial = ({ columns, cdata, title, type, Id }) => {
           icons={tableIcons}
           // actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
           onSelectionChange={(selectedRow) => console.log(selectedRow)}
-          onRowClick={openModal}
+          onRowClick={(event, rowData) => {
+            console.log("rowdata", rowData.tableData);
+            setId(rowData.tableData.id);
+            openModal();
+          }}
           options={{
             sorting: true,
             search: true,

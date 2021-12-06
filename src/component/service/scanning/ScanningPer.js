@@ -12,9 +12,7 @@ function ScanningPer({ report_id }) {
     fetchData();
   }, []);
   const idArray = tableData.map((v, i) => {
-    return {
-      id: v.infoId,
-    };
+    return v.infoId;
   });
   return (
     <>
@@ -36,11 +34,11 @@ function ScanningPer({ report_id }) {
                 reason: v.reasonDetail,
                 recommendation: <button>자세히 보기</button>,
                 marking: v.mark ? <input type="checkbox" defaultChecked="true" /> : <input type="checkbox" />,
+                id: v.infoId,
               };
             })}
           title="Permissions"
           type="scanningper"
-          Id={idArray}
         />
       </div>
     </>
