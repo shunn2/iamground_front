@@ -16,13 +16,16 @@ import Organization from "./component/service/asset/Organization";
 import Home from "./component/service/dashboard/Home";
 import Notification from "./component/service/notification/Notification";
 import LogIn from "./component/service/LogIn.js/LogIn";
+import { ToastsContainer, ToastsStore, ToastsContainerPosition } from "react-toasts";
 
 function App() {
   const user = ["User1", "User2", "User4", "User5", "User7", "User10"];
   const poweruser = ["User3", "User6", "User8", "User9"];
   const group = ["Group1", "Group2", "Group3", "Group4"];
   const accesskey = ["accesskey1", "accesskey2", "accesskey3", "accesskey4", "accesskey5"];
-
+  const onClickToastPopup = () => {
+    ToastsStore.success("This is ToastPopup");
+  };
   return (
     <Router>
       <Layout>

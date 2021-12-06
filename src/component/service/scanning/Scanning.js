@@ -27,6 +27,16 @@ function Scanning() {
     fetchRecommandations();
   }, []);
 
+  const StartScan = (cloudId) => {
+    axios.post("http://54.180.115.206:8000/api/scan", {
+      cloudId: { cloudId },
+    });
+    // .then(function (response) {
+    //   console.log(response);
+    // });
+    console.log("cloud ID", cloudId);
+  };
+
   const MyResponsiveLine = ({ gdata }) => (
     <ResponsiveLine
       data={gdata}
@@ -131,7 +141,7 @@ function Scanning() {
               last_scanned: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
               per: v.permissionCount,
               config: v.configCount,
-              scan: <button>스캔 하기</button>,
+              scan: <button onClick={() => StartScan(v.cloudId)}>스캔 하기</button>,
               result: (
                 <Link to={`/scan/report/summary?report_id=${v.reportList[v.reportList.length - 1]}`}>
                   <button>결과 보기</button>

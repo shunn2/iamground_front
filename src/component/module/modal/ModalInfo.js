@@ -47,7 +47,6 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
   useEffect(() => {
     fetchLogDetail();
   }, []);
-
   return (
     <div>
       <Modal open={modalOpen} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
