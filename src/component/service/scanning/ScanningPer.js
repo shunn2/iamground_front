@@ -7,6 +7,7 @@ function ScanningPer({ report_id }) {
   const fetchData = async () => {
     const response = await axios.get(`http://54.180.115.206:8000/mock/scan/report/permission?report_id=${report_id}`);
     setTableData(response.data.permissionList);
+    console.log(response);
   };
   useEffect(() => {
     fetchData();
@@ -34,7 +35,7 @@ function ScanningPer({ report_id }) {
                 reason: v.reasonDetail,
                 recommendation: <button>자세히 보기</button>,
                 marking: v.mark ? <input type="checkbox" defaultChecked="true" /> : <input type="checkbox" />,
-                id: v.infoId,
+                id: v,
               };
             })}
           title="Permissions"

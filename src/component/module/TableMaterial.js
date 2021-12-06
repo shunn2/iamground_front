@@ -41,7 +41,7 @@ const tableIcons = {
 
 const TableMaterial = ({ columns, cdata, title, type }) => {
   const [modalOpen, setmodalOpen] = useState(false);
-  const [id, setId] = useState(0);
+  const [id, setId] = useState([]);
   const openModal = (event, data, index) => {
     if (type === "monitoring" || type === "scanningper" || type === "scanningconfig") {
       setmodalOpen(true);
@@ -119,8 +119,8 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
           // actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
           onSelectionChange={(selectedRow) => console.log(selectedRow)}
           onRowClick={(event, rowData) => {
-            console.log("rowdata", rowData.tableData);
-            setId(rowData.tableData.id);
+            console.log("rowdata", rowData);
+            setId(rowData.id);
             openModal();
           }}
           options={{
