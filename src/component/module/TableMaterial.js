@@ -149,9 +149,9 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
           }}
         />
       )}
-      {modalOpen && type === "scanningper" && <ModalPer type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={Id} />}
-      {modalOpen && type === "scanningconfig" && <ModalConfig type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={Id} />}
-      {modalOpen && type === "monitoring" && <ModalInfo type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} logId={Id} />}
+      {modalOpen && type === "scanningper" && <ModalPer type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={id} />}
+      {modalOpen && type === "scanningconfig" && <ModalConfig type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={id} />}
+      {modalOpen && type === "monitoring" && <ModalInfo type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} logId={id} />}
     </div>
   );
 };
