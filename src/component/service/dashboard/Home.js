@@ -33,6 +33,7 @@ function Home() {
     },
     eventGraph: [],
     dangerousUserCount: 0,
+    dangerousLogCount: 0,
   });
   const fetchDashboardData = async () => {
     const response = await axios.get("http://54.180.115.206:8000/mock/dashboard");
@@ -46,7 +47,7 @@ function Home() {
 
   const [clouds, setClouds] = useState([]);
   const fetchClouds = async () => {
-    const responseCloud = await axios.get("http://54.180.115.206:8000/mock/cloud");
+    const responseCloud = await axios.get("http://54.180.115.206:8000/mock/scan");
     setClouds(responseCloud.data.cloudList);
     console.log("responseCloud", responseCloud);
   };
@@ -113,7 +114,7 @@ function Home() {
       colors={(pie) => pieData.find((v) => v.id === pie.id).color}
       borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
       arcLinkLabelsSkipAngle={10}
-      arcLinkLabelsTextColor="#DEDEDE"
+      arcLinkLabelsTextColor="#ffffff"
       arcLinkLabelsThickness={0}
       arcLinkLabelsColor={{ from: "color" }}
       arcLabelsSkipAngle={10}
@@ -126,8 +127,8 @@ function Home() {
       <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px" }}>Dashboard</h1>
       <div style={{ width: "calc(100% - 30px)", height: "145px", backgroundColor: "#dedede", padding: "15px", marginBottom: "30px" }}>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-          <div style={{ color: "#787878", fontSize: "20px" }}>Percentage of Dangerous IAM Resources</div>
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <div style={{ color: "#787878", fontSize: "20px", paddingBottom: "10px" }}>Percentage of Dangerous IAM Resources</div>
+          {/* <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <div style={{ width: "120px", backgroundColor: "#ffffff", borderRadius: "4px" }}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Filter</InputLabel>
@@ -142,7 +143,7 @@ function Home() {
                 </Select>
               </FormControl>
             </div>
-          </div>
+          </div> */}
         </div>
         <div>
           <div style={{ display: "flex", gap: "0px 2%", marginTop: "15px" }}>
@@ -247,7 +248,7 @@ function Home() {
       </div>
 
       <div style={{ width: "calc(100% - 30px)", height: "300px", backgroundColor: "#dedede", padding: "15px", display: "flex", marginBottom: "30px" }}>
-        <div style={{ width: "70%", height: "100%", backgroundColor: "white", borderRadius: "5px" }}>
+        <div style={{ width: "80%", height: "100%", backgroundColor: "white", borderRadius: "5px" }}>
           <div style={{ color: "#787878", fontSize: "20px", paddingLeft: "10px", paddingTop: "10px" }}>Change in the Number of Events</div>
           <div style={{ width: "100%", height: "90%" }}>
             <MyResponsiveLine
@@ -267,7 +268,7 @@ function Home() {
           </div>
         </div>
 
-        <div style={{ width: "30%", height: "100%" }}>
+        <div style={{ width: "20%", height: "100%", backgroundColor: "#ffffff", marginLeft: "20px", borderRadius: "5px" }}>
           <MyResponsivePie
             data={[
               {
@@ -287,9 +288,25 @@ function Home() {
           <div style={{ position: "relative", textAlign: "center", bottom: "180px" }}>
             <span style={{ color: "#e0452b" }}>{dashboardData.dangerousUserCount}</span> / {dashboardData.resourceList.allUser}
           </div>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "-65px" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "-80px" }}>
             <div style={{ width: "12px", height: "12px", borderRadius: "16px", backgroundColor: "#F47560", marginRight: "6px" }} />
-            <div>위험한 로그가 발생한 유저</div>
+            <div style={{ fontWeight: "bolder", color: "#787878" }}>미확인 위험 로그를 보유한 유저</div>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: "10px",
+              marginLeft: "25%",
+              marginRight: "25%",
+              fontSize: "15px",
+              backgroundColor: "#F47560",
+              borderRadius: "10px",
+              color: "#ffffff",
+            }}
+          >
+            미확인 위험 로그 {dashboardData.dangerousLogCount}개
           </div>
         </div>
       </div>
@@ -304,12 +321,12 @@ function Home() {
           ]}
           cdata={clouds.map((v, i) => {
             return {
-              cloudName: v.nickName,
+              cloudName: v.name,
               lastScanTime: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
               status: v.status === 1 ? "활성화" : "비활성화",
               result: (
-                <Link to="/scan/report/summary">
-                  <DescriptionIcon />
+                <Link to={`/scan/report/summary?report_id=${v.reportList[v.reportList.length - 1]}`}>
+                  <button>결과 보기</button>
                 </Link>
               ),
             };

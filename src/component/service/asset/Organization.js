@@ -105,7 +105,7 @@ function Organization() {
   const csvList = () => {
     return (
       <>
-        <table style={{ borderCollapse: "collapse", border: "1px solid black", position: "absolute", top: "26px", right: "202px", textAlign: "center", backgroundColor: "white" }}>
+        <table style={{ borderCollapse: "collapse", border: "1px solid black", position: "absolute", top: "75px", right: "205px", textAlign: "center", backgroundColor: "white" }}>
           <thead>
             <tr>
               <th style={{ backgroundColor: "#D6D6D6", border: "1px solid #A1B8D6", padding: "3px" }}>CSV File</th>
