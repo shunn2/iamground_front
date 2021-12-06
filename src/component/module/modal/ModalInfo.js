@@ -61,7 +61,7 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
           <Typography id="modal-modal-title" variant="h6" component="h2" style={{ fontSize: "50px", borderBottom: "5px solid black" }}>
             로그 세부 정보
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} style={{ paddingTop: "30px" }}>
             <div>
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <ModalText>

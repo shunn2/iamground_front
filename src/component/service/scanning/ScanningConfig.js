@@ -34,7 +34,7 @@ function ScanningConfig({ report_id }) {
                 reason: v.reasonDetail,
                 recommendation: <button>자세히 보기</button>,
                 marking: v.mark ? <input type="checkbox" defaultChecked="true" /> : <input type="checkbox" />,
-                id: v.infoId,
+                id: v,
               };
             })}
           title="Misconfigurations"
