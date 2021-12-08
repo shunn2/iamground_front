@@ -8,10 +8,11 @@ import moment from "moment";
 function Monitoring() {
   const [logs, setLogs] = useState([]);
   const fetchLogs = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/mock/monitoring/iam");
+    const response = await axios.get("http://54.180.115.206:8000/api/monitoring/iam");
     setLogs(response.data.iamLogs);
     console.log("response", response);
-    console.log("logs", logs);
+    console.log("logs", response.data.iamLogs);
+    console.log("Length", logs.length);
   };
   useEffect(() => {
     fetchLogs();
@@ -50,32 +51,36 @@ function Monitoring() {
               { title: "Reason", field: "reason" },
               { title: "Ip", field: "ip" },
             ]}
-            cdata={logs.map((v, i) => {
-              if (checked) {
-                if (v.reasonCategory)
-                  return {
-                    time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
-                    user: v.identityName,
-                    resource: v.resourseName,
-                    activity: v.apiName,
-                    result: v.result === 1 ? "Success" : "Fail",
-                    reason: v.reasonCategory,
-                    ip: v.accessIp,
-                    caution: v.reasonCategory ? true : false,
-                  };
-              } else
-                return {
-                  time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
-                  user: v.identityName,
-                  resource: v.resourseName,
-                  activity: v.apiName,
-                  result: v.result === 1 ? "Success" : "Fail",
-                  reason: v.reasonCategory,
-                  ip: v.accessIp,
-                  caution: v.reasonCategory ? true : false,
-                  id: v.logId,
-                };
-            })}
+            cdata={
+              logs.length > 0
+                ? logs.map((v, i) => {
+                    if (checked) {
+                      if (v.reasonCategory)
+                        return {
+                          time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
+                          user: v.identityName,
+                          resource: v.resourseName,
+                          activity: v.apiName,
+                          result: v.result === 1 ? "Success" : "Fail",
+                          reason: v.reasonCategory,
+                          ip: v.accessIp,
+                          caution: v.reasonCategory ? true : false,
+                        };
+                    } else
+                      return {
+                        time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
+                        user: v.identityName,
+                        resource: v.resourseName,
+                        activity: v.apiName,
+                        result: v.result === 1 ? "Success" : "Fail",
+                        reason: v.reasonCategory,
+                        ip: v.accessIp,
+                        caution: v.reasonCategory ? true : false,
+                        id: v.logId,
+                      };
+                  })
+                : [{ time: "No Data Yet", user: "..", resource: "..", activity: "..", result: "..", reason: "..", ip: "..", caution: false }]
+            }
             title="Monitoring Log"
             type="monitoring"
           />

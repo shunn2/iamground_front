@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Menu, AccountCircle, Settings, Notifications } from "@mui/icons-material";
 import styled from "styled-components";
 import {ToastsContainer, ToastsStore, ToastsContainerPosition} from 'react-toasts';
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Header = styled.header`
   width: calc(100% - 1px);
@@ -10,8 +12,7 @@ const Header = styled.header`
 `;
 
 function Topbar() {
-const [toast, setToast] = useState("User1에서 조직도 기반 과도한 권한 획득이 발생했습니다.");
-
+const [toast, setToast] = useState("");
 const onClickToastPopup = (message) => {
   let type = Math.floor(Math.random() * 10);
   if(type < 5) {
@@ -26,17 +27,26 @@ const onClickToastPopup = (message) => {
 }
 
 
-useEffect(() => {
-  // const interval = 
-  setInterval(() => {
-    setToast("User1에서 조직도 기반 과도한 권한 획득이 발생했습니다.");
-    if (Math.floor(Math.random() * 10)<5)
-    ToastsStore.success(toast);
-    else
-    ToastsStore.warning(toast);
-  }, 1000);
-  // return () => clearInterval(interval);
-}, []);
+// useEffect(() => {
+//   // const interval = 
+//   setInterval(async () => {
+//     const response = await axios.get("http://54.180.115.206:8000/api/monitoring/toast");
+    
+//     // if (response.data.toastList.length === 0) {
+//     //   console.log("No Data");
+//     // }
+//     // else {
+//       console.log("Response", response);
+//       const message = response.data.toastList;
+//       if (Math.floor(Math.random() * 10)<5)
+//       ToastsStore.success(message);
+//       else
+//       ToastsStore.warning(message);
+//     // }
+
+//   }, 1000);
+//   // return () => clearInterval(interval);
+// },[]);
 
 const [notificationList, setNotificationList] = useState(["미확인 알림 없음"]);
 const [notificationCount, setNotificationCount] = useState(0);
@@ -120,7 +130,9 @@ const notiList = () => {
           <Settings style={{ width: "30px", height: "30px", color: "#d6d6d6" }} />
         </div>
         <div style={{ height: "50px", display: "flex", alignItems: "center", width: "40px", justifyContent: "center", cursor: "pointer" }}>
+          <Link to = "/login">
           <AccountCircle style={{ width: "30px", height: "30px", color: "#d6d6d6" }} />
+        </Link>
         </div>
       </div>
     </Header>

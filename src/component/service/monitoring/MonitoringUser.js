@@ -9,29 +9,20 @@ import ModalGroup from "../../module/modal/ModalGroup";
 import axios from "axios";
 
 const MonitoringUser = () => {
-  // const [users, setUsers] = useState([]);
-  // const fetchUsers = async () => {
-  //   const response = await axios.get("http://54.180.115.206:8000/mock/monitoring/log");
-  //   setUsers(response.data.users);
-  //   console.log("response", response.data.users);
-  //   console.log("users", users);
-  // };
-  // useEffect(() => {
-  //   fetchUsers();
-  // }, []);
-
-  const users = [
-    { userName: "User1", userArn: "userArn1", warningStatusInfo: "15", warningEventCount: "11" },
-    { userName: "User2", userArn: "userArn2", warningStatusInfo: "0", warningEventCount: "23" },
-    { userName: "User3", userArn: "userArn3", warningStatusInfo: "0", warningEventCount: "123" },
-    { userName: "User4", userArn: "userArn4", warningStatusInfo: "15", warningEventCount: "10" },
-    { userName: "User5", userArn: "userArn5", warningStatusInfo: "0", warningEventCount: "27" },
-    { userName: "User6", userArn: "userArn6", warningStatusInfo: "0", warningEventCount: "50" },
-  ];
+  const [users, setUsers] = useState([]);
+  const fetchUsers = async () => {
+    const response = await axios.get("http://54.180.115.206:8000/api/monitoring/log");
+    setUsers(response.data.users);
+    console.log("response", response.data.users);
+    console.log("users", users);
+  };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const [bookmarks, setBookmarks] = useState([]);
   const fetchBookmarks = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/mock/monitoring/log/bookmark");
+    const response = await axios.get("http://54.180.115.206:8000/api/monitoring/log/bookmark");
     setBookmarks(response.data.bookmarkList);
     console.log("response", response.data.bookmarkList);
     console.log("bookmarks", bookmarks);
@@ -132,37 +123,43 @@ const MonitoringUser = () => {
         {/* **************************Power Users************************** */}
         <div>
           <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Power Users</div>
-          <div style={{ display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
+          <div style={{ flexWrap: "wrap", display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
             {users
-              .filter((user) => user.warningStatusInfo !== "0")
+              .filter((user) => user.warningStatusInfo.data[0] !== 0)
               .map((poweruser, index) => (
                 <SideSpan key={poweruser.userName}>
                   <Link
                     to={`/monitoring/user/log?iam_user_arn=${poweruser.userArn}`}
                     style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
                   >
-                    <div
-                      style={{
-                        color: "white",
-                        border: "2px solid red",
-                        borderRadius: "20px",
-                        width: "30px",
-                        height: "30px",
-                        fontSize: "16px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontWeight: "bold",
-                        backgroundColor: "red",
-                        position: "relative",
-                        top: "20px",
-                        left: "60px",
-                      }}
-                    >
-                      {poweruser.warningEventCount}
-                    </div>
+                    {poweruser.warningEventCount > 0 ? (
+                      <div
+                        style={{
+                          color: "white",
+                          border: "2px solid red",
+                          borderRadius: "20px",
+                          width: "30px",
+                          height: "30px",
+                          fontSize: "16px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontWeight: "bold",
+                          backgroundColor: "red",
+                          position: "relative",
+                          top: "20px",
+                          left: "60px",
+                        }}
+                      >
+                        {poweruser.warningEventCount}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                     <AccountCircleIcon style={{ fontSize: "120px", color: "#F32668" }} />
-                    <div style={{ marginTop: "-10px" }}>{poweruser.userName}</div>
+                    <div style={{ marginTop: "-10px", width: "220px", textAlign: "center", height: "20px", lineHeight: "20px", wordBreak: "break-all", paddingLeft: "10px", paddingRight: "10px" }}>
+                      {poweruser.userName}
+                    </div>
                   </Link>
                 </SideSpan>
               ))}
@@ -173,35 +170,41 @@ const MonitoringUser = () => {
           <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Users</div>
           <div style={{ display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
             {users
-              .filter((user) => user.warningStatusInfo === "0")
+              .filter((user) => user.warningStatusInfo.data[0] === 0)
               .map((user, index) => (
                 <SideSpan key={user.userName}>
                   <Link
                     to={`/monitoring/user/log?iam_user_arn=${user.userArn}`}
                     style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
                   >
-                    <div
-                      style={{
-                        color: "white",
-                        border: "2px solid red",
-                        borderRadius: "20px",
-                        width: "30px",
-                        height: "30px",
-                        fontSize: "16px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontWeight: "bold",
-                        backgroundColor: "red",
-                        position: "relative",
-                        top: "20px",
-                        left: "60px",
-                      }}
-                    >
-                      {user.warningEventCount}
-                    </div>
+                    {user.warningEventCount > 0 ? (
+                      <div
+                        style={{
+                          color: "white",
+                          border: "2px solid red",
+                          borderRadius: "20px",
+                          width: "30px",
+                          height: "30px",
+                          fontSize: "16px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontWeight: "bold",
+                          backgroundColor: "red",
+                          position: "relative",
+                          top: "20px",
+                          left: "60px",
+                        }}
+                      >
+                        {user.warningEventCount}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                     <AccountCircleIcon style={{ fontSize: "120px", color: "#3B434D" }} />
-                    <div style={{ marginTop: "-10px" }}>{user.userName}</div>
+                    <div style={{ marginTop: "-10px", width: "220px", textAlign: "center", height: "20px", lineHeight: "20px", wordBreak: "break-all", paddingLeft: "10px", paddingRight: "10px" }}>
+                      {user.userName}
+                    </div>
                   </Link>
                 </SideSpan>
               ))}
