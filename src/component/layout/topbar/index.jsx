@@ -13,27 +13,27 @@ const Header = styled.header`
 
 function Topbar() {
   const [toast, setToast] = useState("");
-  const onClickToastPopup = (message) => {
-    let type = Math.floor(Math.random() * 10);
-    if (type < 5) {
-      setToast(message);
-      ToastsStore.success(toast);
-    } else {
-      setToast(message);
-      ToastsStore.warning(toast);
-    }
-  };
+  // const onClickToastPopup = (message) => {
+  //   let type = Math.floor(Math.random() * 10);
+  //   if (type < 5) {
+  //     setToast(message);
+  //     ToastsStore.success(toast);
+  //   } else {
+  //     setToast(message);
+  //     ToastsStore.warning(toast);
+  //   }
+  // };
 
-  const onClickToastPopup = (message) => {
-    let type = Math.floor(Math.random() * 10);
-    if (type < 5) {
-      setToast(message);
-      ToastsStore.success(toast);
-    } else {
-      setToast(message);
-      ToastsStore.warning(toast);
-    }
-  };
+  // const onClickToastPopup = (message) => {
+  //   let type = Math.floor(Math.random() * 10);
+  //   if (type < 5) {
+  //     setToast(message);
+  //     ToastsStore.success(toast);
+  //   } else {
+  //     setToast(message);
+  //     ToastsStore.warning(toast);
+  //   }
+  // };
   // const [a, setA] = useState("User1에서 조직도 기반 과도한 권한 획득이 발생했습니다.");
 
   // useEffect(() => {
