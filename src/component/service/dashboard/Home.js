@@ -36,7 +36,7 @@ function Home() {
     dangerousLogCount: 0,
   });
   const fetchDashboardData = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/mock/dashboard");
+    const response = await axios.get("http://54.180.115.206:8000/api/dashboard");
     setDashboardData(response.data.dashboardData);
     console.log("responseData", response);
     console.log("dashboardData", dashboardData);
@@ -47,7 +47,7 @@ function Home() {
 
   const [clouds, setClouds] = useState([]);
   const fetchClouds = async () => {
-    const responseCloud = await axios.get("http://54.180.115.206:8000/mock/scan");
+    const responseCloud = await axios.get("http://54.180.115.206:8000/api/scan");
     setClouds(responseCloud.data.cloudList);
     console.log("responseCloud", responseCloud);
   };
@@ -259,7 +259,7 @@ function Home() {
                   data: dashboardData.eventGraph.map((v, i) => {
                     return {
                       x: v.time,
-                      y: i > 0 ? v.count - dashboardData.eventGraph[i - 1].count : 0,
+                      y: v.count,
                     };
                   }),
                 },

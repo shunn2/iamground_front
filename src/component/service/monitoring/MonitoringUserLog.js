@@ -22,13 +22,13 @@ const MonitoringUserLog = () => {
   const [identityName, setIdentityName] = useState("");
   const fetchLogs = async () => {
     const response =
-      decideWho().substring(0, 4) === "user"
-        ? await axios.get(`http://54.180.115.206:8000/mock/monitoring/log?iam_user_arn=${decideWho()}`)
-        : await axios.get(`http://54.180.115.206:8000/mock/monitoring/log?bookmark_id=${decideWho()}`);
+      decideWho().substring(0, 3) === "arn"
+        ? await axios.get(`http://54.180.115.206:8000/api/monitoring/log?iam_user_arn=${decideWho()}`)
+        : await axios.get(`http://54.180.115.206:8000/api/monitoring/log?bookmark_id=${decideWho()}`);
     setLogs(response.data.resourceLogs);
-    decideWho().substring(0, 4) === "user" ? setIdentityName(response.data.resourceName) : setIdentityName(response.data.bookmarkName);
+    decideWho().substring(0, 3) === "arn" ? setIdentityName(response.data.resourceName) : setIdentityName(response.data.bookmarkName);
     console.log("response", response);
-    console.log("logs", logs);
+    console.log("url", `http://54.180.115.206:8000/api/monitoring/log?iam_user_arn=${decideWho()}`);
   };
   useEffect(() => {
     fetchLogs();
@@ -81,7 +81,7 @@ const MonitoringUserLog = () => {
               return {
                 time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
                 user: v.identityName,
-                resource: v.resourseName,
+                resource: JSON.parse(v.resourceName),
                 activity: v.apiName,
                 result: v.result === 1 ? "Success" : "Fail",
                 reason: v.reasonCategory,

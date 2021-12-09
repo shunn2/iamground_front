@@ -5,9 +5,9 @@ import axios from "axios";
 function ScanningPer({ report_id }) {
   const [tableData, setTableData] = useState([]);
   const fetchData = async () => {
-    const response = await axios.get(`http://54.180.115.206:8000/mock/scan/report/permission?report_id=${report_id}`);
+    const response = await axios.get(`http://54.180.115.206:8000/api/scan/report/permission?report_id=${report_id}`);
     setTableData(response.data.permissionList);
-    console.log(response);
+    console.log("PerResponse", response);
   };
   useEffect(() => {
     fetchData();
@@ -15,6 +15,20 @@ function ScanningPer({ report_id }) {
   const idArray = tableData.map((v, i) => {
     return v.infoId;
   });
+  const patchMarking = (infoId, marking) => {
+    axios
+      .patch("http://54.180.115.206:8000/api/scan/report", {
+        infoId: infoId,
+        mark: marking,
+      })
+      .then(function (response) {
+        console.log(response);
+        console.log("Send Data", {
+          infoId: infoId,
+          mark: marking,
+        });
+      });
+  };
   return (
     <>
       <div style={{ paddingTop: "50px" }}>
@@ -32,9 +46,13 @@ function ScanningPer({ report_id }) {
               return {
                 resource: v.resourceName,
                 arn: v.resourceArn,
-                reason: v.reasonDetail,
+                reason: v.reasonCategory,
                 recommendation: <button>자세히 보기</button>,
-                marking: v.mark ? <input type="checkbox" defaultChecked="true" /> : <input type="checkbox" />,
+                marking: v.mark ? (
+                  <input type="checkbox" defaultChecked="true" onClick={() => patchMarking(v.scanInfoId, false)} />
+                ) : (
+                  <input type="checkbox" onClick={() => patchMarking(v.scanInfoId, true)} />
+                ),
                 id: v,
               };
             })}

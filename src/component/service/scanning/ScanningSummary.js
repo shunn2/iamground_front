@@ -39,7 +39,7 @@ const ScanningSummary = ({ report_id }) => {
     scanResultTable: [],
   });
   const fetchData = async () => {
-    const response = await axios.get(`http://54.180.115.206:8000/mock/scan/report/summary?report_id=${report_id}`);
+    const response = await axios.get(`http://54.180.115.206:8000/api/scan/report/summary?report_id=${report_id}`);
     setSummaryData(response.data.summaryList);
     console.log("response", response);
     console.log("summaryData", summaryData);

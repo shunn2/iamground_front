@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TableMaterial from "../../module/TableMaterial";
 import { Div } from "../style/styled-compo";
+import axios from "axios";
 
 function a11yProps(index) {
   return {
@@ -14,6 +15,15 @@ function a11yProps(index) {
 }
 
 function Notification() {
+  const [accounts, setAccounts] = useState([]);
+  const fetchAccounts = async () => {
+    const responseAccount = await axios.get("http://54.180.115.206:8000/mock/scan");
+    setAccounts(responseAccount.data.cloudList);
+    console.log("responseAccount", responseAccount);
+  };
+  useEffect(() => {
+    fetchAccounts();
+  }, []);
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
