@@ -41,7 +41,7 @@ const ModalConfig = ({ modalOpen, setmodalOpen, Id }) => {
     width: 1000px;
     white-space: pre-wrap;
   `;
-  const [recommend, setRecommend] = useState(Id.recommand);
+  const [recommend, setRecommend] = useState(JSON.parse(Id.recommand));
   // const [infoData, setInfoData] = useState([]);
   // const fetchData = async () => {
   //   const response = await axios.get("http://54.180.115.206:8000/mock/scan/report", { params: { info_id: Id } });
@@ -75,21 +75,21 @@ const ModalConfig = ({ modalOpen, setmodalOpen, Id }) => {
                   <TitleDiv>리소스정보</TitleDiv>
                   <TextDiv>
                     {Id.resourceName}
-                    {Id.resourceArn}
+                    <span style={{ paddingLeft: "30px" }}>({Id.resourceArn})</span>
                   </TextDiv>
                 </ModalText>
                 <ModalText>
                   <TitleDiv>수정 추천 이유</TitleDiv>
-                  <TextDiv>{Id.reasonDetail}</TextDiv>
+                  <TextDiv>{Id.reasonCategory}</TextDiv>
                 </ModalText>
                 <ModalText>
                   <TitleDiv>설명</TitleDiv>
-                  <TextDiv>{Id.reasonDetail}</TextDiv>
+                  <TextDiv>{JSON.parse(Id.reasonDetail)}</TextDiv>
                 </ModalText>
-                <ModalText>
+                {/* <ModalText>
                   <TitleDiv>현재 상태</TitleDiv>
                   <TextDiv>{Id.reasonDetail}</TextDiv>
-                </ModalText>
+                </ModalText> */}
                 <ModalText>
                   <TitleDiv>점검 방법</TitleDiv>
                   <TextDiv>{recommend.verification_method}</TextDiv>

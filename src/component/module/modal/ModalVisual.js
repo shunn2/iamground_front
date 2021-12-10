@@ -23,16 +23,16 @@ const TextDiv = styled.div`
   font-size: 20px;
 `;
 const ModalVisual = ({ modalOpen, setmodalOpen, resource }) => {
-  // const [visualModalData, setVisualModalData] = useState(null);
-  // const fetchVisualModalData = async () => {
-  //   const response = await axios.get("http://54.180.115.206:8000/mock/visualization", { params: { iamResourceArn: resource } });
-  //   setVisualModalData(response.data);
-  //   console.log(response);
-  //   console.log(visualModalData);
-  // };
-  // useEffect(() => {
-  //   fetchVisualModalData();
-  // }, []);
+  const [ModalData, setModalData] = useState(null);
+  const fetchVisualModalData = async () => {
+    const response = await axios.get("http://54.180.115.206:8000/api/visualization", { params: { iamResourceArn: resource } });
+    setModalData(response.data);
+    console.log("modal", response);
+    console.log(ModalData);
+  };
+  useEffect(() => {
+    fetchVisualModalData();
+  }, []);
 
   const style = {
     position: "absolute",
