@@ -211,7 +211,7 @@ const MonitoringUser = () => {
           </div>
         </div>
       </Div>
-      {modalOpen && <ModalGroup type="addgroup" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
+      {modalOpen && <ModalGroup type="addgroup" modalOpen={modalOpen} setmodalOpen={setmodalOpen} users={users} />}
     </>
   );
 };

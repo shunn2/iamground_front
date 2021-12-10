@@ -51,6 +51,36 @@ function Monitoring() {
               { title: "Reason", field: "reason" },
               { title: "Ip", field: "ip" },
             ]}
+            // cdata={
+            //   logs.length > 0
+            //     ? logs.map((v, i) => {
+            //         if (checked) {
+            //           if (v.reasonCategory)
+            //             return {
+            //               time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
+            //               user: v.identityName,
+            //               resource: v.resourseName,
+            //               activity: v.apiName,
+            //               result: v.result === 1 ? "Success" : "Fail",
+            //               reason: v.reasonCategory === "[]" ? "" : v.reasonCategory,
+            //               ip: v.accessIp,
+            //               caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
+            //             };
+            //         } else
+            //           return {
+            //             time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
+            //             user: v.identityName,
+            //             resource: v.resourseName,
+            //             activity: v.apiName,
+            //             result: v.result === 1 ? "Success" : "Fail",
+            //             reason: v.reasonCategory === "[]" ? "" : v.reasonCategory,
+            //             ip: v.accessIp,
+            //             caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
+            //             id: v.logId,
+            //           };
+            //       })
+            //     : [{ time: "No Data Yet", user: "", resource: "", activity: "", result: "", reason: "", ip: "", caution: false }]
+            // }
             cdata={
               logs.length > 0
                 ? logs.map((v, i) => {
@@ -62,9 +92,9 @@ function Monitoring() {
                           resource: v.resourseName,
                           activity: v.apiName,
                           result: v.result === 1 ? "Success" : "Fail",
-                          reason: v.reasonCategory,
+                          reason: v.reasonCategory === "[]" ? "" : v.reasonCategory,
                           ip: v.accessIp,
-                          caution: v.reasonCategory ? true : false,
+                          caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
                         };
                     } else
                       return {
@@ -73,15 +103,15 @@ function Monitoring() {
                         resource: v.resourseName,
                         activity: v.apiName,
                         result: v.result === 1 ? "Success" : "Fail",
-                        reason: v.reasonCategory,
+                        reason: v.reasonCategory === "[]" ? "" : v.reasonCategory,
                         ip: v.accessIp,
-                        caution: v.reasonCategory ? true : false,
+                        caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
                         id: v.logId,
                       };
                   })
-                : [{ time: "No Data Yet", user: "..", resource: "..", activity: "..", result: "..", reason: "..", ip: "..", caution: false }]
+                : []
             }
-            title="Monitoring Log"
+            title="IAM Log"
             type="monitoring"
           />
         </div>

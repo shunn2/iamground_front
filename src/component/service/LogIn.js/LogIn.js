@@ -16,15 +16,15 @@ function LogIn() {
 
   const onClickLogin = () => {
     axios
-      .post("http://54.180.115.206:8000/mock/login", {
-        userId: { userId },
-        password: { userPw },
+      .post("http://54.180.115.206:8000/api/login", {
+        email: userId,
+        password: userPw,
       })
       .then((res) => console.log(res))
       .catch();
     console.log("click login", {
-      userId: { userId },
-      password: { userPw },
+      email: userId,
+      password: userPw,
     });
   };
 

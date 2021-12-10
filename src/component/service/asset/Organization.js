@@ -9,8 +9,8 @@ import axios from "axios";
 function Organization() {
   const [organizationData, setOrganizationData] = useState([]);
   const fetchOrganizationData = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/mock/organization");
-    setOrganizationData(response.data.organization);
+    const response = await axios.get("http://54.180.115.206:8000/api/organization");
+    setOrganizationData(response.data.organizationList);
     console.log("responseData", response);
     console.log("OrganizationData", organizationData);
   };
@@ -164,17 +164,20 @@ function Organization() {
               { title: "email", field: "email" },
               { title: "Phone Number", field: "phoneNumber" },
             ]}
-            cdata={organizationData.map((v, i) => {
-              return {
-                permissionGroup: v.criteria,
-                cloudName: v.cloudName,
-                userArn: v.userArn,
-                name: v.name,
-                email: v.email,
-                phoneNunmer: v.phoneNunmer,
-              };
-            })}
-            // cdata={data}
+            cdata={
+              organizationData.length > 0
+                ? organizationData.map((v, i) => {
+                    return {
+                      permissionGroup: v.criteria,
+                      cloudName: v.cloudName,
+                      userArn: v.userArn,
+                      name: v.name,
+                      email: v.email,
+                      phoneNunmer: v.phoneNunmer,
+                    };
+                  })
+                : []
+            }
             title="Organization"
             type="organization"
           />

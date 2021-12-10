@@ -152,11 +152,13 @@ function Home() {
                 <span style={{ fontWeight: "bold" }}>{dashboardData.resourceList.allUser}</span> IAM USERS
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousUser / dashboardData.resourceList.allUser) * 100)}%</div>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>
+                  {dashboardData.resourceList.allUser === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousUser / dashboardData.resourceList.allUser) * 100)}%
+                </div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div
                     style={{
-                      width: `${parseInt((dashboardData.resourceList.dangerousUser / dashboardData.resourceList.allUser) * 100)}%`,
+                      width: `${dashboardData.resourceList.allUser === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousUser / dashboardData.resourceList.allUser) * 100)}%`,
                       height: "10px",
                       backgroundColor: "#90CAF9",
                       borderRadius: "4px",
@@ -172,12 +174,12 @@ function Home() {
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
                 <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>
-                  {parseInt((dashboardData.resourceList.dangerousServiceID / dashboardData.resourceList.allServiceID) * 100)}%
+                  {dashboardData.resourceList.allServiceID === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousServiceID / dashboardData.resourceList.allServiceID) * 100)}%
                 </div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div
                     style={{
-                      width: `${parseInt((dashboardData.resourceList.dangerousServiceID / dashboardData.resourceList.allServiceID) * 100)}%`,
+                      width: `${dashboardData.resourceList.allServiceID === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousServiceID / dashboardData.resourceList.allServiceID) * 100)}%`,
                       height: "10px",
                       backgroundColor: "#90CAF9",
                       borderRadius: "4px",
@@ -192,11 +194,13 @@ function Home() {
                 <span style={{ fontWeight: "bold" }}>{dashboardData.resourceList.allGroup}</span> IAM GROUPS
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousGroup / dashboardData.resourceList.allGroup) * 100)}%</div>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>
+                  {dashboardData.resourceList.allGroup === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousGroup / dashboardData.resourceList.allGroup) * 100)}%
+                </div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div
                     style={{
-                      width: `${parseInt((dashboardData.resourceList.dangerousGroup / dashboardData.resourceList.allGroup) * 100)}%`,
+                      width: `${dashboardData.resourceList.allGroup === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousGroup / dashboardData.resourceList.allGroup) * 100)}%`,
                       height: "10px",
                       backgroundColor: "#90CAF9",
                       borderRadius: "4px",
@@ -211,11 +215,13 @@ function Home() {
                 <span style={{ fontWeight: "bold" }}>{dashboardData.resourceList.allRole}</span> IAM ROLES
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousRole / dashboardData.resourceList.allRole) * 100)}%</div>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>
+                  {dashboardData.resourceList.allRole === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousRole / dashboardData.resourceList.allRole) * 100)}%
+                </div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div
                     style={{
-                      width: `${parseInt((dashboardData.resourceList.dangerousRole / dashboardData.resourceList.allRole) * 100)}%`,
+                      width: `${dashboardData.resourceList.allRole === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousRole / dashboardData.resourceList.allRole) * 100)}%`,
                       height: "10px",
                       backgroundColor: "#90CAF9",
                       borderRadius: "4px",
@@ -230,11 +236,13 @@ function Home() {
                 <span style={{ fontWeight: "bold" }}>{dashboardData.resourceList.allPolicy}</span> IAM POLICIES
               </div>
               <div style={{ height: "41px", display: "flex", alignItems: "center" }}>
-                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>{parseInt((dashboardData.resourceList.dangerousPolicy / dashboardData.resourceList.allPolicy) * 100)}%</div>
+                <div style={{ marginRight: "8px", marginBottom: "2px", fontSize: "12px" }}>
+                  {dashboardData.resourceList.allPolicy === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousPolicy / dashboardData.resourceList.allPolicy) * 100)}%
+                </div>
                 <div style={{ width: "100%", height: "10px", backgroundColor: "#EFEFEF", borderRadius: "4px" }}>
                   <div
                     style={{
-                      width: `${parseInt((dashboardData.resourceList.dangerousPolicy / dashboardData.resourceList.allPolicy) * 100)}%`,
+                      width: `${dashboardData.resourceList.allPolicy === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousPolicy / dashboardData.resourceList.allPolicy) * 100)}%`,
                       height: "10px",
                       backgroundColor: "#90CAF9",
                       borderRadius: "4px",
@@ -319,18 +327,25 @@ function Home() {
             { title: "Status", field: "status" },
             { title: "Result", field: "result" },
           ]}
-          cdata={clouds.map((v, i) => {
-            return {
-              cloudName: v.name,
-              lastScanTime: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
-              status: v.status === 1 ? "활성화" : "비활성화",
-              result: (
-                <Link to={`/scan/report/summary?report_id=${v.reportList[v.reportList.length - 1]}`}>
-                  <button>결과 보기</button>
-                </Link>
-              ),
-            };
-          })}
+          cdata={
+            clouds.length > 0
+              ? clouds.map((v, i) => {
+                  return {
+                    cloudName: v.name,
+                    lastScanTime: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
+                    status: v.status === 1 ? "비활성화" : v.status === 2 ? "활성화" : v.status === 3 ? "스캔중" : "",
+                    result:
+                      v.reportList.length === 0 ? (
+                        "No report"
+                      ) : (
+                        <Link to={`/scan/report/summary?report_id=${v.reportList[v.reportList.length - 1]}`}>
+                          <button>결과 보기</button>
+                        </Link>
+                      ),
+                  };
+                })
+              : []
+          }
           title="Clouds"
           type="main"
         />

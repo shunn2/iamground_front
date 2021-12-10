@@ -6,16 +6,24 @@ import axios from "axios";
 
 function CloudRegister() {
   const PostCloud = (cloudName, accessKey, secretKey, cloudId) => {
-    axios.post("http://54.180.115.206:8000/api/cloud", {
-      cloudName: { cloudName },
-      accessKey: { accessKey },
-      secretKey: { secretKey },
-      cloudId: { cloudId },
-      userId: "mk",
-    });
-    // .then(function (response) {
-    //   console.log(response);
-    // });
+    axios
+      .post("http://54.180.115.206:8000/api/cloud", {
+        cloudName: cloudName,
+        accessKey: accessKey,
+        secretKey: secretKey,
+        cloudId: cloudId,
+        userId: "mk",
+      })
+      .then(function (response) {
+        console.log(response);
+        console.log("SendData", {
+          cloudName: cloudName,
+          accessKey: accessKey,
+          secretKey: secretKey,
+          cloudId: cloudId,
+          userId: "mk",
+        });
+      });
   };
 
   return (

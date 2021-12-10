@@ -8,7 +8,7 @@ import moment from "moment";
 function Cloud() {
   const [clouds, setClouds] = useState([]);
   const fetchClouds = async () => {
-    const responseCloud = await axios.get("http://54.180.115.206:8000/mock/cloud");
+    const responseCloud = await axios.get("http://54.180.115.206:8000/api/cloud");
     setClouds(responseCloud.data.cloudList);
     console.log("responseCloud", responseCloud);
   };
@@ -40,13 +40,17 @@ function Cloud() {
               { title: "Last Scan", field: "lastScanTime" },
               { title: "Status", field: "status" },
             ]}
-            cdata={clouds.map((v, i) => {
-              return {
-                cloudName: v.nickName,
-                lastScanTime: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
-                status: v.status === 1 ? "활성화" : "비활성화",
-              };
-            })}
+            cdata={
+              clouds.length > 0
+                ? clouds.map((v, i) => {
+                    return {
+                      cloudName: v.cloudName,
+                      lastScanTime: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
+                      status: v.status === 1 ? "비활성화" : v.status === 2 ? "활성화" : v.status === 3 ? "스캔중" : "",
+                    };
+                  })
+                : []
+            }
             title="Clouds"
             type="cloud"
           />

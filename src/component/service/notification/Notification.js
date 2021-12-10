@@ -15,15 +15,15 @@ function a11yProps(index) {
 }
 
 function Notification() {
-  const [accounts, setAccounts] = useState([]);
-  const fetchAccounts = async () => {
-    const responseAccount = await axios.get("http://54.180.115.206:8000/mock/scan");
-    setAccounts(responseAccount.data.cloudList);
-    console.log("responseAccount", responseAccount);
-  };
-  useEffect(() => {
-    fetchAccounts();
-  }, []);
+  //   const [notificationList, setNotificationList] = useState([]);
+  //   const fetchNotificationList = async () => {
+  //     const response = await axios.get("http://54.180.115.206:8000/api/notification");
+  //     setNotificationList(response.data.notificationList);
+  //     console.log("responseNotification", response);
+  //   };
+  //   useEffect(() => {
+  //     fetchNotificationList();
+  //   }, []);
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
