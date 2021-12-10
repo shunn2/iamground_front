@@ -13,6 +13,10 @@ const Header = styled.header`
 
 function Topbar() {
 const [toast, setToast] = useState("");
+const [notificationList,setNotificationList] = useState(["미확인 알림 없음"]);
+const curNotificationList = useRef(["미확인 알림 없음"]);
+const [notificationCount,setNotificationCount] = useState(0);
+const curNotificationCount = useRef(0);
 const onClickToastPopup = (message) => {
   let type = Math.floor(Math.random() * 10);
   if(type < 5) {
@@ -29,46 +33,60 @@ const onClickToastPopup = (message) => {
 
 // useEffect(() => {
 //   // const interval = 
-//   setInterval(async () => {
-//     const response = await axios.get("http://54.180.115.206:8000/api/monitoring/toast");
+//   setInterval(() =>
+//     {ToastsStore.success("Toast Test")
+//     if (curNotificationCount.current === 0) {
+//       curNotificationCount.current += 1;
+//       setNotificationCount(curNotificationCount.current);
+//       curNotificationList.current[0] = "Noti Test";
+//       setNotificationList(curNotificationList.current);
+//     }
+//     else {
+//       curNotificationCount.current += 1;
+//       setNotificationCount(curNotificationCount.current);
+//       curNotificationList.current.push("Noti Test");
+//       setNotificationList(curNotificationList.current);
+//     }
+//     // async () => {
+//     // const response = await axios.get("http://54.180.115.206:8000/api/monitoring/toast");
     
 //     // if (response.data.toastList.length === 0) {
 //     //   console.log("No Data");
 //     // }
 //     // else {
-//       console.log("Response", response);
-//       const message = response.data.toastList;
-//       if (Math.floor(Math.random() * 10)<5)
-//       ToastsStore.success(message);
-//       else
-//       ToastsStore.warning(message);
+//       // console.log("Response", response);
+//       // const message = response.data.toastList;
+//       // message.map((v,i) =>{
+//       //   ToastsStore.success(v);
+//       // } )
+      
 //     // }
-
-//   }, 1000);
-//   // return () => clearInterval(interval);
+//    }, 
+//   2000);
 // },[]);
 
-const [notificationList, setNotificationList] = useState(["미확인 알림 없음"]);
-const [notificationCount, setNotificationCount] = useState(0);
+// const [notificationList, setNotificationList] = useState(["미확인 알림 없음"]);
+// const [notificationCount, setNotificationCount] = useState(0);
 const [notificationListOpen, setNotificationListOpen] = useState(false);
 
-const AddNotification = () => {
-  if (notificationCount === 0) {
-    setNotificationCount(1);
-    setNotificationList(["User1에서 미확인 IP로의 접근이 발생했습니다."])
-  }
-  else {
-    setNotificationCount(notificationCount + 1);
-     notificationList.push("User1에서 미확인 IP로의 접근이 발생했습니다.");
-  setNotificationList(notificationList);
-  }
- 
-}
+// const AddNotification = (message) => {
+//   if (notificationCount === 0) {
+//     setNotificationCount(1);
+//     setNotificationList([message])
+//   }
+//   else {
+//     setNotificationCount(notificationCount + 1);
+//      notificationList.push(message);
+//   setNotificationList(notificationList);
+//   }
+// }
 
 const ResetNotificationList = () => {
   if(notificationListOpen) {
-     setNotificationList(["미확인 알림 없음"]);
-      setNotificationCount(0); 
+    curNotificationList.current = ["미확인 알림 없음"];
+    setNotificationList(curNotificationList.current);
+    curNotificationCount.current = 0; 
+    setNotificationCount(curNotificationCount.current);
   }
   setNotificationListOpen(!notificationListOpen);
 }
@@ -100,7 +118,7 @@ const notiList = () => {
             lightBackground/>
         </div>
         <div style={{ height: "50px", display: "flex", alignItems: "center", width: "30px", justifyContent: "center", cursor: "pointer" }}>
-          <button style={{ width: "100px", height: "30px", color: "#d6d6d6" }} onClick={()=> {AddNotification()}}>Noti </button>
+          {/* <button style={{ width: "100px", height: "30px", color: "#d6d6d6" }} onClick={()=> {AddNotification()}}>Noti </button> */}
         </div>
         <div style={{ height: "50px", display: "flex", alignItems: "center", width: "40px", justifyContent: "center", cursor: "pointer" }}>
           <button style={{backgroundColor:"#3B434D", border:"0"}} onClick={() => ResetNotificationList()}> <Notifications style={{ width: "30px", height: "30px", color: "#d6d6d6" }} /> </button>

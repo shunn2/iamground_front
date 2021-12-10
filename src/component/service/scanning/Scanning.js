@@ -141,12 +141,15 @@ function Scanning() {
               last_scanned: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
               per: v.permissionCount,
               config: v.configCount,
-              scan: <button onClick={() => StartScan(v.cloudId)}>스캔 하기</button>,
-              result: (
-                <Link to={`/scan/report/summary?report_id=${v.reportList[v.reportList.length - 1]}`}>
-                  <button>결과 보기</button>
-                </Link>
-              ),
+              scan: v.status === 1 ? "비활성화" : v.status === 2 ? <button onClick={() => StartScan(v.cloudId)}>스캔 하기</button> : v.status === 3 ? "스캔중" : "",
+              result:
+                v.reportList.length === 0 ? (
+                  "No report"
+                ) : (
+                  <Link to={`/scan/report/summary?report_id=${v.reportList[v.reportList.length - 1]}`}>
+                    <button>결과 보기</button>
+                  </Link>
+                ),
             };
           })}
           title="Root Accounts"

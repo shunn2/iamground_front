@@ -12,6 +12,7 @@ import styled from "styled-components";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import _ from "lodash";
+import axios from "axios";
 
 const VisualizationNav = styled.nav`
   height: 30%;
@@ -79,16 +80,16 @@ function ElementHover({ icon, element }) {
 }
 
 const Visualization = () => {
-  // const [visualData, setVisualData] = useState(null);
-  // const fetchVisualData = async () => {
-  //   const response = await axios.get("http://54.180.115.206:8000/mock/visualization");
-  //   setVisualData(response);
-  //   console.log(response);
-  //   console.log(visualData);
-  // };
-  // useEffect(() => {
-  //   fetchVisualData();
-  // }, []);
+  const [visualData, setVisualData] = useState([]);
+  const fetchVisualData = async () => {
+    const response = await axios.get("http://54.180.115.206:8000/api/visualization");
+    setVisualData(response);
+    console.log("visual", response);
+    console.log("visualdata", visualData);
+  };
+  useEffect(() => {
+    fetchVisualData();
+  }, []);
   const data = {
     user: [
       {

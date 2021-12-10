@@ -19,12 +19,12 @@ const sidebarData = [
     children: [
       {
         link: '/monitoring/log',
-        text: 'Log',
+        text: 'IAM Log',
         icon: <Description />,
       },
       {
         link: '/monitoring/user',
-        text: 'User',
+        text: 'User Log',
         icon: <Person />,
       },
     ],

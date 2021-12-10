@@ -5,33 +5,26 @@ import React, { useEffect, useState } from "react";
 import AlertMessage from "../module/AlertMessage";
 import ModalInfo from "../module/modal/ModalInfo";
 import { ToastsContainer, ToastsStore, ToastsContainerPosition } from "react-toasts";
+import axios from "axios";
 
 function Test() {
-  const [toast, setToast] = useState("Toast PopUp Test");
-
-  const onClickToastPopup = (type) => {
-    if (type < 5) {
-      setToast("User1에서 조직도 기반 과도한 권한 획득이 발생했습니다.");
-      ToastsStore.success(toast);
-    } else {
-      setToast("User1에서 미확인 IP로의 접근이 발생했습니다.");
-      ToastsStore.warning(toast);
-    }
+  const [users, setUsers] = useState([]);
+  const fetchUsers = async () => {
+    const responseAddGroup = await axios.get("http://54.180.115.206:8000/api/monitoring/log");
+    setUsers(responseAddGroup.data.users);
+    console.log("responseAddGroup", responseAddGroup.data.users);
+    console.log("users", users);
   };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
   return (
-    <>
-      <div>
-        <button
-          style={{ width: "100px", height: "30px", color: "#d6d6d6" }}
-          onClick={() => {
-            onClickToastPopup(Math.floor(Math.random() * 10));
-          }}
-        >
-          Toast
-        </button>
-        <ToastsContainer position={ToastsContainerPosition.BOTTOM_RIGHT} store={ToastsStore} lightBackground />
-      </div>
-    </>
+    <div>
+      {users.map((v, i) => {
+        return <div>{v.userName}</div>;
+      })}
+    </div>
   );
 }
 
