@@ -80,9 +80,9 @@ const MonitoringUser = () => {
 
           {/* **************************Groups************************** */}
           {bookmarks.map((group, index) => (
-            <SideSpan key={group.name}>
+            <SideSpan key={group.bookmarkName}>
               <Link
-                to={`/monitoring/user/log?bookmark_id=${group.id}`}
+                to={`/monitoring/user/log?bookmark_id=${group.bookmarkId}`}
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", textDecoration: "none", color: "black", fontWeight: "600" }}
               >
                 <div
@@ -106,7 +106,7 @@ const MonitoringUser = () => {
                   {CountLogs(users.filter((user) => group.members.includes(user.userArn)))}
                 </div>
                 <PeopleAltIcon style={{ fontSize: "120px", color: "#3B434D" }} />
-                <div style={{ marginTop: "-10px" }}>{group.name}</div>
+                <div style={{ marginTop: "-10px" }}>{group.bookmarkName}</div>
               </Link>
             </SideSpan>
           ))}
@@ -211,7 +211,7 @@ const MonitoringUser = () => {
           </div>
         </div>
       </Div>
-      {modalOpen && <ModalGroup type="addgroup" modalOpen={modalOpen} setmodalOpen={setmodalOpen} users={users} />}
+      {modalOpen && <ModalGroup type="addgroup" modalOpen={modalOpen} setmodalOpen={setmodalOpen} />}
     </>
   );
 };

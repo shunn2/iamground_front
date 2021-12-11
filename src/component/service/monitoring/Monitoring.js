@@ -7,9 +7,12 @@ import moment from "moment";
 
 function Monitoring() {
   const [logs, setLogs] = useState([]);
+  const [filteredLog, setFilteredLog] = useState([]);
+  const [checked, setChecked] = useState(true);
   const fetchLogs = async () => {
     const response = await axios.get("http://54.180.115.206:8000/api/monitoring/iam");
     setLogs(response.data.iamLogs);
+
     console.log("response", response);
     console.log("logs", response.data.iamLogs);
     console.log("Length", logs.length);
@@ -18,7 +21,27 @@ function Monitoring() {
     fetchLogs();
   }, []);
 
-  const [checked, setChecked] = useState(true);
+  useEffect(() => {
+    setFilteredLog(
+      logs
+        .map((v, i) => {
+          return {
+            time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
+            user: v.identityName,
+            resource: JSON.parse(v.resourceName).join(", "),
+            activity: v.apiName,
+            result: v.result === 1 ? "Success" : "Fail",
+            reason: v.reasonCategory === "[]" ? "" : JSON.parse(v.reasonCategory).join(", "),
+            ip: v.accessIp,
+            caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
+          };
+        })
+        .filter((v) => {
+          return checked ? v.caution : true;
+        })
+    );
+  }, [checked, logs]);
+
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
@@ -51,66 +74,7 @@ function Monitoring() {
               { title: "Reason", field: "reason" },
               { title: "Ip", field: "ip" },
             ]}
-            // cdata={
-            //   logs.length > 0
-            //     ? logs.map((v, i) => {
-            //         if (checked) {
-            //           if (v.reasonCategory)
-            //             return {
-            //               time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
-            //               user: v.identityName,
-            //               resource: v.resourseName,
-            //               activity: v.apiName,
-            //               result: v.result === 1 ? "Success" : "Fail",
-            //               reason: v.reasonCategory === "[]" ? "" : v.reasonCategory,
-            //               ip: v.accessIp,
-            //               caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
-            //             };
-            //         } else
-            //           return {
-            //             time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
-            //             user: v.identityName,
-            //             resource: v.resourseName,
-            //             activity: v.apiName,
-            //             result: v.result === 1 ? "Success" : "Fail",
-            //             reason: v.reasonCategory === "[]" ? "" : v.reasonCategory,
-            //             ip: v.accessIp,
-            //             caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
-            //             id: v.logId,
-            //           };
-            //       })
-            //     : [{ time: "No Data Yet", user: "", resource: "", activity: "", result: "", reason: "", ip: "", caution: false }]
-            // }
-            cdata={
-              logs.length > 0
-                ? logs.map((v, i) => {
-                    if (checked) {
-                      if (v.reasonCategory)
-                        return {
-                          time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
-                          user: v.identityName,
-                          resource: v.resourseName,
-                          activity: v.apiName,
-                          result: v.result === 1 ? "Success" : "Fail",
-                          reason: v.reasonCategory === "[]" ? "" : v.reasonCategory,
-                          ip: v.accessIp,
-                          caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
-                        };
-                    } else
-                      return {
-                        time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
-                        user: v.identityName,
-                        resource: v.resourseName,
-                        activity: v.apiName,
-                        result: v.result === 1 ? "Success" : "Fail",
-                        reason: v.reasonCategory === "[]" ? "" : v.reasonCategory,
-                        ip: v.accessIp,
-                        caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
-                        id: v.logId,
-                      };
-                  })
-                : []
-            }
+            cdata={filteredLog}
             title="IAM Log"
             type="monitoring"
           />

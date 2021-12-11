@@ -141,7 +141,7 @@ function Scanning() {
               last_scanned: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
               per: v.permissionCount,
               config: v.configCount,
-              scan: v.status === 1 ? "비활성화" : v.status === 2 ? <button onClick={() => StartScan(v.cloudId)}>스캔 하기</button> : v.status === 3 ? "스캔중" : "",
+              scan: v.status === 1 ? "비활성화" : v.status === 2 ? <button onClick={() => StartScan(v.cloudId)}>스캔 하기</button> : v.status === 3 ? <button disabled>스캔중</button> : "",
               result:
                 v.reportList.length === 0 ? (
                   "No report"

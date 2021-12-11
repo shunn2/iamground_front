@@ -58,7 +58,7 @@ function Organization() {
     return setVisible(!visible);
   };
   const [colDef, setColDef] = useState(defaultColumns);
-  const [data, setData] = useState(defaultData);
+  const [data, setData] = useState([]);
   const Extentions = ["xlsx", "xls", "csv"];
   const getExtention = (file) => {
     const parts = file.name.split(".");
@@ -90,7 +90,30 @@ function Organization() {
       setColDef(heads);
       fileData.splice(0, 1);
       setData(convertToJson(headers, fileData));
-      setOrganizationData(data);
+
+      convertToJson(headers, fileData).map((v, i) => {
+        axios
+          .post("http://54.180.115.206:8000/api/organization", {
+            userArn: v.userArn,
+            cloudId: v.cloudName,
+            criteria: v.permissionGroup,
+            employeeName: v.employeeName,
+            email: v.email,
+            phoneNumber: v.phoneNumber,
+          })
+          .then(function (response) {
+            console.log(response);
+            console.log("Send Data", {
+              userArn: v.userArn,
+              cloudId: v.cloudName,
+              criteria: v.permissionGroup,
+              employeeName: v.employeeName,
+              email: v.email,
+              phoneNumber: v.phoneNumber,
+            });
+          });
+      });
+      window.location.reload();
     };
     if (file) {
       if (getExtention(file)) {
@@ -98,28 +121,29 @@ function Organization() {
       } else {
         alert("Invalid file input");
       }
-    } else {
-      setData([]);
-      setColDef([]);
     }
+    // else {
+    //   setData([]);
+    //   setColDef([]);
+    // }
   };
   const csvList = () => {
     return (
       <>
-        <table style={{ borderCollapse: "collapse", border: "1px solid black", position: "absolute", top: "75px", right: "205px", textAlign: "center", backgroundColor: "white" }}>
+        <table style={{ borderCollapse: "collapse", border: "1px solid black", position: "absolute", top: "99px", right: "205px", textAlign: "center", backgroundColor: "white" }}>
           <thead>
             <tr>
-              <th style={{ backgroundColor: "#D6D6D6", border: "1px solid #A1B8D6", padding: "3px" }}>CSV File</th>
+              <th style={{ backgroundColor: "#D6D6D6", border: "1px solid #A1B8D6", padding: "3px" }}>Upload CSV File</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {/* <tr>
               <td style={{ border: "1px solid #D6D6D6" }}>
                 <a href="/organization" style={{ color: "black", textDecoration: "none" }}>
                   Download
                 </a>
               </td>
-            </tr>
+            </tr> */}
             <tr>
               <td style={{ border: "1px solid #D6D6D6" }}>
                 <a href="/organization" style={{ color: "black", textDecoration: "none" }}>
@@ -165,21 +189,21 @@ function Organization() {
               { title: "email", field: "email" },
               { title: "Phone Number", field: "phoneNumber" },
             ]}
-            // cdata={
-            //   organizationData.length > 0
-            //     ? organizationData.map((v, i) => {
-            //         return {
-            //           permissionGroup: v.criteria,
-            //           cloudName: v.cloudName,
-            //           userArn: v.userArn,
-            //           name: v.name,
-            //           email: v.email,
-            //           phoneNunmer: v.phoneNunmer,
-            //         };
-            //       })
-            //     : []
-            // }
-            cdata={data}
+            cdata={
+              organizationData.length > 0
+                ? organizationData.map((v, i) => {
+                    return {
+                      permissionGroup: v.criteria,
+                      cloudName: v.cloudName,
+                      userArn: v.userArn,
+                      name: v.employeeName,
+                      email: v.email,
+                      phoneNunmer: v.phoneNunmer,
+                    };
+                  })
+                : []
+            }
+            // cdata={data}
             title="Organization"
             type="organization"
           />

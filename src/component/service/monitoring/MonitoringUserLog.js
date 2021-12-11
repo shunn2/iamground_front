@@ -34,6 +34,21 @@ const MonitoringUserLog = () => {
     fetchLogs();
   }, []);
 
+  const deleteGroup = (bookmarkId) => {
+    console.log(bookmarkId);
+    axios
+      .delete("http://54.180.115.206:8000/api/monitoring/log/bookmark", {
+        data: { bookmarkGroupId: bookmarkId },
+      })
+      .then(function (response) {
+        console.log(response);
+        console.log("Send Data", {
+          bookmarkGroupId: bookmarkId,
+        });
+        window.location.reload();
+      });
+  };
+
   return (
     <>
       <h1
@@ -58,11 +73,23 @@ const MonitoringUserLog = () => {
           <div style={{ fontSize: "24px", fontWeight: "bolder" }}>{identityName}</div>
         </div>
         <div style={{ paddingRight: "10px" }}>
-          <Link to="/visualization" style={{ textDecoration: "none" }}>
-            <Button variant="contained" style={{ backgroundColor: "#D6D6D6", color: "black" }}>
-              {identityName} 정보 보기
-            </Button>
-          </Link>
+          <div>
+            <Link to="/visualization" style={{ textDecoration: "none" }}>
+              <Button variant="contained" style={{ backgroundColor: "#D6D6D6", color: "black" }}>
+                {identityName} 정보 보기
+              </Button>
+            </Link>
+          </div>
+          {query.bookmark_id &&
+            (identityName === "ALL" ? (
+              <></>
+            ) : (
+              <div style={{ paddingRight: "10px", paddingTop: "5px" }}>
+                <Button variant="contained" style={{ backgroundColor: "#D6D6D6", color: "black", width: "145px" }} onClick={() => deleteGroup(query.bookmark_id)}>
+                  {identityName} 삭제하기
+                </Button>
+              </div>
+            ))}
         </div>
       </div>
       <Div>
@@ -81,10 +108,10 @@ const MonitoringUserLog = () => {
               return {
                 time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
                 user: v.identityName,
-                resource: JSON.parse(v.resourceName),
+                resource: JSON.parse(v.resourceName).join(", "),
                 activity: v.apiName,
                 result: v.result === 1 ? "Success" : "Fail",
-                reason: v.reasonCategory === "[]" ? "" : v.reasonCategory,
+                reason: v.reasonCategory === "[]" ? "" : JSON.parse(v.reasonCategory).join(", "),
                 ip: v.accessIp,
                 caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
                 id: v.logId,
