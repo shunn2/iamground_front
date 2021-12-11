@@ -80,157 +80,159 @@ function ElementHover({ icon, element }) {
 }
 
 const Visualization = () => {
-  const [visualData, setVisualData] = useState([]);
-  const fetchVisualData = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/api/visualization");
-    setVisualData(response);
-    console.log("visual", response);
-    console.log("visualdata", visualData);
+  //   const [visualData, setVisualData] = useState({ user: [], awsGroup: [], orgGroup: [], root: [] });
+  //   const fetchVisualData = async () => {
+  //     const response = await axios.get("http://54.180.115.206:8000/api/visualization");
+  //     setVisualData(response);
+  //     console.log("visual", response);
+  //     console.log("visualdata", visualData);
+  //   };
+  //   useEffect(() => {
+  //     fetchVisualData();
+  //   }, []);
+  const data = {
+    user: [
+      {
+        source: "user1",
+        target: "accesskey1",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0001", //잘못된 구성 <<< 변환해서 String으로 주는 걸로
+      },
+      {
+        source: "user1",
+        target: "accesskey6",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0001", //잘못된 구성 <<< 변환해서 String으로 주는 걸로
+      },
+      {
+        source: "user2",
+        target: "accesskey5",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0000", //권한 분리 추천
+      },
+      {
+        source: "user3",
+        target: "accesskey2",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0011", //둘 다
+      },
+      {
+        source: "user3",
+        target: "accesskey15",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0011", //둘 다
+      },
+      {
+        source: "user4",
+        target: "accesskey8",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0010", //권한 분리 추천
+      },
+      {
+        source: "user5",
+        target: "accesskey10",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0000", //권한 분리 추천
+      },
+      {
+        source: "user6",
+        target: "accesskey12",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0000", //권한 분리 추천
+      },
+      {
+        source: "user7",
+        target: "accesskey14",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0010", //권한 분리 추천
+      },
+      {
+        source: "user8",
+        target: "accesskey18",
+        name: "suheon",
+        email: "asdf@naver.com",
+        phone: "010-1234-8756",
+        warningStatusInfo: "0011", //권한 분리 추천
+      },
+    ],
+    orgGroup: [
+      {
+        source: "group1",
+        target: "user1",
+      },
+      {
+        source: "group2",
+        target: "user2",
+      },
+    ],
+    awsGroup: [
+      {
+        source: "awsGroup1",
+        target: "user1",
+      },
+      {
+        source: "awsGroup2",
+        target: "user2",
+      },
+      {
+        source: "awsGroup3",
+        target: "user4",
+      },
+      {
+        source: "awsGroup4",
+        target: "user5",
+      },
+      {
+        source: "awsGroup5",
+        target: "user5",
+      },
+    ],
+    root: [
+      {
+        source: "root1",
+        target: "awsGroup1",
+      },
+      {
+        source: "root1",
+        target: "awsGroup2",
+      },
+      {
+        source: "root1",
+        target: "awsGroup3",
+      },
+    ],
   };
-  useEffect(() => {
-    fetchVisualData();
-  }, []);
-  // const data = {
-  //   user: [
-  //     {
-  //       source: "user1",
-  //       target: "accesskey1",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0001", //잘못된 구성 <<< 변환해서 String으로 주는 걸로
-  //     },
-  //     {
-  //       source: "user1",
-  //       target: "accesskey6",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0001", //잘못된 구성 <<< 변환해서 String으로 주는 걸로
-  //     },
-  //     {
-  //       source: "user2",
-  //       target: "accesskey5",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0000", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user3",
-  //       target: "accesskey2",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0011", //둘 다
-  //     },
-  //     {
-  //       source: "user3",
-  //       target: "accesskey15",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0011", //둘 다
-  //     },
-  //     {
-  //       source: "user4",
-  //       target: "accesskey8",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0010", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user5",
-  //       target: "accesskey10",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0000", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user6",
-  //       target: "accesskey12",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0000", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user7",
-  //       target: "accesskey14",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0010", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user8",
-  //       target: "accesskey18",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0011", //권한 분리 추천
-  //     },
-  //   ],
-  //   orgGroup: [
-  //     {
-  //       source: "group1",
-  //       target: "user1",
-  //     },
-  //     {
-  //       source: "group2",
-  //       target: "user2",
-  //     },
-  //   ],
-  //   awsGroup: [
-  //     {
-  //       source: "awsGroup1",
-  //       target: "user1",
-  //     },
-  //     {
-  //       source: "awsGroup2",
-  //       target: "user2",
-  //     },
-  //     {
-  //       source: "awsGroup3",
-  //       target: "user4",
-  //     },
-  //     {
-  //       source: "awsGroup4",
-  //       target: "user5",
-  //     },
-  //     {
-  //       source: "awsGroup5",
-  //       target: "user5",
-  //     },
-  //   ],
-  //   root: [
-  //     {
-  //       source: "root1",
-  //       target: "awsGroup1",
-  //     },
-  //     {
-  //       source: "root1",
-  //       target: "awsGroup2",
-  //     },
-  //     {
-  //       source: "root1",
-  //       target: "awsGroup3",
-  //     },
-  //   ],
-  // };
-  const targetGroup = visualData.awsGroup.map((v, i) => {
-    return v.target;
-  });
+
   const [noGroup, setNoGroup] = useState([]);
   const [yesGroup, setYesGroup] = useState([]);
   const reArrayUser = () => {
-    for (let j = 0; j < visualData.user.length; j++) {
-      if (targetGroup.includes(visualData.user[j].source)) {
-        setYesGroup((prev) => [...prev, visualData.user[j]]);
+    const targetGroup = data.awsGroup.map((v, i) => {
+      return v.target;
+    });
+    console.log(1);
+    for (let j = 0; j < data.user.length; j++) {
+      if (targetGroup.includes(data.user[j].source)) {
+        setYesGroup((prev) => [...prev, data.user[j]]);
       } else {
-        setNoGroup((prev) => [...prev, visualData.user[j]]);
+        setNoGroup((prev) => [...prev, data.user[j]]);
       }
     }
   };
@@ -238,7 +240,6 @@ const Visualization = () => {
     reArrayUser();
   }, []);
   const userElement = [...yesGroup, ...noGroup];
-
   const [awsChecked, setAwsChecked] = useState(true);
   const awsHandleChange = (event) => {
     setAwsChecked(event.target.checked);
@@ -263,7 +264,7 @@ const Visualization = () => {
     setmodalOpen(true);
   };
 
-  const elementRoot = visualData.root.map((v, i) => {
+  const elementRoot = data.root.map((v, i) => {
     return {
       id: v.source,
       type: "default",
@@ -290,11 +291,10 @@ const Visualization = () => {
       type: "default",
       style: { border: "2px solid black", width: 50, height: 50, fontWeight: "bold", fontSize: "1.1em" },
       data: { label: "No Group" },
-      position: { x: (1100 / (visualData.awsGroup.length + 2)) * (visualData.awsGroup.length + 1) + 50, y: 200 },
+      position: { x: (1100 / (data.awsGroup.length + 2)) * (data.awsGroup.length + 1) + 50, y: 200 },
     },
   ];
-  //
-  const elementOrgGroup = visualData.orgGroup.map((v, i) => {
+  const elementOrgGroup = data.orgGroup.map((v, i) => {
     if (orgChecked === true) {
       return {
         id: v.source,
@@ -309,7 +309,7 @@ const Visualization = () => {
           ),
         },
         position: {
-          x: (1300 / (visualData.orgGroup.length + 1)) * (i + 1),
+          x: (1300 / (data.orgGroup.length + 1)) * (i + 1),
           y: 100,
         },
       };
@@ -317,7 +317,7 @@ const Visualization = () => {
       return [];
     }
   });
-  const elementAwsGroup = visualData.awsGroup.map((v, i) => {
+  const elementAwsGroup = data.awsGroup.map((v, i) => {
     if (awsChecked === true) {
       if (v.source !== "") {
         return {
@@ -333,7 +333,7 @@ const Visualization = () => {
             ),
           },
           position: {
-            x: (1100 / (visualData.awsGroup.length + 2)) * (i + 1) + 50,
+            x: (1100 / (data.awsGroup.length + 2)) * (i + 1) + 50,
             y: 200,
           },
         };
@@ -383,12 +383,12 @@ const Visualization = () => {
         ),
       },
       position: {
-        x: (1250 / (visualData.user.length + 1)) * (i + 1),
+        x: (1250 / (data.user.length + 1)) * (i + 1),
         y: 570,
       },
     };
   });
-  const rootToGroup = visualData.root.map((v, i) => {
+  const rootToGroup = data.root.map((v, i) => {
     return {
       id: v.source + "to" + "Nogroup",
       source: v.source,
@@ -396,7 +396,7 @@ const Visualization = () => {
       type: "straight",
     };
   });
-  const rootToNoGroup = visualData.root.map((v, i) => {
+  const rootToNoGroup = data.root.map((v, i) => {
     return {
       id: v.source + "to" + v.target,
       source: v.source,
@@ -404,7 +404,7 @@ const Visualization = () => {
       type: "straight",
     };
   });
-  const awsGroupToUser = visualData.awsGroup.map((v, i) => {
+  const awsGroupToUser = data.awsGroup.map((v, i) => {
     return {
       id: v.source + "to" + v.target,
       source: v.source,
@@ -413,7 +413,7 @@ const Visualization = () => {
     };
   });
 
-  const orgGroupToUser = visualData.orgGroup.map((v, i) => {
+  const orgGroupToUser = data.orgGroup.map((v, i) => {
     return {
       id: v.source + "to" + v.target,
       source: v.source,
@@ -520,21 +520,3 @@ const Visualization = () => {
 };
 
 export default Visualization;
-// //https://webkid.io/blog/react-flow-node-based-graph-library/
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// const Visualization = () => {
-//   const [visualData, setVisualData] = useState([]);
-//   const fetchVisualData = async () => {
-//     const response = await axios.get("http://54.180.115.206:8000/api/visualization");
-//     setVisualData(response);
-//     console.log("visual", response);
-//     console.log("visualdata", visualData);
-//   };
-//   useEffect(() => {
-//     fetchVisualData();
-//   }, []);
-//   return <div>hi</div>;
-// };
-
-// export default Visualization;

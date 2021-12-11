@@ -12,21 +12,22 @@ const Header = styled.header`
 `;
 
 function Topbar() {
-  const [toast, setToast] = useState("");
+  // const [toast, setToast] = useState("");
   const [notificationList, setNotificationList] = useState(["미확인 알림 없음"]);
   const curNotificationList = useRef(["미확인 알림 없음"]);
   const [notificationCount, setNotificationCount] = useState(0);
   const curNotificationCount = useRef(0);
-  const onClickToastPopup = (message) => {
-    let type = Math.floor(Math.random() * 10);
-    if (type < 5) {
-      setToast(message);
-      ToastsStore.success(toast);
-    } else {
-      setToast(message);
-      ToastsStore.warning(toast);
-    }
-  };
+
+  // const onClickToastPopup = (message) => {
+  //   let type = Math.floor(Math.random() * 10);
+  //   if (type < 5) {
+  //     setToast(message);
+  //     ToastsStore.success(toast);
+  //   } else {
+  //     setToast(message);
+  //     ToastsStore.warning(toast);
+  //   }
+  // };
 
   // const onClickToastPopup = (message) => {
   //   let type = Math.floor(Math.random() * 10);
@@ -42,8 +43,22 @@ function Topbar() {
 
   // useEffect(() => {
   //   // const interval =
-  //   setInterval(() =>
-  //     {ToastsStore.success("Toast Test")
+  //   setInterval(
+  //     // () =>{
+  //     // {ToastsStore.success("Toast Test")
+  //     async () => {
+  //     const response = await axios.get("http://54.180.115.206:8000/api/monitoring/toast");
+
+  //     if (response.data.toastList.length === 0) {
+  //       console.log("No Data");
+  //     }
+  //     else {
+  //       console.log("Response", response);
+  //       const message = response.data.toastList;
+  //       message.map((v,i) =>{
+  //         ToastsStore.success(`${v.resourceName}에 ${v.reasonCategory[0]}외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
+  //       } )
+  //     }
   //     if (curNotificationCount.current === 0) {
   //       curNotificationCount.current += 1;
   //       setNotificationCount(curNotificationCount.current);
@@ -56,22 +71,8 @@ function Topbar() {
   //       curNotificationList.current.push("Noti Test");
   //       setNotificationList(curNotificationList.current);
   //     }
-  //     // async () => {
-  //     // const response = await axios.get("http://54.180.115.206:8000/api/monitoring/toast");
-
-  //     // if (response.data.toastList.length === 0) {
-  //     //   console.log("No Data");
-  //     // }
-  //     // else {
-  //       // console.log("Response", response);
-  //       // const message = response.data.toastList;
-  //       // message.map((v,i) =>{
-  //       //   ToastsStore.success(v);
-  //       // } )
-
-  //     // }
-  //    },
-  //   2000);
+  //   },
+  //   5000);
   // },[]);
 
   // const [notificationList, setNotificationList] = useState(["미확인 알림 없음"]);
@@ -100,13 +101,13 @@ function Topbar() {
     setNotificationListOpen(!notificationListOpen);
   };
 
-  const ResetNotificationList = () => {
-    if (notificationListOpen) {
-      setNotificationList(["미확인 알림 없음"]);
-      setNotificationCount(0);
-    }
-    setNotificationListOpen(!notificationListOpen);
-  };
+  // const ResetNotificationList = () => {
+  //   if (notificationListOpen) {
+  //     setNotificationList(["미확인 알림 없음"]);
+  //     setNotificationCount(0);
+  //   }
+  //   setNotificationListOpen(!notificationListOpen);
+  // };
 
   const notiList = () => {
     return (

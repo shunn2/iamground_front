@@ -28,7 +28,7 @@ const ModalGroup = ({ modalOpen, setmodalOpen }) => {
     }
     axios
       .post("http://54.180.115.206:8000/api/monitoring/log/bookmark", {
-        name: newName,
+        bookmarkGroupName: newName,
         memberList: newBookmark,
       })
       .then(function (response) {
