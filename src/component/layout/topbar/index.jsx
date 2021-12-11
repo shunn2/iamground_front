@@ -100,13 +100,13 @@ function Topbar() {
     setNotificationListOpen(!notificationListOpen);
   };
 
-  const ResetNotificationList = () => {
-    if (notificationListOpen) {
-      setNotificationList(["미확인 알림 없음"]);
-      setNotificationCount(0);
-    }
-    setNotificationListOpen(!notificationListOpen);
-  };
+  // const ResetNotificationList = () => {
+  //   if (notificationListOpen) {
+  //     setNotificationList(["미확인 알림 없음"]);
+  //     setNotificationCount(0);
+  //   }
+  //   setNotificationListOpen(!notificationListOpen);
+  // };
 
   const notiList = () => {
     return (

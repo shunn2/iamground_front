@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Div } from "../style/styled-compo";
 import ReactFlow from "react-flow-renderer";
 import { VisGroup, VisUser, VisKey, VisRoot } from "../style/Icons";
@@ -80,152 +80,43 @@ function ElementHover({ icon, element }) {
 }
 
 const Visualization = () => {
-  const [visualData, setVisualData] = useState([]);
+  const [visualData, setVisualData] = useState({ user: [], awsGroup: [], orgGroup: [], root: [] });
+  const [elementRoot, setelementRoot] = useState([]);
+  const [elementOrg, setelementOrg] = useState([]);
+  const [elementAws, setelementAws] = useState([]);
+  const [elementUser, setelementUser] = useState([]);
+  const [elementKey, setelementKey] = useState([]);
+  const [noGroup, setNoGroup] = useState([]);
+  const [yesGroup, setYesGroup] = useState([]);
+  const [userElement, setUserElement] = useState([]);
+  const [rootToGroup, setRootToGroup] = useState([]);
+  const [awsToUser, setAwsToUser] = useState([]);
+  const [orgToUser, setOrgToUser] = useState([]);
+  const [userToKey, setUserToKey] = useState([]);
+  const [connect, setConnect] = useState([]);
+  const [elements, setElements] = useState([]);
+  const [uniqueElements, setUniqueElements] = useState([]);
+  const [targetGroup, setTargetGroup] = useState([]);
   const fetchVisualData = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/api/visualization");
-    setVisualData(response);
-    console.log("visual", response);
-    console.log("visualdata", visualData);
+    await axios.get("http://54.180.115.206:8000/api/visualization").then((res) => {
+      setVisualData(res.data);
+      console.log("res", res);
+    });
   };
   useEffect(() => {
     fetchVisualData();
+    console.log(visualData);
   }, []);
-  // const data = {
-  //   user: [
-  //     {
-  //       source: "user1",
-  //       target: "accesskey1",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0001", //잘못된 구성 <<< 변환해서 String으로 주는 걸로
-  //     },
-  //     {
-  //       source: "user1",
-  //       target: "accesskey6",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0001", //잘못된 구성 <<< 변환해서 String으로 주는 걸로
-  //     },
-  //     {
-  //       source: "user2",
-  //       target: "accesskey5",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0000", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user3",
-  //       target: "accesskey2",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0011", //둘 다
-  //     },
-  //     {
-  //       source: "user3",
-  //       target: "accesskey15",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0011", //둘 다
-  //     },
-  //     {
-  //       source: "user4",
-  //       target: "accesskey8",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0010", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user5",
-  //       target: "accesskey10",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0000", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user6",
-  //       target: "accesskey12",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0000", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user7",
-  //       target: "accesskey14",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0010", //권한 분리 추천
-  //     },
-  //     {
-  //       source: "user8",
-  //       target: "accesskey18",
-  //       name: "suheon",
-  //       email: "asdf@naver.com",
-  //       phone: "010-1234-8756",
-  //       warningStatusInfo: "0011", //권한 분리 추천
-  //     },
-  //   ],
-  //   orgGroup: [
-  //     {
-  //       source: "group1",
-  //       target: "user1",
-  //     },
-  //     {
-  //       source: "group2",
-  //       target: "user2",
-  //     },
-  //   ],
-  //   awsGroup: [
-  //     {
-  //       source: "awsGroup1",
-  //       target: "user1",
-  //     },
-  //     {
-  //       source: "awsGroup2",
-  //       target: "user2",
-  //     },
-  //     {
-  //       source: "awsGroup3",
-  //       target: "user4",
-  //     },
-  //     {
-  //       source: "awsGroup4",
-  //       target: "user5",
-  //     },
-  //     {
-  //       source: "awsGroup5",
-  //       target: "user5",
-  //     },
-  //   ],
-  //   root: [
-  //     {
-  //       source: "root1",
-  //       target: "awsGroup1",
-  //     },
-  //     {
-  //       source: "root1",
-  //       target: "awsGroup2",
-  //     },
-  //     {
-  //       source: "root1",
-  //       target: "awsGroup3",
-  //     },
-  //   ],
-  // };
-  const targetGroup = visualData.awsGroup.map((v, i) => {
-    return v.target;
-  });
-  const [noGroup, setNoGroup] = useState([]);
-  const [yesGroup, setYesGroup] = useState([]);
-  const reArrayUser = () => {
+  useEffect(() => {
+    setTargetGroup(
+      visualData.awsGroup.map((v, i) => {
+        return v.target;
+      })
+    );
+    console.log(2);
+    // const targetGroup = visualData.awsGroup.map((v, i) => {
+    //   return v.target;
+    // });
     for (let j = 0; j < visualData.user.length; j++) {
       if (targetGroup.includes(visualData.user[j].source)) {
         setYesGroup((prev) => [...prev, visualData.user[j]]);
@@ -233,15 +124,229 @@ const Visualization = () => {
         setNoGroup((prev) => [...prev, visualData.user[j]]);
       }
     }
-  };
+    console.log(3);
+    // useEffect(() => {
+    //   reArrayUser();
+    // }, []);
+    setUserElement([...yesGroup, ...noGroup]);
+    setelementRoot(
+      visualData.root.map((v, i) => {
+        return {
+          id: v.source,
+          type: "default",
+          style: {
+            background: "#e0e0e0",
+            width: 70,
+            fontWeight: "bold",
+            fontSize: "1.2em",
+          },
+          data: {
+            label: (
+              <div>
+                <VisRoot />
+                {v.source}
+              </div>
+            ),
+          },
+          position: { x: 700, y: 50 },
+        };
+      })
+    );
+    setelementAws(
+      visualData.root.map((v, i) => {
+        if (awsChecked === true) {
+          if (v.source !== "") {
+            return {
+              id: v.targetArn,
+              type: "default",
+              style: { border: "5px solid #91B3E1", width: 50 },
+              data: {
+                label: (
+                  <div>
+                    <VisGroup />
+                    {v.target}
+                  </div>
+                ),
+              },
+              position: {
+                x: (1100 / (visualData.root.length + 2)) * (i + 1) + 50,
+                y: 200,
+              },
+            };
+          } else return [];
+        } else {
+          return [];
+        }
+      })
+    );
+    setelementOrg(
+      visualData.orgGroup.map((v, i) => {
+        if (orgChecked === true) {
+          return {
+            id: v.source,
+            type: "default",
+            style: { border: "5px solid #94B693", width: 50 },
+            data: {
+              label: (
+                <div>
+                  <VisGroup />
+                  {v.source}
+                </div>
+              ),
+            },
+            position: {
+              x: (1300 / (visualData.orgGroup.length + 1)) * (i + 1),
+              y: 100,
+            },
+          };
+        } else {
+          return [];
+        }
+      })
+    );
+    setelementUser(
+      visualData.user.map((v, i) => {
+        return {
+          id: v.sourceArn,
+          type: "default",
+          style:
+            scanChecked === true
+              ? v.warningStatusInfo === "0001"
+                ? { border: "5px solid #FA95EC", width: 50 }
+                : v.warningStatusInfo === "0010"
+                ? { border: "5px solid #FFFD91", width: 50 }
+                : v.warningStatusInfo === "0011"
+                ? { border: "5px solid #F4ABA1", width: 50 }
+                : { border: "1px solid #3B434D", width: 50 }
+              : { border: "1px solid #3B434D", width: 50 },
+          data: {
+            label: (
+              <div>
+                <ElementHover icon={<VisUser />} element={v} />
+              </div>
+            ),
+          },
+          position: {
+            x: (1250 / (visualData.user.length + 1)) * (i + 1),
+            y: 400,
+          },
+        };
+      })
+    );
+    setelementKey(
+      visualData.user.map((v, i) => {
+        if (v.target !== "") {
+          return {
+            id: v.target,
+            type: "default",
+            style: { width: 50 },
+            data: {
+              label: (
+                <div>
+                  <VisKey />
+                  {v.target}
+                </div>
+              ),
+            },
+            position: {
+              x: (1250 / (visualData.user.length + 1)) * (i + 1),
+              y: 570,
+            },
+          };
+        } else return [];
+      })
+    );
+    setRootToGroup(
+      visualData.root.map((v, i) => {
+        return {
+          id: v.source + "to" + v.targetArn,
+          source: v.source,
+          target: v.targetArn,
+          type: "straight",
+        };
+      })
+    );
+    setAwsToUser(
+      visualData.awsGroup.map((v, i) => {
+        return {
+          id: v.sourceArn + "to" + v.targetArn,
+          source: v.sourceArn,
+          target: v.targetArn,
+          type: "straight",
+        };
+      })
+    );
+    setOrgToUser(
+      visualData.orgGroup.map((v, i) => {
+        return {
+          id: v.source + "to" + v.target,
+          source: v.source,
+          target: v.target,
+          type: "straight",
+        };
+      })
+    );
+    setUserToKey(
+      visualData.user.map((v, i) => {
+        if (v.target !== "") {
+          return {
+            id: v.sourceArn + "to" + v.target,
+            source: v.sourceArn,
+            target: v.target,
+            type: "straight",
+          };
+        } else {
+          return [];
+        }
+      })
+    );
+    console.log(4);
+    console.log(5);
+  }, [visualData]);
   useEffect(() => {
-    reArrayUser();
-  }, []);
-  const userElement = [...yesGroup, ...noGroup];
-
+    setElements((elements) => [...elements, ...rootToGroup]);
+  }, [rootToGroup]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...awsToUser]);
+  }, [awsToUser]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...orgToUser]);
+  }, [orgToUser]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...userToKey]);
+  }, [userToKey]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...elementRoot]);
+  }, [elementRoot]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...elementAws]);
+  }, [elementAws]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...elementOrg]);
+  }, [elementOrg]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...elementUser]);
+  }, [elementUser]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...elementKey]);
+  }, [elementKey]);
+  // useEffect(() => {
+  //   setUserElement((element) => [...element, ...userElement]);
+  // }, [userElement]);
+  // useEffect(() => {
+  //   setElements((elements) => [...elements, ...connect]);
+  // }, [connect]);
+  useEffect(() => {
+    setUniqueElements(_.uniqBy(elements, "id"));
+  }, [elements]);
   const [awsChecked, setAwsChecked] = useState(true);
   const awsHandleChange = (event) => {
     setAwsChecked(event.target.checked);
+    console.log("yes", yesGroup);
+    console.log("no", noGroup);
+    console.log("visualdata", visualData);
+    console.log("root", connect);
+    console.log("userelement", userElement);
   };
   const [orgChecked, setOrgChecked] = useState(false);
   const orgHandleChange = (event) => {
@@ -263,194 +368,193 @@ const Visualization = () => {
     setmodalOpen(true);
   };
 
-  const elementRoot = visualData.root.map((v, i) => {
-    return {
-      id: v.source,
-      type: "default",
-      style: {
-        background: "#e0e0e0",
-        width: 70,
-        fontWeight: "bold",
-        fontSize: "1.2em",
-      },
-      data: {
-        label: (
-          <div>
-            <VisRoot />
-            {v.source}
-          </div>
-        ),
-      },
-      position: { x: 700, y: 50 },
-    };
-  });
-  const elementNogroup = [
-    {
-      id: "Nogroup",
-      type: "default",
-      style: { border: "2px solid black", width: 50, height: 50, fontWeight: "bold", fontSize: "1.1em" },
-      data: { label: "No Group" },
-      position: { x: (1100 / (visualData.awsGroup.length + 2)) * (visualData.awsGroup.length + 1) + 50, y: 200 },
-    },
-  ];
-  //
-  const elementOrgGroup = visualData.orgGroup.map((v, i) => {
-    if (orgChecked === true) {
-      return {
-        id: v.source,
-        type: "default",
-        style: { border: "5px solid #94B693", width: 50 },
-        data: {
-          label: (
-            <div>
-              <VisGroup />
-              {v.source}
-            </div>
-          ),
-        },
-        position: {
-          x: (1300 / (visualData.orgGroup.length + 1)) * (i + 1),
-          y: 100,
-        },
-      };
-    } else {
-      return [];
-    }
-  });
-  const elementAwsGroup = visualData.awsGroup.map((v, i) => {
-    if (awsChecked === true) {
-      if (v.source !== "") {
-        return {
-          id: v.source,
-          type: "default",
-          style: { border: "5px solid #91B3E1", width: 50 },
-          data: {
-            label: (
-              <div>
-                <VisGroup />
-                {v.source}
-              </div>
-            ),
-          },
-          position: {
-            x: (1100 / (visualData.awsGroup.length + 2)) * (i + 1) + 50,
-            y: 200,
-          },
-        };
-      } else return [];
-    } else {
-      return [];
-    }
-  });
-  const elementUser = userElement.map((v, i) => {
-    return {
-      id: v.source,
-      type: "default",
-      style:
-        scanChecked === true
-          ? v.warningStatusInfo === "0001"
-            ? { border: "5px solid #FA95EC", width: 50 }
-            : v.warningStatusInfo === "0010"
-            ? { border: "5px solid #FFFD91", width: 50 }
-            : v.warningStatusInfo === "0011"
-            ? { border: "5px solid #F4ABA1", width: 50 }
-            : { border: "1px solid #3B434D", width: 50 }
-          : { border: "1px solid #3B434D", width: 50 },
-      data: {
-        label: (
-          <div>
-            <ElementHover icon={<VisUser />} element={v} />
-          </div>
-        ),
-      },
-      position: {
-        x: (1250 / (userElement.length + 1)) * (i + 1),
-        y: 400,
-      },
-    };
-  });
-  const elementKey = userElement.map((v, i) => {
-    return {
-      id: v.target,
-      type: "default",
-      style: { width: 50 },
-      data: {
-        label: (
-          <div>
-            <VisKey />
-            {v.target}
-          </div>
-        ),
-      },
-      position: {
-        x: (1250 / (visualData.user.length + 1)) * (i + 1),
-        y: 570,
-      },
-    };
-  });
-  const rootToGroup = visualData.root.map((v, i) => {
-    return {
-      id: v.source + "to" + "Nogroup",
-      source: v.source,
-      target: "Nogroup",
-      type: "straight",
-    };
-  });
-  const rootToNoGroup = visualData.root.map((v, i) => {
-    return {
-      id: v.source + "to" + v.target,
-      source: v.source,
-      target: v.target,
-      type: "straight",
-    };
-  });
-  const awsGroupToUser = visualData.awsGroup.map((v, i) => {
-    return {
-      id: v.source + "to" + v.target,
-      source: v.source,
-      target: v.target,
-      type: "straight",
-    };
-  });
+  // const elementRoot = visualData.root.map((v, i) => {
+  //   return {
+  //     id: v.source,
+  //     type: "default",
+  //     style: {
+  //       background: "#e0e0e0",
+  //       width: 70,
+  //       fontWeight: "bold",
+  //       fontSize: "1.2em",
+  //     },
+  //     data: {
+  //       label: (
+  //         <div>
+  //           <VisRoot />
+  //           {v.source}
+  //         </div>
+  //       ),
+  //     },
+  //     position: { x: 700, y: 50 },
+  //   };
+  // });
+  // const elementNogroup = [
+  //   {
+  //     id: "Nogroup",
+  //     type: "default",
+  //     style: { border: "2px solid black", width: 50, height: 50, fontWeight: "bold", fontSize: "1.1em" },
+  //     data: { label: "No Group" },
+  //     position: { x: (1100 / (visualData.awsGroup.length + 2)) * (visualData.awsGroup.length + 1) + 50, y: 200 },
+  //   },
+  // ];
+  // const elementOrgGroup = visualData.orgGroup.map((v, i) => {
+  //   if (orgChecked === true) {
+  //     return {
+  //       id: v.source,
+  //       type: "default",
+  //       style: { border: "5px solid #94B693", width: 50 },
+  //       data: {
+  //         label: (
+  //           <div>
+  //             <VisGroup />
+  //             {v.source}
+  //           </div>
+  //         ),
+  //       },
+  //       position: {
+  //         x: (1300 / (visualData.orgGroup.length + 1)) * (i + 1),
+  //         y: 100,
+  //       },
+  //     };
+  //   } else {
+  //     return [];
+  //   }
+  // });
+  // const elementAwsGroup = visualData.awsGroup.map((v, i) => {
+  //   if (awsChecked === true) {
+  //     if (v.source !== "") {
+  //       return {
+  //         id: v.source,
+  //         type: "default",
+  //         style: { border: "5px solid #91B3E1", width: 50 },
+  //         data: {
+  //           label: (
+  //             <div>
+  //               <VisGroup />
+  //               {v.source}
+  //             </div>
+  //           ),
+  //         },
+  //         position: {
+  //           x: (1100 / (visualData.awsGroup.length + 2)) * (i + 1) + 50,
+  //           y: 200,
+  //         },
+  //       };
+  //     } else return [];
+  //   } else {
+  //     return [];
+  //   }
+  // });
+  // const elementUser = userElement.map((v, i) => {
+  //   return {
+  //     id: v.source,
+  //     type: "default",
+  //     style:
+  //       scanChecked === true
+  //         ? v.warningStatusInfo === "0001"
+  //           ? { border: "5px solid #FA95EC", width: 50 }
+  //           : v.warningStatusInfo === "0010"
+  //           ? { border: "5px solid #FFFD91", width: 50 }
+  //           : v.warningStatusInfo === "0011"
+  //           ? { border: "5px solid #F4ABA1", width: 50 }
+  //           : { border: "1px solid #3B434D", width: 50 }
+  //         : { border: "1px solid #3B434D", width: 50 },
+  //     data: {
+  //       label: (
+  //         <div>
+  //           <ElementHover icon={<VisUser />} element={v} />
+  //         </div>
+  //       ),
+  //     },
+  //     position: {
+  //       x: (1250 / (userElement.length + 1)) * (i + 1),
+  //       y: 400,
+  //     },
+  //   };
+  // });
+  // const elementKey = userElement.map((v, i) => {
+  //   return {
+  //     id: v.target,
+  //     type: "default",
+  //     style: { width: 50 },
+  //     data: {
+  //       label: (
+  //         <div>
+  //           <VisKey />
+  //           {v.target}
+  //         </div>
+  //       ),
+  //     },
+  //     position: {
+  //       x: (1250 / (visualData.user.length + 1)) * (i + 1),
+  //       y: 570,
+  //     },
+  //   };
+  // });
+  // const rootToGroup = visualData.root.map((v, i) => {
+  //   return {
+  //     id: v.source + "to" + "Nogroup",
+  //     source: v.source,
+  //     target: "Nogroup",
+  //     type: "straight",
+  //   };
+  // });
+  // const rootToNoGroup = visualData.root.map((v, i) => {
+  //   return {
+  //     id: v.source + "to" + v.target,
+  //     source: v.source,
+  //     target: v.target,
+  //     type: "straight",
+  //   };
+  // });
+  // const awsGroupToUser = visualData.awsGroup.map((v, i) => {
+  //   return {
+  //     id: v.source + "to" + v.target,
+  //     source: v.source,
+  //     target: v.target,
+  //     type: "straight",
+  //   };
+  // });
 
-  const orgGroupToUser = visualData.orgGroup.map((v, i) => {
-    return {
-      id: v.source + "to" + v.target,
-      source: v.source,
-      target: v.target,
-      type: "straight",
-    };
-  });
+  // const orgGroupToUser = visualData.orgGroup.map((v, i) => {
+  //   return {
+  //     id: v.source + "to" + v.target,
+  //     source: v.source,
+  //     target: v.target,
+  //     type: "straight",
+  //   };
+  // });
 
-  const noGroupToUser = noGroup.map((v, i) => {
-    return {
-      id: "noGroupto" + v.source,
-      source: "Nogroup",
-      target: v.source,
-      type: "straight",
-    };
-  });
-  const userToKey = userElement.map((v, i) => {
-    return {
-      id: v.source + "to" + v.target,
-      source: v.source,
-      target: v.target,
-      type: "straight",
-    };
-  });
-  const elementConnect = [...rootToGroup, ...orgGroupToUser, ...awsGroupToUser, ...userToKey, ...noGroupToUser, ...rootToNoGroup];
-  const elements = [...elementRoot, ...elementOrgGroup, ...elementAwsGroup, ...elementUser, ...elementKey, ...elementNogroup, ...elementConnect];
-  const uniqueElements = _.uniqBy(elements, "id");
+  // const noGroupToUser = noGroup.map((v, i) => {
+  //   return {
+  //     id: "noGroupto" + v.source,
+  //     source: "Nogroup",
+  //     target: v.source,
+  //     type: "straight",
+  //   };
+  // });
+  // const userToKey = userElement.map((v, i) => {
+  //   return {
+  //     id: v.source + "to" + v.target,
+  //     source: v.source,
+  //     target: v.target,
+  //     type: "straight",
+  //   };
+  // });
+  // const elementConnect = [...rootToGroup, ...orgGroupToUser, ...awsGroupToUser, ...userToKey, ...noGroupToUser, ...rootToNoGroup];
+  // const elements = [...elementRoot, ...elementOrgGroup, ...elementAwsGroup, ...elementUser, ...elementKey, ...elementNogroup, ...elementConnect];
+  // const uniqueElements = _.uniqBy(elements, "id");
   const [tab, setTab] = useState(0);
   const handleTabClick = (event, tabNumber) => {
     setTab(tabNumber);
   };
 
-  const Root1 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
+  // const Root1 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
 
-  const Root2 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
+  // const Root2 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
 
-  const Root3 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
+  // const Root3 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
@@ -508,9 +612,9 @@ const Visualization = () => {
             </div>
           </VisualizationNav>
           <div style={{ width: "calc(100% - 250px)" }}>
-            {tab === 0 && <Root1 />}
-            {tab === 1 && <Root2 />}
-            {tab === 2 && <Root3 />}
+            {tab === 0 && <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />}
+            {tab === 1 && <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />}
+            {tab === 2 && <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />}
           </div>
         </div>
       </Div>
@@ -520,21 +624,21 @@ const Visualization = () => {
 };
 
 export default Visualization;
-// //https://webkid.io/blog/react-flow-node-based-graph-library/
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// const Visualization = () => {
-//   const [visualData, setVisualData] = useState([]);
-//   const fetchVisualData = async () => {
-//     const response = await axios.get("http://54.180.115.206:8000/api/visualization");
-//     setVisualData(response);
-//     console.log("visual", response);
-//     console.log("visualdata", visualData);
-//   };
-//   useEffect(() => {
-//     fetchVisualData();
-//   }, []);
-//   return <div>hi</div>;
-// };
+// // //https://webkid.io/blog/react-flow-node-based-graph-library/
+// // import React, { useState, useEffect } from "react";
+// // import axios from "axios";
+// // const Visualization = () => {
+// //   const [visualData, setVisualData] = useState([]);
+// //   const fetchVisualData = async () => {
+// //     const response = await axios.get("http://54.180.115.206:8000/api/visualization");
+// //     setVisualData(response);
+// //     console.log("visual", response);
+// //     console.log("visualdata", visualData);
+// //   };
+// //   useEffect(() => {
+// //     fetchVisualData();
+// //   }, []);
+// //   return <div>hi</div>;
+// // };
 
-// export default Visualization;
+// // export default Visualization;

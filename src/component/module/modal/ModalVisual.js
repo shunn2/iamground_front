@@ -7,6 +7,7 @@ import Modal from "@mui/material/Modal";
 import { Clear } from "@mui/icons-material";
 import styled from "styled-components";
 import moment from "moment";
+import Visualization from "../../service/visualization/Visualization";
 
 const ModalText = styled.div`
   display: flex;
@@ -23,10 +24,10 @@ const TextDiv = styled.div`
   font-size: 20px;
 `;
 const ModalVisual = ({ modalOpen, setmodalOpen, resource }) => {
-  const [ModalData, setModalData] = useState(null);
+  const [ModalData, setModalData] = useState({ detail: {} });
   const fetchVisualModalData = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/api/visualization", { params: { iamResourceArn: resource } });
-    setModalData(response.data);
+    const response = await axios.get(`http://54.180.115.206:8000/api/visualization?iamResourceArn=${resource}`);
+    setModalData(response);
     console.log("modal", response);
     console.log(ModalData);
   };
@@ -157,6 +158,7 @@ const ModalVisual = ({ modalOpen, setmodalOpen, resource }) => {
             style={{ fontSize: "26px", cursor: "pointer" }}
             onClick={() => {
               setmodalOpen(false);
+              <Visualization />;
             }}
           />
         </Box>

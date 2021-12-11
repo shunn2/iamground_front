@@ -21,7 +21,7 @@ const TitleDiv = styled.div`
 `;
 const TextDiv = styled.div`
   font-size: 20px;
-  width: 800px;
+  width: 900px;
 `;
 const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
   const style = {
@@ -90,7 +90,7 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
                 <ModalText style={{ flexDirection: "column" }}>
                   <TitleDiv>원본 이벤트</TitleDiv>
                   <TextDiv>
-                    <pre style={{ fontWeight: "bold" }}>{JSON.stringify(logDetail.rawData, undefined, 2)}</pre>
+                    <pre style={{ fontWeight: "500" }}>{JSON.stringify(logDetail.rawData, undefined, 2)}</pre>
                   </TextDiv>
                 </ModalText>
               </div>

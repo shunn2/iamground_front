@@ -90,6 +90,7 @@ function Organization() {
       setColDef(heads);
       fileData.splice(0, 1);
       setData(convertToJson(headers, fileData));
+      setOrganizationData(data);
     };
     if (file) {
       if (getExtention(file)) {
@@ -164,20 +165,21 @@ function Organization() {
               { title: "email", field: "email" },
               { title: "Phone Number", field: "phoneNumber" },
             ]}
-            cdata={
-              organizationData.length > 0
-                ? organizationData.map((v, i) => {
-                    return {
-                      permissionGroup: v.criteria,
-                      cloudName: v.cloudName,
-                      userArn: v.userArn,
-                      name: v.name,
-                      email: v.email,
-                      phoneNunmer: v.phoneNunmer,
-                    };
-                  })
-                : []
-            }
+            // cdata={
+            //   organizationData.length > 0
+            //     ? organizationData.map((v, i) => {
+            //         return {
+            //           permissionGroup: v.criteria,
+            //           cloudName: v.cloudName,
+            //           userArn: v.userArn,
+            //           name: v.name,
+            //           email: v.email,
+            //           phoneNunmer: v.phoneNunmer,
+            //         };
+            //       })
+            //     : []
+            // }
+            cdata={data}
             title="Organization"
             type="organization"
           />
