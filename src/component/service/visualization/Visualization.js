@@ -11,7 +11,7 @@ import CircleIcon from "@mui/icons-material/Circle";
 import styled from "styled-components";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import _ from "lodash";
+import _, { keyBy } from "lodash";
 import axios from "axios";
 
 const VisualizationNav = styled.nav`
@@ -35,8 +35,8 @@ function ElementHover({ icon, element }) {
 
   return (
     <div>
-      <Typography aria-owns={open ? "mouse-over-popover" : undefined} aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
-        <div>
+      <Typography component={"span"} aria-owns={open ? "mouse-over-popover" : undefined} aria-haspopup="true" onMouseEnter={handlePopoverOpen} onMouseLeave={handlePopoverClose}>
+        <div style={{ fontSize: "5px" }}>
           {icon}
           {element.source}
         </div>
@@ -59,7 +59,7 @@ function ElementHover({ icon, element }) {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>
+        <Typography sx={{ p: 5 }} component={"div"}>
           <div>
             <div>user: {element.source}</div>
             <div>name: {element.name}</div>
@@ -84,19 +84,39 @@ const Visualization = () => {
   const [elementRoot, setelementRoot] = useState([]);
   const [elementOrg, setelementOrg] = useState([]);
   const [elementAws, setelementAws] = useState([]);
+  const [elementNoGroup, setelementNoGroup] = useState([]);
   const [elementUser, setelementUser] = useState([]);
   const [elementKey, setelementKey] = useState([]);
-  const [noGroup, setNoGroup] = useState([]);
-  const [yesGroup, setYesGroup] = useState([]);
-  const [userElement, setUserElement] = useState([]);
   const [rootToGroup, setRootToGroup] = useState([]);
+  const [rootToNoGroup, setRootToNoGroup] = useState([]);
+  const [noGrouptoUser, setNoGroupToUser] = useState([]);
   const [awsToUser, setAwsToUser] = useState([]);
   const [orgToUser, setOrgToUser] = useState([]);
   const [userToKey, setUserToKey] = useState([]);
-  const [connect, setConnect] = useState([]);
   const [elements, setElements] = useState([]);
   const [uniqueElements, setUniqueElements] = useState([]);
   const [targetGroup, setTargetGroup] = useState([]);
+  const [yesGroup, setYesGroup] = useState([]);
+  const [noGroup, setNoGroup] = useState([]);
+  const [userElement, setUserElement] = useState([]);
+  const [modalOpen, setmodalOpen] = useState(false);
+
+  const [orgChecked, setOrgChecked] = useState(false);
+  const orgHandleChange = (event) => {
+    setOrgChecked(event.target.checked);
+    setElements([]);
+  };
+  const [scanChecked, setScanChecked] = useState(false);
+  const scanHandleChange = (event) => {
+    setScanChecked(event.target.checked);
+    console.log(scanChecked);
+    setElements([]);
+  };
+  const [awsChecked, setAwsChecked] = useState(true);
+  const awsHandleChange = (event) => {
+    setAwsChecked(event.target.checked);
+    setElements([]);
+  };
   const fetchVisualData = async () => {
     await axios.get("http://54.180.115.206:8000/api/visualization").then((res) => {
       setVisualData(res.data);
@@ -105,30 +125,51 @@ const Visualization = () => {
   };
   useEffect(() => {
     fetchVisualData();
-    console.log(visualData);
   }, []);
+  const [yesgroup1, setyesgroup1] = useState([]);
+  const reArrayUser = () => {
+    for (let j = 0; j < visualData.user.length; j++) {
+      if (targetGroup.includes(visualData.user[j].sourceArn) === true) {
+        console.log(visualData.user[j]);
+        setyesgroup1((prev) => [...prev, visualData.user[j]]);
+      } else {
+        setNoGroup((prev) => [...prev, visualData.user[j]]);
+      }
+    }
+  };
+  const reArrayUser1 = () => {
+    for (let k = 0; k < targetGroup.length; k++) {
+      for (let l = 0; l < yesgroup1.length; l++) {
+        if (targetGroup[k] === yesgroup1[l].sourceArn) {
+          console.log(l);
+          console.log(yesgroup1[l].sourceArn);
+          setYesGroup((prev) => [...prev, yesgroup1[l]]);
+        }
+      }
+    }
+  };
+  useEffect(() => {
+    reArrayUser1();
+  }, [targetGroup, yesgroup1]);
   useEffect(() => {
     setTargetGroup(
       visualData.awsGroup.map((v, i) => {
-        return v.target;
+        return v.targetArn;
       })
     );
-    console.log(2);
-    // const targetGroup = visualData.awsGroup.map((v, i) => {
-    //   return v.target;
-    // });
-    for (let j = 0; j < visualData.user.length; j++) {
-      if (targetGroup.includes(visualData.user[j].source)) {
-        setYesGroup((prev) => [...prev, visualData.user[j]]);
-      } else {
-        setNoGroup((prev) => [...prev, data.user[j]]);
-      }
-    }
-    console.log(3);
-    // useEffect(() => {
-    //   reArrayUser();
-    // }, []);
-    setUserElement([...yesGroup, ...noGroup]);
+  }, [visualData]);
+  useEffect(() => {
+    console.log(targetGroup);
+    reArrayUser();
+  }, [targetGroup]);
+  const makeUserElement = async () => {
+    await setUserElement((userElement) => [...userElement, ...yesGroup]);
+    setUserElement((userElement) => [...userElement, ...noGroup]);
+  };
+  useEffect(() => {
+    makeUserElement();
+  }, [yesGroup]);
+  useEffect(() => {
     setelementRoot(
       visualData.root.map((v, i) => {
         return {
@@ -152,10 +193,19 @@ const Visualization = () => {
         };
       })
     );
+    setelementNoGroup([
+      {
+        id: "Nogroup",
+        type: "default",
+        style: { border: "2px solid black", width: 50, height: 50, fontWeight: "bold", fontSize: "1.1em" },
+        data: { label: "No AWS Group" },
+        position: { x: (1100 / (visualData.root.length + 2)) * (visualData.root.length + 2) + 50, y: 200 },
+      },
+    ]);
+    console.log(awsChecked);
     setelementAws(
-      visualData.root.map((v, i) => {
-        if (awsChecked === true) {
-          if (v.source !== "") {
+      awsChecked === true
+        ? visualData.root.map((v, i) => {
             return {
               id: v.targetArn,
               type: "default",
@@ -173,88 +223,31 @@ const Visualization = () => {
                 y: 200,
               },
             };
-          } else return [];
-        } else {
-          return [];
-        }
-      })
+          })
+        : []
     );
     setelementOrg(
-      visualData.orgGroup.map((v, i) => {
-        if (orgChecked === true) {
-          return {
-            id: v.source,
-            type: "default",
-            style: { border: "5px solid #94B693", width: 50 },
-            data: {
-              label: (
-                <div>
-                  <VisGroup />
-                  {v.source}
-                </div>
-              ),
-            },
-            position: {
-              x: (1300 / (visualData.orgGroup.length + 1)) * (i + 1),
-              y: 100,
-            },
-          };
-        } else {
-          return [];
-        }
-      })
-    );
-    setelementUser(
-      visualData.user.map((v, i) => {
-        return {
-          id: v.sourceArn,
-          type: "default",
-          style:
-            scanChecked === true
-              ? v.warningStatusInfo === "0001"
-                ? { border: "5px solid #FA95EC", width: 50 }
-                : v.warningStatusInfo === "0010"
-                ? { border: "5px solid #FFFD91", width: 50 }
-                : v.warningStatusInfo === "0011"
-                ? { border: "5px solid #F4ABA1", width: 50 }
-                : { border: "1px solid #3B434D", width: 50 }
-              : { border: "1px solid #3B434D", width: 50 },
-          data: {
-            label: (
-              <div>
-                <ElementHover icon={<VisUser />} element={v} />
-              </div>
-            ),
-          },
-          position: {
-            x: (1250 / (visualData.user.length + 1)) * (i + 1),
-            y: 400,
-          },
-        };
-      })
-    );
-    setelementKey(
-      visualData.user.map((v, i) => {
-        if (v.target !== "") {
-          return {
-            id: v.target,
-            type: "default",
-            style: { width: 50 },
-            data: {
-              label: (
-                <div>
-                  <VisKey />
-                  {v.target}
-                </div>
-              ),
-            },
-            position: {
-              x: (1250 / (visualData.user.length + 1)) * (i + 1),
-              y: 570,
-            },
-          };
-        } else return [];
-      })
+      orgChecked === true
+        ? visualData.orgGroup.map((v, i) => {
+            return {
+              id: v.source,
+              type: "default",
+              style: { border: "5px solid #94B693", width: 50 },
+              data: {
+                label: (
+                  <div>
+                    <VisGroup />
+                    {v.source}
+                  </div>
+                ),
+              },
+              position: {
+                x: (1300 / (visualData.orgGroup.length + 1)) * (i + 1),
+                y: 100,
+              },
+            };
+          })
+        : []
     );
     setRootToGroup(
       visualData.root.map((v, i) => {
@@ -262,6 +255,16 @@ const Visualization = () => {
           id: v.source + "to" + v.targetArn,
           source: v.source,
           target: v.targetArn,
+          type: "straight",
+        };
+      })
+    );
+    setRootToNoGroup(
+      visualData.root.map((v, i) => {
+        return {
+          id: v.source + "to" + "Nogroup",
+          source: v.source,
+          target: "Nogroup",
           type: "straight",
         };
       })
@@ -300,15 +303,87 @@ const Visualization = () => {
         }
       })
     );
-    console.log(4);
-    console.log(5);
-  }, [visualData]);
+  }, [visualData, modalOpen, awsChecked, scanChecked, orgChecked]);
+
+  useEffect(() => {
+    setNoGroupToUser(
+      noGroup.map((v, i) => {
+        return {
+          id: "noGroupto" + v.sourceArn,
+          source: "Nogroup",
+          target: v.sourceArn,
+          type: "straight",
+        };
+      })
+    );
+  }, [elementUser, modalOpen, awsChecked, scanChecked, orgChecked]);
+
+  useEffect(() => {
+    setelementUser(
+      userElement.map((v, i) => {
+        return {
+          id: v.sourceArn,
+          type: "default",
+          style:
+            scanChecked === true
+              ? v.warningStatusInfo === "0001"
+                ? { border: "5px solid #FA95EC", width: 50, height: 80 }
+                : v.warningStatusInfo === "0010"
+                ? { border: "5px solid #FFFD91", width: 50, height: 80 }
+                : v.warningStatusInfo === "0011"
+                ? { border: "5px solid #F4ABA1", width: 50, height: 80 }
+                : { border: "1px solid #3B434D", width: 50, height: 80 }
+              : { border: "1px solid #3B434D", width: 50, height: 80 },
+          data: {
+            label: (
+              <div>
+                <ElementHover icon={<VisUser style={{ fontSize: "3px" }} />} element={v} />
+              </div>
+            ),
+          },
+          position: {
+            x: (1250 / (visualData.user.length + 1)) * (i + 1),
+            y: 400,
+          },
+        };
+      })
+    );
+    setelementKey(
+      userElement.map((v, i) => {
+        if (v.target !== "") {
+          return {
+            id: v.target,
+            type: "default",
+            style: { width: 50 },
+            data: {
+              label: (
+                <div>
+                  <VisKey />
+                  {v.target}
+                </div>
+              ),
+            },
+            position: {
+              x: (1250 / (visualData.user.length + 1)) * (i + 1),
+              y: 570,
+            },
+          };
+        } else return [];
+      })
+    );
+  }, [userElement, modalOpen, scanChecked, awsChecked, orgChecked]);
   useEffect(() => {
     setElements((elements) => [...elements, ...rootToGroup]);
   }, [rootToGroup]);
   useEffect(() => {
+    setElements((elements) => [...elements, ...rootToNoGroup]);
+  }, [rootToNoGroup]);
+  useEffect(() => {
     setElements((elements) => [...elements, ...awsToUser]);
   }, [awsToUser]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...noGrouptoUser]);
+  }, [noGrouptoUser]);
   useEffect(() => {
     setElements((elements) => [...elements, ...orgToUser]);
   }, [orgToUser]);
@@ -326,225 +401,29 @@ const Visualization = () => {
   }, [elementOrg]);
   useEffect(() => {
     setElements((elements) => [...elements, ...elementUser]);
-  }, [elementUser]);
+  }, [elementUser, userElement]);
   useEffect(() => {
     setElements((elements) => [...elements, ...elementKey]);
-  }, [elementKey]);
-  // useEffect(() => {
-  //   setUserElement((element) => [...element, ...userElement]);
-  // }, [userElement]);
-  // useEffect(() => {
-  //   setElements((elements) => [...elements, ...connect]);
-  // }, [connect]);
+  }, [elementKey, userElement]);
+  useEffect(() => {
+    setElements((elements) => [...elements, ...elementNoGroup]);
+  }, [elementNoGroup]);
+
   useEffect(() => {
     setUniqueElements(_.uniqBy(elements, "id"));
   }, [elements]);
-  const [awsChecked, setAwsChecked] = useState(true);
-  const awsHandleChange = (event) => {
-    setAwsChecked(event.target.checked);
-    console.log("yes", yesGroup);
-    console.log("no", noGroup);
-    console.log("visualdata", visualData);
-    console.log("root", connect);
-    console.log("userelement", userElement);
-  };
-  const [orgChecked, setOrgChecked] = useState(false);
-  const orgHandleChange = (event) => {
-    setOrgChecked(event.target.checked);
-  };
-  const [scanChecked, setScanChecked] = useState(false);
-  const scanHandleChange = (event) => {
-    setScanChecked(event.target.checked);
-  };
-  const [modalOpen, setmodalOpen] = useState(false);
+
   const [resource, setResource] = useState(null);
   const openModal = () => {
     setmodalOpen(true);
   };
   const onElementClick = async (event, element) => {
     event.preventDefault();
-    console.log("click", element);
+    // console.log("click", element);
     await setResource(element.id);
     setmodalOpen(true);
   };
 
-  // const elementRoot = visualData.root.map((v, i) => {
-  //   return {
-  //     id: v.source,
-  //     type: "default",
-  //     style: {
-  //       background: "#e0e0e0",
-  //       width: 70,
-  //       fontWeight: "bold",
-  //       fontSize: "1.2em",
-  //     },
-  //     data: {
-  //       label: (
-  //         <div>
-  //           <VisRoot />
-  //           {v.source}
-  //         </div>
-  //       ),
-  //     },
-  //     position: { x: 700, y: 50 },
-  //   };
-  // });
-  // const elementNogroup = [
-  //   {
-  //     id: "Nogroup",
-  //     type: "default",
-  //     style: { border: "2px solid black", width: 50, height: 50, fontWeight: "bold", fontSize: "1.1em" },
-  //     data: { label: "No Group" },
-  //     position: { x: (1100 / (visualData.awsGroup.length + 2)) * (visualData.awsGroup.length + 1) + 50, y: 200 },
-  //   },
-  // ];
-  // const elementOrgGroup = visualData.orgGroup.map((v, i) => {
-  //   if (orgChecked === true) {
-  //     return {
-  //       id: v.source,
-  //       type: "default",
-  //       style: { border: "5px solid #94B693", width: 50 },
-  //       data: {
-  //         label: (
-  //           <div>
-  //             <VisGroup />
-  //             {v.source}
-  //           </div>
-  //         ),
-  //       },
-  //       position: {
-  //         x: (1300 / (visualData.orgGroup.length + 1)) * (i + 1),
-  //         y: 100,
-  //       },
-  //     };
-  //   } else {
-  //     return [];
-  //   }
-  // });
-  // const elementAwsGroup = visualData.awsGroup.map((v, i) => {
-  //   if (awsChecked === true) {
-  //     if (v.source !== "") {
-  //       return {
-  //         id: v.source,
-  //         type: "default",
-  //         style: { border: "5px solid #91B3E1", width: 50 },
-  //         data: {
-  //           label: (
-  //             <div>
-  //               <VisGroup />
-  //               {v.source}
-  //             </div>
-  //           ),
-  //         },
-  //         position: {
-  //           x: (1100 / (visualData.awsGroup.length + 2)) * (i + 1) + 50,
-  //           y: 200,
-  //         },
-  //       };
-  //     } else return [];
-  //   } else {
-  //     return [];
-  //   }
-  // });
-  // const elementUser = userElement.map((v, i) => {
-  //   return {
-  //     id: v.source,
-  //     type: "default",
-  //     style:
-  //       scanChecked === true
-  //         ? v.warningStatusInfo === "0001"
-  //           ? { border: "5px solid #FA95EC", width: 50 }
-  //           : v.warningStatusInfo === "0010"
-  //           ? { border: "5px solid #FFFD91", width: 50 }
-  //           : v.warningStatusInfo === "0011"
-  //           ? { border: "5px solid #F4ABA1", width: 50 }
-  //           : { border: "1px solid #3B434D", width: 50 }
-  //         : { border: "1px solid #3B434D", width: 50 },
-  //     data: {
-  //       label: (
-  //         <div>
-  //           <ElementHover icon={<VisUser />} element={v} />
-  //         </div>
-  //       ),
-  //     },
-  //     position: {
-  //       x: (1250 / (userElement.length + 1)) * (i + 1),
-  //       y: 400,
-  //     },
-  //   };
-  // });
-  // const elementKey = userElement.map((v, i) => {
-  //   return {
-  //     id: v.target,
-  //     type: "default",
-  //     style: { width: 50 },
-  //     data: {
-  //       label: (
-  //         <div>
-  //           <VisKey />
-  //           {v.target}
-  //         </div>
-  //       ),
-  //     },
-  //     position: {
-  //       x: (1250 / (visualData.user.length + 1)) * (i + 1),
-  //       y: 570,
-  //     },
-  //   };
-  // });
-  // const rootToGroup = visualData.root.map((v, i) => {
-  //   return {
-  //     id: v.source + "to" + "Nogroup",
-  //     source: v.source,
-  //     target: "Nogroup",
-  //     type: "straight",
-  //   };
-  // });
-  // const rootToNoGroup = visualData.root.map((v, i) => {
-  //   return {
-  //     id: v.source + "to" + v.target,
-  //     source: v.source,
-  //     target: v.target,
-  //     type: "straight",
-  //   };
-  // });
-  // const awsGroupToUser = visualData.awsGroup.map((v, i) => {
-  //   return {
-  //     id: v.source + "to" + v.target,
-  //     source: v.source,
-  //     target: v.target,
-  //     type: "straight",
-  //   };
-  // });
-
-  // const orgGroupToUser = visualData.orgGroup.map((v, i) => {
-  //   return {
-  //     id: v.source + "to" + v.target,
-  //     source: v.source,
-  //     target: v.target,
-  //     type: "straight",
-  //   };
-  // });
-
-  // const noGroupToUser = noGroup.map((v, i) => {
-  //   return {
-  //     id: "noGroupto" + v.source,
-  //     source: "Nogroup",
-  //     target: v.source,
-  //     type: "straight",
-  //   };
-  // });
-  // const userToKey = userElement.map((v, i) => {
-  //   return {
-  //     id: v.source + "to" + v.target,
-  //     source: v.source,
-  //     target: v.target,
-  //     type: "straight",
-  //   };
-  // });
-  // const elementConnect = [...rootToGroup, ...orgGroupToUser, ...awsGroupToUser, ...userToKey, ...noGroupToUser, ...rootToNoGroup];
-  // const elements = [...elementRoot, ...elementOrgGroup, ...elementAwsGroup, ...elementUser, ...elementKey, ...elementNogroup, ...elementConnect];
-  // const uniqueElements = _.uniqBy(elements, "id");
   const [tab, setTab] = useState(0);
   const handleTabClick = (event, tabNumber) => {
     setTab(tabNumber);

@@ -15,12 +15,12 @@ const ModalText = styled.div`
   height: 60px;
 `;
 const TitleDiv = styled.div`
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
   width: 200px;
 `;
 const TextDiv = styled.div`
-  font-size: 20px;
+  font-size: 22px;
   width: 900px;
 `;
 const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
@@ -38,15 +38,8 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
     overflowY: "auto",
     overflowX: "auto",
   };
-  const [logDetail, setLogDetail] = useState([]);
-  const fetchLogDetail = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/mock/monitoring", { params: { log_id: logId } });
-    setLogDetail(response.data.logDetail);
-    console.log(response);
-  };
-  useEffect(() => {
-    fetchLogDetail();
-  }, []);
+  const [logDetail, setLogDetail] = useState(logId);
+
   return (
     <div>
       <Modal open={modalOpen} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -65,18 +58,21 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <ModalText>
                   <TitleDiv>클라우드 이름</TitleDiv>
-                  <TextDiv>{logDetail.cloudName}</TextDiv>
+                  <TextDiv>{logDetail.clouId}</TextDiv>
                 </ModalText>
                 <ModalText>
                   <TitleDiv>주체 정보</TitleDiv>
                   <TextDiv>
-                    {logDetail.identityName}({logDetail.identityArn}){logDetail.accessIp}
+                    {logDetail.identityName}
+                    <span style={{ paddingLeft: "10px" }}>({logDetail.identityArn})</span>
+                    <span style={{ paddingLeft: "20px" }}>IP:</span>
+                    {logDetail.accessIp}
                   </TextDiv>
                 </ModalText>
                 <ModalText>
                   <TitleDiv>리소스 정보</TitleDiv>
                   <TextDiv>
-                    {logDetail.resourceName}({logDetail.resourceArn})
+                    {JSON.parse(logDetail.resourceName)}({JSON.parse(logDetail.resourceArn)})
                   </TextDiv>
                 </ModalText>
                 <ModalText>
@@ -85,12 +81,12 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
                 </ModalText>
                 <ModalText>
                   <TitleDiv>위험 이유</TitleDiv>
-                  <TextDiv>{logDetail.reasonDetail}</TextDiv>
+                  <TextDiv>{JSON.parse(logDetail.reasonDetail)}</TextDiv>
                 </ModalText>
                 <ModalText style={{ flexDirection: "column" }}>
                   <TitleDiv>원본 이벤트</TitleDiv>
                   <TextDiv>
-                    <pre style={{ fontWeight: "500" }}>{JSON.stringify(logDetail.rawData, undefined, 2)}</pre>
+                    <pre style={{ fontWeight: "500", fontSize: "25px" }}>{JSON.stringify(logDetail.rawData, undefined, 2)}</pre>
                   </TextDiv>
                 </ModalText>
               </div>

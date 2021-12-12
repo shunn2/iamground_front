@@ -34,6 +34,7 @@ function Monitoring() {
             reason: v.reasonCategory === "[]" ? "" : JSON.parse(v.reasonCategory).join(", "),
             ip: v.accessIp,
             caution: v.reasonCategory === "[]" ? false : v.reasonCategory ? true : false,
+            id: v,
           };
         })
         .filter((v) => {
