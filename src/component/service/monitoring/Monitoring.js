@@ -26,7 +26,7 @@ function Monitoring() {
       logs
         .map((v, i) => {
           return {
-            time: moment(v.creation).format("YYYY/MM/DD-hh:mm"),
+            time: moment(v.creation).format("YYYY/MM/DD HH:MM"),
             user: v.identityName,
             resource: JSON.parse(v.resourceName).join(", "),
             activity: v.apiName,
@@ -46,6 +46,11 @@ function Monitoring() {
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
+  function sortDesc(a, b) {
+    const dateA = moment(a);
+    const dateB = moment(b);
+    return dateA.isAfter(dateB) ? 1 : 0;
+  }
   return (
     <>
       <h1
@@ -71,7 +76,7 @@ function Monitoring() {
                 title: "Time",
                 field: "time",
                 defaultSort: "desc",
-                // customSort: (a, b) => a.time.getTime() - b.time.getTime(),
+                // customSort: (a, b) => sortDesc(a, b),
               },
               { title: "User", field: "user" },
               { title: "Resource", field: "resource" },

@@ -115,7 +115,7 @@ function Scanning() {
               id: v.name,
               data: v.recommandCountList.map((data, index) => {
                 return {
-                  x: data.date,
+                  x: moment(data.date).format("YYYY/MM/DD HH:MM"),
                   y: data.value,
                 };
               }),
@@ -138,7 +138,7 @@ function Scanning() {
           cdata={accounts.map((v, i) => {
             return {
               clouds: v.name,
-              last_scanned: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
+              last_scanned: v.lastScan === "" ? "No Report" : moment(v.lastScan).format("YYYY/MM/DD HH:MM"),
               per: v.permissionCount,
               config: v.configCount,
               scan: v.status === 1 ? "비활성화" : v.status === 2 ? <button onClick={() => StartScan(v.cloudId)}>스캔 하기</button> : v.status === 3 ? <button disabled>스캔중</button> : "",

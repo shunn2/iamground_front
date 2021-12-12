@@ -332,7 +332,7 @@ function Home() {
               ? clouds.map((v, i) => {
                   return {
                     cloudName: v.name,
-                    lastScanTime: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
+                    lastScanTime: v.lastScan === "" ? "No Report" : moment(v.lastScan).format("YYYY/MM/DD HH:MM"),
                     status: v.status === 1 ? "비활성화" : v.status === 2 ? "활성화" : v.status === 3 ? "스캔중" : "",
                     result:
                       v.reportList.length === 0 ? (
