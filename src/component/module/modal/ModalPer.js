@@ -179,7 +179,16 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
           {menuOpen && (
             <div style={{ width: "90%" }}>
               {/* <div style={{ fontSize: "20px", height: "40px", borderBottom: "3px solid black", marginBottom: "20px", backgroundColor: "#D6D6D6", textAlign: "center" }}>목록</div> */}
-              <Tabs orientation="vertical" variant="scrollable" value={value} onChange={handleChange} aria-label="Vertical tabs example" sx={{ borderColor: "white", width: "100%" }}>
+              <Tabs
+                orientation="vertical"
+                variant="scrollable"
+                value={value}
+                onChange={handleChange}
+                textColor="primary"
+                indicatorColor="primary"
+                aria-label="Vertical tabs example"
+                sx={{ borderColor: "white", width: "100%" }}
+              >
                 {menu.map((v, i) => {
                   return <Tab label={"권고사항" + v} {...a11yProps(i)} style={{ fontSize: "20px" }} />;
                 })}
@@ -191,10 +200,9 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
       </>
     );
   }
-
+  const [detail, setDetail] = useState(String(JSON.parse(Id.reasonDetail)).split(","));
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal open={modalOpen} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Top>
@@ -205,7 +213,7 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
               </div>
               <div style={{ display: "flex" }}>
                 <TopTitle>추천 이유</TopTitle>
-                <TopDetail>{JSON.parse(Id.reasonDetail)}</TopDetail>
+                <TopDetail>{detail[value]}</TopDetail>
               </div>
               <div style={{ display: "flex" }}>
                 <TopTitle>현재 상태</TopTitle>
@@ -229,10 +237,6 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
               <MainText />
             </div>
           </div>
-          <FootDiv>
-            <FootButton>이전</FootButton>
-            <FootButton>다음</FootButton>
-          </FootDiv>
         </Box>
       </Modal>
     </div>

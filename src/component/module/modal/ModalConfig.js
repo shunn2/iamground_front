@@ -69,7 +69,7 @@ const ModalConfig = ({ modalOpen, setmodalOpen, Id }) => {
               <div style={{ display: "flex", flexDirection: "column", clear: "both" }}>
                 <ModalText>
                   <TitleDiv>클라우드 이름</TitleDiv>
-                  <TextDiv>test-cloud</TextDiv>
+                  <TextDiv>{Id.cloudName}</TextDiv>
                 </ModalText>
                 <ModalText>
                   <TitleDiv>리소스정보</TitleDiv>

@@ -64,7 +64,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       className: "dark-node",
       data: { label: <div style={{ textAlign: "center", fontSize: "18px", fontWeight: "bold" }}>{resourceName}</div> },
       position: { x: subject === "user" ? 200 : 600, y: 150 },
-      style: { width: String(resourceName).length * 10, height: 30, border: "5px solid #FED658" },
+      style: { width: String(resourceName).length * 11, height: 30, border: "5px solid #FED658" },
     },
   ];
   useEffect(() => {
@@ -75,9 +75,22 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
             id: v.target,
             sourcePosition: "right",
             targetPosition: "left",
-            data: { label: <span style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.target}</span> },
+            data: {
+              label: (
+                <div>
+                  <div style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.target}</div>
+                  {v.policyType === 1 ? (
+                    <div style={{ fontSize: "15px", fontWeight: "600" }}>[MANAGED]</div>
+                  ) : v.policyType === 2 ? (
+                    <div style={{ fontSize: "15px", fontWeight: "600" }}>[AWS MANAGED]</div>
+                  ) : (
+                    <div style={{ fontSize: "15px", fontWeight: "600" }}>[INLINE]</div>
+                  )}
+                </div>
+              ),
+            },
             position: { x: 1000, y: (300 / resource.policy.length - 1) * i },
-            style: { width: String(v.target).length * 10, height: 30, border: "3px solid #5265B3" },
+            style: { width: String(v.target).length * 11, height: 40, border: "3px solid #5265B3" },
           };
         })
       );
@@ -89,7 +102,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
             targetPosition: "right",
             data: { label: <span style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.target}</span> },
             position: { x: 600, y: (300 / resource.policy.length - 1) * (i + 1) },
-            style: { width: String(v.target).length * 10, height: 30, border: "3px solid #C098CE" },
+            style: { width: String(v.target).length * 11, height: 30, border: "3px solid #C098CE" },
           };
         })
       );
@@ -124,7 +137,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
             targetPosition: "right",
             data: { label: <span style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.target}</span> },
             position: { x: 200, y: (300 / resource.policy.length - 1) * (i + 1) },
-            style: { width: String(v.target).length * 10, height: 30, border: "3px solid #E9B7C3" },
+            style: { width: String(v.target).length * 11, height: 30, border: "3px solid #E9B7C3" },
           };
         })
       );
@@ -134,9 +147,22 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
             id: v.target,
             sourcePosition: "right",
             targetPosition: "left",
-            data: { label: <span style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.target}</span> },
+            data: {
+              label: (
+                <div>
+                  <div style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.target}</div>
+                  {v.policyType === 1 ? (
+                    <div style={{ fontSize: "15px", fontWeight: "600" }}>[MANAGED]</div>
+                  ) : v.policyType === 2 ? (
+                    <div style={{ fontSize: "15px", fontWeight: "600" }}>[AWS MANAGED]</div>
+                  ) : (
+                    <div style={{ fontSize: "15px", fontWeight: "600" }}>[INLINE]</div>
+                  )}
+                </div>
+              ),
+            },
             position: { x: 1000, y: (300 / resource.policy.length - 1) * (i + 1) },
-            style: { width: String(v.target).length * 10, height: 30, border: "3px solid #5265B3" },
+            style: { width: String(v.target).length * 11, height: 40, border: "3px solid #5265B3" },
           };
         })
       );

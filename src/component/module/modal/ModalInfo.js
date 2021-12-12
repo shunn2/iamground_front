@@ -11,17 +11,19 @@ import axios from "axios";
 const ModalText = styled.div`
   display: flex;
   flex-direction: row;
-  width: 1000px;
-  height: 60px;
+  width: 100%;
+  padding-bottom: 20px;
 `;
 const TitleDiv = styled.div`
   font-size: 24px;
   font-weight: bold;
-  width: 200px;
+  width: 15%;
+  height: 100%;
 `;
 const TextDiv = styled.div`
   font-size: 22px;
-  width: 900px;
+  width: 85%;
+  height: 100%;
 `;
 const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
   const style = {
@@ -29,8 +31,8 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 1200,
-    height: 1000,
+    width: 1500,
+    height: 800,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -58,7 +60,7 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
               <div style={{ display: "flex", flexDirection: "column" }}>
                 <ModalText>
                   <TitleDiv>클라우드 이름</TitleDiv>
-                  <TextDiv>{logDetail.clouId}</TextDiv>
+                  <TextDiv>{logDetail.cloudName}</TextDiv>
                 </ModalText>
                 <ModalText>
                   <TitleDiv>주체 정보</TitleDiv>
@@ -86,7 +88,7 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
                 <ModalText style={{ flexDirection: "column" }}>
                   <TitleDiv>원본 이벤트</TitleDiv>
                   <TextDiv>
-                    <pre style={{ fontWeight: "500", fontSize: "25px" }}>{JSON.stringify(logDetail.rawData, undefined, 2)}</pre>
+                    <pre style={{ fontWeight: "600", fontSize: "25px", color: "#000000" }}>{JSON.stringify(logDetail.rawData, undefined, 2)}</pre>
                   </TextDiv>
                 </ModalText>
               </div>

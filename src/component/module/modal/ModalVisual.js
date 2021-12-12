@@ -122,8 +122,7 @@ const ModalVisual = ({ modalOpen, setmodalOpen, resource }) => {
               <TitleDiv>리소스 정보</TitleDiv>
               <TextDiv>
                 {ModalData.resourceName}
-                <div>({ModalData.resourceArn})</div>
-                <div>{subject}</div>
+                <div style={{ fontSize: "18px" }}>({ModalData.resourceArn})</div>
               </TextDiv>
             </ModalText>
             <ModalText>
@@ -171,39 +170,39 @@ const ModalVisual = ({ modalOpen, setmodalOpen, resource }) => {
         </div>
         <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
           <div>
-            <span style={{ fontWeight: "bold" }}>
+            <span style={{ fontSize: "20px", fontWeight: "700", paddingLeft: "15px" }}>
               <CircleIcon style={{ color: "#FED658" }} />
               선택
             </span>
-            <span style={{ fontWeight: "bold" }}>
+            <span style={{ fontSize: "20px", fontWeight: "700", paddingLeft: "15px" }}>
               <CircleIcon style={{ color: "#C098CE" }} />
               그룹
             </span>
-            <span style={{ fontWeight: "bold" }}>
+            <span style={{ fontSize: "20px", fontWeight: "700", paddingLeft: "15px" }}>
               <CircleIcon style={{ color: "#E9B7C3" }} />
               유저
             </span>
-            <span style={{ fontWeight: "bold" }}>
+            <span style={{ fontSize: "20px", fontWeight: "700", paddingLeft: "15px" }}>
               <CircleIcon style={{ color: "#5265B3" }} />
               정책
             </span>
           </div>
           <div>
-            <span style={{ color: "#000000" }}>
+            <span style={{ color: "#000000", fontSize: "20px", fontWeight: "700", paddingRight: "15px" }}>
               <RemoveIcon style={{ color: "#000000", fontSize: "20px" }} />
               안정
             </span>
-            <span style={{ color: "#0001F7" }}>
+            <span style={{ color: "#0001F7", fontSize: "20px", fontWeight: "700", paddingRight: "15px" }}>
               <RemoveIcon style={{ color: "#0001F7", fontSize: "20px" }} />
               마킹
             </span>
-            <span style={{ color: "#F7003E" }}>
+            <span style={{ color: "#F7003E", fontSize: "20px", fontWeight: "700", paddingRight: "15px" }}>
               <RemoveIcon style={{ color: "#F7003E", fontSize: "20px" }} />
               위험
             </span>
           </div>
         </div>
-        <div style={{ width: "100%", height: "400px", paddingTop: "100px" }}>
+        <div style={{ width: "100%", height: "600px", paddingTop: "100px" }}>
           <HorizontalFlow resource={relation} subject={subject} resourceName={ModalData.resourceName} />
         </div>
       </div>
