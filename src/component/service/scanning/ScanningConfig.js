@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import TableMaterial from "../../module/TableMaterial";
 import axios from "axios";
+import ModalConfig from "../../module/modal/ModalConfig";
 
 function ScanningConfig({ report_id }) {
+  const [modalOpen, setmodalOpen] = useState(false);
+  const [id, setId] = useState([]);
+  const openModal = (scanInfoId) => {
+    setId(scanInfoId);
+    setmodalOpen(true);
+  };
   const [tableData, setTableData] = useState([]);
   const fetchData = async () => {
     const response = await axios.get(`http://54.180.115.206:8000/api/scan/report/config?report_id=${report_id}`);
@@ -47,7 +54,7 @@ function ScanningConfig({ report_id }) {
                 resource: v.resourceName,
                 arn: v.resourceArn,
                 reason: v.reasonCategory,
-                recommendation: <button>자세히 보기</button>,
+                recommendation: <button onClick={() => openModal(v)}>자세히 보기</button>,
                 marking: v.mark ? (
                   <input type="checkbox" defaultChecked="true" onClick={() => patchMarking(v.scanInfoId, false)} />
                 ) : (
@@ -60,6 +67,7 @@ function ScanningConfig({ report_id }) {
           type="scanningconfig"
         />
       </div>
+      {modalOpen && <ModalConfig modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={id} />}
     </>
   );
 }

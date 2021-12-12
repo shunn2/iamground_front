@@ -95,7 +95,7 @@ function Organization() {
         axios
           .post("http://54.180.115.206:8000/api/organization", {
             userArn: v.userArn,
-            cloudId: v.cloudName,
+            cloudId: v.cloudId,
             criteria: v.permissionGroup,
             employeeName: v.employeeName,
             email: v.email,
@@ -105,7 +105,7 @@ function Organization() {
             console.log(response);
             console.log("Send Data", {
               userArn: v.userArn,
-              cloudId: v.cloudName,
+              cloudId: v.cloudId,
               criteria: v.permissionGroup,
               employeeName: v.employeeName,
               email: v.email,
@@ -113,7 +113,7 @@ function Organization() {
             });
           });
       });
-      window.location.reload();
+      // window.location.reload();
     };
     if (file) {
       if (getExtention(file)) {
@@ -182,10 +182,10 @@ function Organization() {
         <div style={{ width: "calc(100%-30px)", padding: "40px" }}>
           <TableMaterial
             columns={[
-              { title: "Permission Group", field: "permissionGroup" },
-              { title: "Cloud Name", field: "cloudName" },
+              { title: "Permission Group", field: "criteria" },
+              { title: "Cloud ID", field: "cloudId" },
               { title: "user arn", field: "userArn" },
-              { title: "Name", field: "name" },
+              { title: "Employee Name", field: "employeeName" },
               { title: "email", field: "email" },
               { title: "Phone Number", field: "phoneNumber" },
             ]}
@@ -193,12 +193,12 @@ function Organization() {
               organizationData.length > 0
                 ? organizationData.map((v, i) => {
                     return {
-                      permissionGroup: v.criteria,
-                      cloudName: v.cloudName,
+                      criteria: v.criteria,
+                      cloudId: v.cloudId,
                       userArn: v.userArn,
-                      name: v.employeeName,
+                      employeeName: v.employeeName,
                       email: v.email,
-                      phoneNunmer: v.phoneNunmer,
+                      phoneNumber: v.phoneNumber,
                     };
                   })
                 : []
