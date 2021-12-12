@@ -318,7 +318,7 @@ const ScanningSummary = ({ report_id }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: "Number of Risky Resources",
+        legend: "Number of Recommendations",
         legendPosition: "middle",
         legendOffset: -40,
       }}
