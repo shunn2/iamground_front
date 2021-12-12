@@ -121,7 +121,7 @@ const Visualization = () => {
       if (targetGroup.includes(visualData.user[j].source)) {
         setYesGroup((prev) => [...prev, visualData.user[j]]);
       } else {
-        setNoGroup((prev) => [...prev, data.user[j]]);
+        setNoGroup((prev) => [...prev, visualData.user[j]]);
       }
     }
     console.log(3);

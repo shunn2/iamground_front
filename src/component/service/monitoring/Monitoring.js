@@ -66,7 +66,12 @@ function Monitoring() {
         <div style={{ width: "calc(100%-30px)", paddingTop: "33px" }}>
           <TableMaterial
             columns={[
-              { title: "Time", field: "time" },
+              {
+                title: "Time",
+                field: "time",
+                defaultSort: "desc",
+                // customSort: (a, b) => a.time.getTime() - b.time.getTime(),
+              },
               { title: "User", field: "user" },
               { title: "Resource", field: "resource" },
               { title: "Activity", field: "activity" },

@@ -6,6 +6,7 @@ import AlertMessage from "../module/AlertMessage";
 import ModalInfo from "../module/modal/ModalInfo";
 import { ToastsContainer, ToastsStore, ToastsContainerPosition } from "react-toasts";
 import axios from "axios";
+import TableMaterial from "../module/TableMaterial";
 
 function Test() {
   const [users, setUsers] = useState([]);
@@ -21,9 +22,18 @@ function Test() {
 
   return (
     <div>
-      {users.map((v, i) => {
-        return <div>{v.userName}</div>;
-      })}
+      <TableMaterial
+        columns={[
+          {
+            title: "Time",
+            field: "time",
+            // customSort: (a, b) => a.time - b.time,
+          },
+        ]}
+        cdata={[{ time: "2021/12/12-03:03" }, { time: "2021/12/12-03:04" }]}
+        title="IAM Log"
+        type="monitoring"
+      />
     </div>
   );
 }

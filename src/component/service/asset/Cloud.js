@@ -37,16 +37,32 @@ function Cloud() {
           <TableMaterial
             columns={[
               { title: "Cloud Name", field: "cloudName" },
+              { title: "Cloud ID", field: "cloudId" },
               { title: "Last Scan", field: "lastScanTime" },
               { title: "Status", field: "status" },
+              {
+                title: "Access Key",
+                field: "accessKey",
+                editComponent: ({ value, onChange }) => <input type="password" value={value || ""} onChange={(e) => onChange(e.target.value)} style={{ border: "none" }} />,
+                render: (rowData) => <input type="password" value={rowData.accessKey} readOnly style={{ border: "none" }} />,
+              },
+              {
+                title: "Secret Key",
+                field: "secretKey",
+                editComponent: ({ value, onChange }) => <input type="password" value={value || ""} onChange={(e) => onChange(e.target.value)} style={{ border: "none" }} />,
+                render: (rowData) => <input type="password" value={rowData.secretKey} readOnly style={{ border: "none" }} />,
+              },
             ]}
             cdata={
               clouds.length > 0
                 ? clouds.map((v, i) => {
                     return {
                       cloudName: v.cloudName,
-                      lastScanTime: moment(v.lastScan).format("YYYY/MM/DD-hh:mm"),
+                      cloudId: v.cloudId,
+                      lastScanTime: v.lastScan ? moment(v.lastScan).format("YYYY/MM/DD-hh:mm") : "No Data",
                       status: v.status === 1 ? "비활성화" : v.status === 2 ? "활성화" : v.status === 3 ? "스캔중" : "",
+                      accessKey: v.accessKey,
+                      secretKey: v.secretKey,
                     };
                   })
                 : []

@@ -18,6 +18,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn";
 import ModalInfo from "../module/modal/ModalInfo";
 import ModalConfig from "../module/modal/ModalConfig";
 import ModalPer from "../module/modal/ModalPer";
+import axios from "axios";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -61,23 +62,79 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
           title={title}
           icons={tableIcons}
           editable={{
+            //Organization-POST
             onRowAdd: (newRow) =>
               new Promise((resolve, reject) => {
                 setTableData([...tableData, newRow]);
+                if (type === "organization") {
+                  axios.post("http://54.180.115.206:8000/api/organization", newRow).then(function (response) {
+                    console.log(response);
+                    console.log("Send Data: Add Row", newRow);
+                  });
+                }
+                window.location.reload();
                 setTimeout(() => resolve(), 500);
               }),
+
+            //Organization-PUT
             onRowUpdate: (newRow, oldRow) =>
               new Promise((resolve, reject) => {
                 const updatedData = [...tableData];
                 updatedData[oldRow.tableData.id] = newRow;
                 setTableData(updatedData);
+                if (type === "organization") {
+                  axios.put("http://54.180.115.206:8000/api/organization", newRow).then(function (response) {
+                    console.log(response);
+                    console.log("Send Data: Update Row", newRow);
+                  });
+                }
+                if (type === "cloud") {
+                  axios
+                    .put("http://54.180.115.206:8000/api/cloud", {
+                      cloudId: oldRow.cloudId,
+                      cloudName: newRow.cloudName,
+                      accessKey: newRow.accessKey,
+                      secretKey: newRow.secretKey,
+                    })
+                    .then(function (response) {
+                      console.log(response);
+                      console.log("Send Data: Update Row", {
+                        cloudId: oldRow.cloudId,
+                        cloudName: newRow.cloudName,
+                        accessKey: newRow.accessKey,
+                        secretKey: newRow.secretKey,
+                      });
+                    });
+                  console.log("Update Row", {
+                    cloudId: oldRow.cloudId,
+                    cloudName: newRow.cloudName,
+                    accessKey: newRow.accessKey,
+                    secretKey: newRow.secretKey,
+                  });
+                }
+                // window.location.reload();
                 setTimeout(() => resolve(), 500);
               }),
+
+            //Organization-DELETE
             onRowDelete: (selectedRow) =>
               new Promise((resolve, reject) => {
                 const updatedData = [...tableData];
                 updatedData.splice(selectedRow.tableData.id, 1);
                 setTableData(updatedData);
+                if (type === "organization") {
+                  axios.delete("http://54.180.115.206:8000/api/organization", { data: { userArn: selectedRow.userArn } }).then(function (response) {
+                    console.log(response);
+                    console.log("Send Data: Delete Row", { userArn: selectedRow.userArn });
+                  });
+                }
+                if (type === "cloud") {
+                  axios.delete("http://54.180.115.206:8000/api/cloud", { data: { cloudId: selectedRow.cloudId } }).then(function (response) {
+                    console.log(response);
+                    console.log("Send Data: Delete Row", { cloudId: selectedRow.cloudId });
+                  });
+                }
+                // window.location.reload();
                 setTimeout(() => resolve(), 1000);
               }),
           }}
@@ -87,6 +144,8 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
           // {data[selected]}
           options={{
             sorting: true,
+
+            // thirdSortClick: false,
             search: true,
             filtering: true,
             paging: true,
@@ -119,9 +178,11 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
           // actions={[{ icon: () => <GetAppIcon />, tooltip: "Click", onClick: (e, data) => console.log(data) }]}
           onSelectionChange={(selectedRow) => console.log(selectedRow)}
           onRowClick={(event, rowData) => {
-            console.log("rowdata", rowData);
-            setId(rowData.id);
-            openModal();
+            if (type === "monitoring") {
+              // console.log("rowdata", rowData);
+              setId(rowData.id);
+              openModal();
+            }
           }}
           options={{
             sorting: true,
@@ -149,8 +210,8 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
           }}
         />
       )}
-      {modalOpen && type === "scanningper" && <ModalPer type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={id} />}
-      {modalOpen && type === "scanningconfig" && <ModalConfig type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={id} />}
+      {/* {modalOpen && type === "scanningper" && <ModalPer type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={id} />}
+      {modalOpen && type === "scanningconfig" && <ModalConfig type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} Id={id} />} */}
       {modalOpen && type === "monitoring" && <ModalInfo type={type} modalOpen={modalOpen} setmodalOpen={setmodalOpen} logId={id} />}
     </div>
   );

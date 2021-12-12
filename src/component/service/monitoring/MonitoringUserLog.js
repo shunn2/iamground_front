@@ -25,6 +25,7 @@ const MonitoringUserLog = () => {
       decideWho().substring(0, 3) === "arn"
         ? await axios.get(`http://54.180.115.206:8000/api/monitoring/log?iam_user_arn=${decideWho()}`)
         : await axios.get(`http://54.180.115.206:8000/api/monitoring/log?bookmark_id=${decideWho()}`);
+    console.log("response", response);
     setLogs(response.data.resourceLogs);
     decideWho().substring(0, 3) === "arn" ? setIdentityName(response.data.resourceName) : setIdentityName(response.data.bookmarkName);
     console.log("response", response);
@@ -96,7 +97,7 @@ const MonitoringUserLog = () => {
         <div style={{ width: "calc(100%-30px)" }}>
           <TableMaterial
             columns={[
-              { title: "Time", field: "time" },
+              { title: "Time", field: "time", defaultSort: "desc" },
               { title: "User", field: "user" },
               { title: "Resource", field: "resource" },
               { title: "Activity", field: "activity" },
