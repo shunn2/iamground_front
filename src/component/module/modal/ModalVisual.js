@@ -34,7 +34,7 @@ const ModalVisual = ({ modalOpen, setmodalOpen, resource }) => {
   const [subject, setSubject] = useState("");
   const [arn, setArn] = useState("");
   const fetchVisualModalData = async () => {
-    const response = await axios.get(`http://54.180.115.206:8000/api/visualization?iamResourceArn=${resource}`);
+    const response = await axios.get(`http://3.34.125.15:8000/api/visualization?iamResourceArn=${resource}`);
     setModalData(response.data.detail);
     setRelation(response.data.relation);
     console.log("modal", response);
@@ -203,7 +203,7 @@ const ModalVisual = ({ modalOpen, setmodalOpen, resource }) => {
           </div>
         </div>
         <div style={{ width: "100%", height: "600px", paddingTop: "100px" }}>
-          <HorizontalFlow resource={relation} subject={subject} resourceName={ModalData.resourceName} />
+          <HorizontalFlow resource={relation} subject={subject} resourceName={ModalData.resourceName} resourceArn={ModalData.resourceArn} />
         </div>
       </div>
     );

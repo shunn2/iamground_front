@@ -30,7 +30,7 @@ const edgeTypes = {
 // (0은 user-group 관계일 때 고정값으로)
 
 //subject는 user or group
-const HorizontalFlow = ({ resource, subject, resourceName }) => {
+const HorizontalFlow = ({ resource, subject, resourceName, resourceArn }) => {
   const [group, setGroup] = useState([]);
   const [user, setUser] = useState([]);
   const [policy, setPolicy] = useState([]);
@@ -39,7 +39,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
   const [groupConnect, setGroupConnect] = useState([]);
   const subjectElement = [
     {
-      id: resourceName,
+      id: resourceArn,
       sourcePosition: "right",
       targetPosition: "left",
       type: "default",
@@ -91,7 +91,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setPolicyConnect(
         resource.policy.map((v, i) => {
           return {
-            id: v.source + "to" + v.targetArn,
+            id: v.sourceArn + "to" + v.targetArn,
             source: v.sourceArn,
             type: "default",
             target: v.targetArn,
@@ -102,8 +102,8 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setGroupConnect(
         resource.group.map((v, i) => {
           return {
-            id: v.source + "to" + v.targetArn,
-            source: v.source,
+            id: v.sourceArn + "to" + v.targetArn,
+            source: v.sourceArn,
             type: "default",
             target: v.targetArn,
             style: { stroke: v.lineColor === 1 ? "#000000" : v.lineColor === 2 ? "#0001F7" : "#F7003E" },
@@ -151,8 +151,8 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setUserConnect(
         resource.user.map((v, i) => {
           return {
-            id: v.source + "to" + v.targetArn,
-            source: v.source,
+            id: v.sourceArn + "to" + v.targetArn,
+            source: v.sourceArn,
             type: "default",
             target: v.targetArn,
             style: { stroke: v.lineColor === 1 ? "#000000" : v.lineColor === 2 ? "#0001F7" : "#F7003E" },
@@ -162,8 +162,8 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setPolicyConnect(
         resource.policy.map((v, i) => {
           return {
-            id: v.source + "to" + v.targetArn,
-            source: v.source,
+            id: v.sourceArn + "to" + v.targetArn,
+            source: v.sourceArn,
             type: "default",
             target: v.targetArn,
             style: { stroke: v.lineColor === 1 ? "#000000" : v.lineColor === 2 ? "#0001F7" : "#F7003E" },

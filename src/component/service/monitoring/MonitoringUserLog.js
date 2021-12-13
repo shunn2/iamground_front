@@ -23,13 +23,13 @@ const MonitoringUserLog = () => {
   const fetchLogs = async () => {
     const response =
       decideWho().substring(0, 3) === "arn"
-        ? await axios.get(`http://54.180.115.206:8000/api/monitoring/log?iam_user_arn=${decideWho()}`)
-        : await axios.get(`http://54.180.115.206:8000/api/monitoring/log?bookmark_id=${decideWho()}`);
+        ? await axios.get(`http://3.34.125.15:8000/api/monitoring/log?iam_user_arn=${decideWho()}`)
+        : await axios.get(`http://3.34.125.15:8000/api/monitoring/log?bookmark_id=${decideWho()}`);
     console.log("response", response);
     setLogs(response.data.resourceLogs);
     decideWho().substring(0, 3) === "arn" ? setIdentityName(response.data.resourceName) : setIdentityName(response.data.bookmarkName);
     console.log("response", response);
-    console.log("url", `http://54.180.115.206:8000/api/monitoring/log?iam_user_arn=${decideWho()}`);
+    console.log("url", `http://3.34.125.15:8000/api/monitoring/log?iam_user_arn=${decideWho()}`);
   };
   useEffect(() => {
     fetchLogs();
@@ -38,7 +38,7 @@ const MonitoringUserLog = () => {
   const deleteGroup = (bookmarkId) => {
     console.log(bookmarkId);
     axios
-      .delete("http://54.180.115.206:8000/api/monitoring/log/bookmark", {
+      .delete("http://3.34.125.15:8000/api/monitoring/log/bookmark", {
         data: { bookmarkGroupId: bookmarkId },
       })
       .then(function (response) {

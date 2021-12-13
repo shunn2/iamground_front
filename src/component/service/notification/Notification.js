@@ -17,7 +17,7 @@ function a11yProps(index) {
 function Notification() {
   //   const [notificationList, setNotificationList] = useState([]);
   //   const fetchNotificationList = async () => {
-  //     const response = await axios.get("http://54.180.115.206:8000/api/notification");
+  //     const response = await axios.get("http://3.34.125.15:8000/api/notification");
   //     setNotificationList(response.data.notificationList);
   //     console.log("responseNotification", response);
   //   };

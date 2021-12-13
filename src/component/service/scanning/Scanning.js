@@ -9,7 +9,7 @@ import moment from "moment";
 function Scanning() {
   const [accounts, setAccounts] = useState([]);
   const fetchAccounts = async () => {
-    const responseAccount = await axios.get("http://54.180.115.206:8000/api/scan");
+    const responseAccount = await axios.get("http://3.34.125.15:8000/api/scan");
     setAccounts(responseAccount.data.cloudList);
     console.log("responseAccount", responseAccount);
     console.log(
@@ -33,7 +33,7 @@ function Scanning() {
 
   const [recommandations, setRecommandations] = useState([]);
   const fetchRecommandations = async () => {
-    const responseRecommand = await axios.get("http://54.180.115.206:8000/api/scan/summary");
+    const responseRecommand = await axios.get("http://3.34.125.15:8000/api/scan/summary");
     setRecommandations(responseRecommand.data.summaryList);
     console.log("responseRecommand", responseRecommand);
   };
@@ -43,7 +43,7 @@ function Scanning() {
 
   const StartScan = (cloudId) => {
     axios
-      .post("http://54.180.115.206:8000/api/scan", {
+      .post("http://3.34.125.15:8000/api/scan", {
         cloudId: cloudId,
       })
       .then(function (response) {

@@ -7,7 +7,7 @@ import axios from "axios";
 function CloudRegister() {
   const PostCloud = (cloudName, accessKey, secretKey, cloudId) => {
     axios
-      .post("http://54.180.115.206:8000/api/cloud", {
+      .post("http://3.34.125.15:8000/api/cloud", {
         cloudName: cloudName,
         accessKey: accessKey,
         secretKey: secretKey,

@@ -8,7 +8,7 @@ import moment from "moment";
 function Cloud() {
   const [clouds, setClouds] = useState([]);
   const fetchClouds = async () => {
-    const responseCloud = await axios.get("http://54.180.115.206:8000/api/cloud");
+    const responseCloud = await axios.get("http://3.34.125.15:8000/api/cloud");
     setClouds(responseCloud.data.cloudList);
     console.log("responseCloud", responseCloud);
   };

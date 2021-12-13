@@ -130,7 +130,7 @@ const Visualization = () => {
     setElements([]);
   };
   const fetchVisualData = async () => {
-    await axios.get("http://54.180.115.206:8000/api/visualization").then((res) => {
+    await axios.get("http://3.34.125.15:8000/api/visualization").then((res) => {
       setVisualData(res.data.infoByCloud);
       console.log("res", res);
     });
@@ -559,7 +559,7 @@ export default Visualization;
 // // const Visualization = () => {
 // //   const [visualData, setVisualData] = useState([]);
 // //   const fetchVisualData = async () => {
-// //     const response = await axios.get("http://54.180.115.206:8000/api/visualization");
+// //     const response = await axios.get("http://3.34.125.15:8000/api/visualization");
 // //     setVisualData(response);
 // //     console.log("visual", response);
 // //     console.log("visualdata", visualData);
