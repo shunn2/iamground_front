@@ -59,14 +59,14 @@ function ElementHover({ icon, element }) {
         onClose={handlePopoverClose}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 5 }} component={"div"}>
+        <Typography sx={{ p: 6, width: "450px" }} component={"div"}>
           <div>
-            <div>user: {element.source}</div>
-            <div>name: {element.name}</div>
-            <div>access key: {element.target}</div>
-            <div>email: {element.email}</div>
-            <div>phone number: {element.phone}</div>
-            <div>
+            <div style={{ fontSize: "20px" }}>user: {element.source}</div>
+            <div style={{ fontSize: "20px" }}>name: {element.name}</div>
+            <div style={{ fontSize: "20px" }}>access key: {element.target}</div>
+            <div style={{ fontSize: "20px" }}>email: {element.email}</div>
+            <div style={{ fontSize: "20px" }}>phone number: {element.phone}</div>
+            <div style={{ fontSize: "20px" }}>
               scanning result:{element.warningStatusInfo === "0001" && <span>잘못된 구성</span>}
               {element.warningStatusInfo === "0010" && <span>권한 분리 추천</span>}
               {element.warningStatusInfo === "0011" && <span>잘못된 구성 & 권한 분리 추천</span>}
@@ -80,7 +80,8 @@ function ElementHover({ icon, element }) {
 }
 
 const Visualization = () => {
-  const [visualData, setVisualData] = useState({ user: [], awsGroup: [], orgGroup: [], root: [] });
+  // const [visualData, setVisualData] = useState({ user: [], awsGroup: [], orgGroup: [], root: [], cloudName: "" });
+  const [visualData, setVisualData] = useState([{ user: [], awsGroup: [], orgGroup: [], root: [], cloudName: "" }]);
   const [elementRoot, setelementRoot] = useState([]);
   const [elementOrg, setelementOrg] = useState([]);
   const [elementAws, setelementAws] = useState([]);
@@ -106,6 +107,11 @@ const Visualization = () => {
   const [userElement, setUserElement] = useState([]);
   const [modalOpen, setmodalOpen] = useState(false);
 
+  const [tab, setTab] = useState(0);
+  const handleTabClick = (event, tabNumber) => {
+    setTab(tabNumber);
+  };
+
   const [orgChecked, setOrgChecked] = useState(false);
   const orgHandleChange = (event) => {
     setOrgChecked(event.target.checked);
@@ -124,27 +130,31 @@ const Visualization = () => {
   };
   const fetchVisualData = async () => {
     await axios.get("http://54.180.115.206:8000/api/visualization").then((res) => {
-      setVisualData(res.data);
+      setVisualData(res.data.infoByCloud);
       console.log("res", res);
     });
   };
   useEffect(() => {
     fetchVisualData();
+    console.log("visual", visualData);
   }, []);
+  useEffect(() => {
+    console.log("visual", visualData);
+  }, [visualData]);
   const [yesgroup1, setyesgroup1] = useState([]);
   const reArrayUser = () => {
-    for (let j = 0; j < visualData.user.length; j++) {
-      if (targetGroup.includes(visualData.user[j].sourceArn) === true) {
-        console.log(visualData.user[j]);
-        setyesgroup1((prev) => [...prev, visualData.user[j]]);
+    for (let j = 0; j < visualData[tab].user.length; j++) {
+      if (targetGroup.includes(visualData[tab].user[j].sourceArn) === true) {
+        console.log(visualData[tab].user[j]);
+        setyesgroup1((prev) => [...prev, visualData[tab].user[j]]);
       } else {
-        setNoGroup((prev) => [...prev, visualData.user[j]]);
+        setNoGroup((prev) => [...prev, visualData[tab].user[j]]);
       }
     }
-    for (let j = 0; j < visualData.user.length; j++) {
-      if (targetOrgGroup.includes(visualData.user[j].sourceArn) === true) {
+    for (let j = 0; j < visualData[tab].user.length; j++) {
+      if (targetOrgGroup.includes(visualData[tab].user[j].sourceArn) === true) {
       } else {
-        setNoOrgGroup((prev) => [...prev, visualData.user[j]]);
+        setNoOrgGroup((prev) => [...prev, visualData[tab].user[j]]);
       }
     }
   };
@@ -159,18 +169,17 @@ const Visualization = () => {
       }
     }
   };
-
   useEffect(() => {
     reArrayUser1();
   }, [targetGroup, yesgroup1]);
   useEffect(() => {
     setTargetGroup(
-      visualData.awsGroup.map((v, i) => {
+      visualData[tab].awsGroup.map((v, i) => {
         return v.targetArn;
       })
     );
     setTargetOrgGroup(
-      visualData.orgGroup.map((v, i) => {
+      visualData[tab].orgGroup.map((v, i) => {
         return v.targetArn;
       })
     );
@@ -178,7 +187,8 @@ const Visualization = () => {
   useEffect(() => {
     console.log(targetGroup);
     reArrayUser();
-  }, [targetGroup]);
+    setElements([]);
+  }, [targetGroup, tab]);
   const makeUserElement = async () => {
     await setUserElement((userElement) => [...userElement, ...yesGroup]);
     setUserElement((userElement) => [...userElement, ...noGroup]);
@@ -188,7 +198,7 @@ const Visualization = () => {
   }, [yesGroup]);
   useEffect(() => {
     setelementRoot(
-      visualData.root.map((v, i) => {
+      visualData[tab].root.map((v, i) => {
         return {
           id: v.source,
           type: "default",
@@ -218,7 +228,7 @@ const Visualization = () => {
               type: "default",
               style: { border: "5px solid #91B3E1", width: 50, height: 70, fontWeight: "bold", fontSize: "1.1em" },
               data: { label: "No AWS Group" },
-              position: { x: (1100 / (visualData.root.length + 2)) * (visualData.root.length + 2) + 50, y: 250 },
+              position: { x: (1100 / (visualData[tab].root.length + 2)) * (visualData[tab].root.length + 2) + 50, y: 250 },
             },
           ]
         : []
@@ -231,7 +241,7 @@ const Visualization = () => {
               type: "default",
               style: { border: "5px solid #94B693", width: 50, height: 70, fontWeight: "bold", fontSize: "1.1em" },
               data: { label: "No Org Group" },
-              position: { x: (1100 / (visualData.root.length + 2)) * (visualData.root.length + 2) + 50, y: 130 },
+              position: { x: (1100 / (visualData[tab].root.length + 2)) * (visualData[tab].root.length + 2) + 50, y: 130 },
             },
           ]
         : []
@@ -239,7 +249,7 @@ const Visualization = () => {
     console.log(awsChecked);
     setelementAws(
       awsChecked === true
-        ? visualData.root.map((v, i) => {
+        ? visualData[tab].root.map((v, i) => {
             return {
               id: v.targetArn,
               type: "default",
@@ -248,12 +258,12 @@ const Visualization = () => {
                 label: (
                   <div>
                     <VisGroup />
-                    {v.target}
+                    <div style={{ fontSize: "10px", fontWeight: "600" }}>{v.target}</div>
                   </div>
                 ),
               },
               position: {
-                x: (1100 / (visualData.root.length + 2)) * (i + 1) + 50,
+                x: (1100 / (visualData[tab].root.length + 2)) * (i + 1) + 50,
                 y: 250,
               },
             };
@@ -262,7 +272,7 @@ const Visualization = () => {
     );
     setelementOrg(
       orgChecked === true
-        ? visualData.orgGroup.map((v, i) => {
+        ? visualData[tab].orgGroup.map((v, i) => {
             return {
               id: v.source,
               type: "default",
@@ -276,7 +286,7 @@ const Visualization = () => {
                 ),
               },
               position: {
-                x: (1300 / (visualData.orgGroup.length + 1)) * (i + 1),
+                x: (1300 / (visualData[tab].orgGroup.length + 1)) * (i + 1),
                 y: 130,
               },
             };
@@ -284,7 +294,7 @@ const Visualization = () => {
         : []
     );
     setRootToGroup(
-      visualData.root.map((v, i) => {
+      visualData[tab].root.map((v, i) => {
         return {
           id: v.source + "to" + v.targetArn,
           source: v.source,
@@ -294,7 +304,7 @@ const Visualization = () => {
       })
     );
     setRootToNoAWSGroup(
-      visualData.root.map((v, i) => {
+      visualData[tab].root.map((v, i) => {
         return {
           id: v.source + "to" + "NoAWSgroup",
           source: v.source,
@@ -304,7 +314,7 @@ const Visualization = () => {
       })
     );
     setAwsToUser(
-      visualData.awsGroup.map((v, i) => {
+      visualData[tab].awsGroup.map((v, i) => {
         return {
           id: v.sourceArn + "to" + v.targetArn,
           source: v.sourceArn,
@@ -314,7 +324,7 @@ const Visualization = () => {
       })
     );
     setOrgToUser(
-      visualData.orgGroup.map((v, i) => {
+      visualData[tab].orgGroup.map((v, i) => {
         return {
           id: v.source + "to" + v.target,
           source: v.source,
@@ -324,7 +334,7 @@ const Visualization = () => {
       })
     );
     setUserToKey(
-      visualData.user.map((v, i) => {
+      visualData[tab].user.map((v, i) => {
         if (v.target !== "") {
           return {
             id: v.sourceArn + "to" + v.target,
@@ -337,7 +347,7 @@ const Visualization = () => {
         }
       })
     );
-  }, [visualData, modalOpen, awsChecked, scanChecked, orgChecked]);
+  }, [visualData, modalOpen, awsChecked, scanChecked, orgChecked, tab]);
   useEffect(() => {
     setNoAWSGroupToUser(
       noGroup.map((v, i) => {
@@ -359,7 +369,7 @@ const Visualization = () => {
         };
       })
     );
-  }, [elementUser, modalOpen, awsChecked, scanChecked, orgChecked]);
+  }, [elementUser, modalOpen, awsChecked, scanChecked, orgChecked, tab]);
 
   useEffect(() => {
     setelementUser(
@@ -370,13 +380,13 @@ const Visualization = () => {
           style:
             scanChecked === true
               ? v.warningStatusInfo === "0001"
-                ? { border: "5px solid #FA95EC", width: 50, height: 80 }
+                ? { border: "5px solid #FA95EC", width: 40, height: 60 }
                 : v.warningStatusInfo === "0010"
-                ? { border: "5px solid #F4ABA1", width: 50, height: 80 }
+                ? { border: "5px solid #F4ABA1", width: 40, height: 60 }
                 : v.warningStatusInfo === "0011"
-                ? { border: "5px solid #FFFD91", width: 50, height: 80 }
-                : { border: "1px solid #3B434D", width: 50, height: 80 }
-              : { border: "1px solid #3B434D", width: 50, height: 80 },
+                ? { border: "5px solid #FFFD91", width: 40, height: 60 }
+                : { border: "1px solid #3B434D", width: 40, height: 60 }
+              : { border: "1px solid #3B434D", width: 40, height: 60 },
           data: {
             label: (
               <div>
@@ -385,7 +395,7 @@ const Visualization = () => {
             ),
           },
           position: {
-            x: (1300 / (visualData.user.length - 1)) * (i + 1),
+            x: (1300 / (visualData[tab].user.length - 1)) * (i + 1) - 50,
             y: 460,
           },
         };
@@ -407,7 +417,7 @@ const Visualization = () => {
               ),
             },
             position: {
-              x: (1300 / (visualData.user.length - 1)) * (i + 1),
+              x: (1300 / (visualData[tab].user.length - 1)) * (i + 1),
               y: 650,
             },
           };
@@ -461,7 +471,9 @@ const Visualization = () => {
   useEffect(() => {
     setUniqueElements(_.uniqBy(elements, "id"));
   }, [elements]);
-
+  useEffect(() => {
+    setElements([]);
+  }, []);
   const [resource, setResource] = useState(null);
   const openModal = () => {
     setmodalOpen(true);
@@ -475,11 +487,6 @@ const Visualization = () => {
     } else {
       setmodalOpen(true);
     }
-  };
-
-  const [tab, setTab] = useState(0);
-  const handleTabClick = (event, tabNumber) => {
-    setTab(tabNumber);
   };
 
   // const Root1 = () => <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />;
@@ -509,9 +516,9 @@ const Visualization = () => {
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs value={tab} onChange={handleTabClick} aria-label="basic tabs example">
-              <Tab label="CLOUD" {...a11yProps(0)} />
-              {/* <Tab label="root2" {...a11yProps(1)} />
-              <Tab label="root3" {...a11yProps(2)} /> */}
+              {visualData.map((v, i) => {
+                return <Tab label={v.cloudName} {...a11yProps(i)} />;
+              })}
             </Tabs>
           </Box>
         </Box>
@@ -544,9 +551,7 @@ const Visualization = () => {
             </div>
           </VisualizationNav>
           <div style={{ width: "calc(100% - 250px)" }}>
-            {tab === 0 && <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />}
-            {tab === 1 && <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />}
-            {tab === 2 && <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />}
+            <ReactFlow elements={uniqueElements} onElementClick={onElementClick} />
           </div>
         </div>
       </Div>

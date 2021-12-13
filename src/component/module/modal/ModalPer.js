@@ -124,10 +124,10 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
           ) : (
             <div style={{ display: "flex", flexDirection: "row", border: "2px solid black", borderCollapse: "collpase" }}>
               <div style={{ width: "50%", borderCollapse: "collapse", borderRight: "2px solid black" }}>
-                <pre style={{ fontWeight: "600", fontSize: "16px" }}>{JSON.stringify(recommend[policyName[value]].origin, null, 2)}</pre>
+                <pre style={{ fontSize: "16px" }}>{JSON.stringify(recommend[policyName[value]].origin, null, 2)}</pre>
               </div>
               <div style={{ width: "50%", borderCollapse: "collapse", borderLeft: "2px solid blakc" }}>
-                <pre style={{ fontWeight: "600", fontSize: "16px" }}>{JSON.stringify(recommend[policyName[value]].new, null, 2)}</pre>
+                <pre style={{ fontSize: "16px" }}>{JSON.stringify(recommend[policyName[value]].new, null, 2)}</pre>
               </div>
             </div>
           )}
@@ -201,6 +201,13 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
     );
   }
   const [detail, setDetail] = useState(String(JSON.parse(Id.reasonDetail)).split(","));
+  useEffect(() => {
+    for (let i = 0; i < detail.length; i++) {
+      if (i > 0) {
+      }
+    }
+  }, [detail]);
+  console.log("detail", detail);
   return (
     <div>
       <Modal open={modalOpen} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">

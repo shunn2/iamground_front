@@ -88,7 +88,7 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
                 <ModalText style={{ flexDirection: "column" }}>
                   <TitleDiv>원본 이벤트</TitleDiv>
                   <TextDiv>
-                    <pre style={{ fontWeight: "600", fontSize: "25px", color: "#000000" }}>{JSON.stringify(logDetail.rawData, undefined, 2)}</pre>
+                    <pre style={{ fontSize: "25px", color: "#000000" }}>{JSON.stringify(logDetail.rawData, undefined, 2)}</pre>
                   </TextDiv>
                 </ModalText>
               </div>
