@@ -26,7 +26,7 @@ function Monitoring() {
       logs
         .map((v, i) => {
           return {
-            time: moment(v.creation).format("YYYY/MM/DD HH:MM"),
+            time: moment(v.creation).format("YYYY/MM/DD HH:mm:ss"),
             user: v.identityName,
             resource: JSON.parse(v.resourceName).join(", "),
             activity: v.apiName,

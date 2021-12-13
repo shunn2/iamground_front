@@ -41,6 +41,7 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
     overflowX: "auto",
   };
   const [logDetail, setLogDetail] = useState(logId);
+  console.log(logId);
 
   return (
     <div>
@@ -74,7 +75,7 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
                 <ModalText>
                   <TitleDiv>리소스 정보</TitleDiv>
                   <TextDiv>
-                    {JSON.parse(logDetail.resourceName)}({JSON.parse(logDetail.resourceArn)})
+                    {JSON.parse(logDetail.resourceName)}({logDetail.resourceArn})
                   </TextDiv>
                 </ModalText>
                 <ModalText>

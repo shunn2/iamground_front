@@ -112,7 +112,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
                     secretKey: newRow.secretKey,
                   });
                 }
-                // window.location.reload();
+                window.location.reload();
                 setTimeout(() => resolve(), 500);
               }),
 
@@ -134,7 +134,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
                     console.log("Send Data: Delete Row", { cloudId: selectedRow.cloudId });
                   });
                 }
-                // window.location.reload();
+                window.location.reload();
                 setTimeout(() => resolve(), 1000);
               }),
           }}

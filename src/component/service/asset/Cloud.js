@@ -59,7 +59,7 @@ function Cloud() {
                     return {
                       cloudName: v.cloudName,
                       cloudId: v.cloudId,
-                      lastScanTime: v.lastScan ? moment(v.lastScan).format("YYYY/MM/DD HH:MM") : "No Report",
+                      lastScanTime: v.lastScan ? moment(v.lastScan).format("YYYY/MM/DD HH:mm:ss") : "No Report",
                       status: v.status === 1 ? "비활성화" : v.status === 2 ? "활성화" : v.status === 3 ? "스캔중" : "",
                       accessKey: v.accessKey,
                       secretKey: v.secretKey,
