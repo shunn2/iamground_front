@@ -294,7 +294,7 @@ function Home() {
             ]}
           />
           <div style={{ position: "relative", textAlign: "center", bottom: "180px" }}>
-            <span style={{ color: "#e0452b" }}>{dashboardData.dangerousUserCount}</span> / {dashboardData.resourceList.allUser}
+            <span style={{ color: "#e0452b" }}>{dashboardData.dangerousUserCount}</span> / {dashboardData.userCount}
           </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginTop: "-80px" }}>
             <div style={{ width: "12px", height: "12px", borderRadius: "16px", backgroundColor: "#F47560", marginRight: "6px" }} />
@@ -308,7 +308,7 @@ function Home() {
               marginTop: "10px",
               marginLeft: "25%",
               marginRight: "25%",
-              fontSize: "15px",
+              fontSize: "14px",
               backgroundColor: "#fc9d8d",
               borderRadius: "10px",
               color: "#ffffff",

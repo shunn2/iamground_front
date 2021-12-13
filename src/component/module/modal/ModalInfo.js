@@ -75,7 +75,7 @@ const ModalInfo = ({ modalOpen, setmodalOpen, logId }) => {
                 <ModalText>
                   <TitleDiv>리소스 정보</TitleDiv>
                   <TextDiv>
-                    {JSON.parse(logDetail.resourceName)}({logDetail.resourceArn})
+                    {JSON.parse(logDetail.resourceName).join(", ")}({logDetail.resourceArn})
                   </TextDiv>
                 </ModalText>
                 <ModalText>

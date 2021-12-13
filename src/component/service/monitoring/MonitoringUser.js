@@ -125,7 +125,7 @@ const MonitoringUser = () => {
           <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Power Users</div>
           <div style={{ flexWrap: "wrap", display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
             {users
-              .filter((user) => user.warningStatusInfo.data[0] !== 0)
+              .filter((user) => user.warningStatusInfo !== 0)
               .map((poweruser, index) => (
                 <SideSpan key={poweruser.userName}>
                   <Link
@@ -168,9 +168,9 @@ const MonitoringUser = () => {
         {/* **************************Users************************** */}
         <div>
           <div style={{ fontSize: "20px", fontWeight: "bold", color: "#787878", margin: "10px 0px" }}>Users</div>
-          <div style={{ display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
+          <div style={{ flexWrap: "wrap", display: "flex", alignItems: "center", padding: "40px", justifyContent: "space-evenly" }}>
             {users
-              .filter((user) => user.warningStatusInfo.data[0] === 0)
+              .filter((user) => user.warningStatusInfo === 0)
               .map((user, index) => (
                 <SideSpan key={user.userName}>
                   <Link
