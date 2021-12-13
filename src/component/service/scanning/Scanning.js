@@ -12,6 +12,20 @@ function Scanning() {
     const responseAccount = await axios.get("http://54.180.115.206:8000/api/scan");
     setAccounts(responseAccount.data.cloudList);
     console.log("responseAccount", responseAccount);
+    console.log(
+      "Line Data",
+      recommandations.map((v, i) => {
+        return {
+          id: v.name,
+          data: v.recommandCountList.map((d, index) => {
+            return {
+              x: moment(d.date).format("YYYY/MM/DD HH:mm"),
+              y: d.value,
+            };
+          }),
+        };
+      })
+    );
   };
   useEffect(() => {
     fetchAccounts();
@@ -47,7 +61,7 @@ function Scanning() {
         type: "linear",
         min: "auto",
         max: "auto",
-        stacked: true,
+        stacked: false,
         reverse: false,
       }}
       yFormat=" >-.2f"
@@ -114,10 +128,10 @@ function Scanning() {
           gdata={recommandations.map((v, i) => {
             return {
               id: v.name,
-              data: v.recommandCountList.map((v, index) => {
+              data: v.recommandCountList.map((d, index) => {
                 return {
-                  x: moment(v.date).format("YYYY/MM/DD HH:mm:ss"),
-                  y: v.value,
+                  x: moment(d.date).format("YYYY/MM/DD HH:mm"),
+                  y: d.value,
                 };
               }),
             };

@@ -160,7 +160,7 @@ function Home() {
                     style={{
                       width: `${dashboardData.resourceList.allUser === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousUser / dashboardData.resourceList.allUser) * 100)}%`,
                       height: "10px",
-                      backgroundColor: "#90CAF9",
+                      backgroundColor: "#fc9d8d",
                       borderRadius: "4px",
                     }}
                   ></div>
@@ -181,7 +181,7 @@ function Home() {
                     style={{
                       width: `${dashboardData.resourceList.allServiceID === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousServiceID / dashboardData.resourceList.allServiceID) * 100)}%`,
                       height: "10px",
-                      backgroundColor: "#90CAF9",
+                      backgroundColor: "#fc9d8d",
                       borderRadius: "4px",
                     }}
                   ></div>
@@ -202,7 +202,7 @@ function Home() {
                     style={{
                       width: `${dashboardData.resourceList.allGroup === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousGroup / dashboardData.resourceList.allGroup) * 100)}%`,
                       height: "10px",
-                      backgroundColor: "#90CAF9",
+                      backgroundColor: "#fc9d8d",
                       borderRadius: "4px",
                     }}
                   ></div>
@@ -223,7 +223,7 @@ function Home() {
                     style={{
                       width: `${dashboardData.resourceList.allRole === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousRole / dashboardData.resourceList.allRole) * 100)}%`,
                       height: "10px",
-                      backgroundColor: "#90CAF9",
+                      backgroundColor: "#fc9d8d",
                       borderRadius: "4px",
                     }}
                   ></div>
@@ -244,7 +244,7 @@ function Home() {
                     style={{
                       width: `${dashboardData.resourceList.allPolicy === 0 ? 0 : parseInt((dashboardData.resourceList.dangerousPolicy / dashboardData.resourceList.allPolicy) * 100)}%`,
                       height: "10px",
-                      backgroundColor: "#90CAF9",
+                      backgroundColor: "#fc9d8d",
                       borderRadius: "4px",
                     }}
                   ></div>
@@ -309,7 +309,7 @@ function Home() {
               marginLeft: "25%",
               marginRight: "25%",
               fontSize: "15px",
-              backgroundColor: "#F47560",
+              backgroundColor: "#fc9d8d",
               borderRadius: "10px",
               color: "#ffffff",
             }}
