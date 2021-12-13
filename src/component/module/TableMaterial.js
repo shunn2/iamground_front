@@ -67,7 +67,7 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
               new Promise((resolve, reject) => {
                 setTableData([...tableData, newRow]);
                 if (type === "organization") {
-                  axios.post("http://54.180.115.206:8000/api/organization", newRow).then(function (response) {
+                  axios.post("http://3.34.125.15:8000/api/organization", newRow).then(function (response) {
                     console.log(response);
                     console.log("Send Data: Add Row", newRow);
                   });
@@ -83,14 +83,14 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
                 updatedData[oldRow.tableData.id] = newRow;
                 setTableData(updatedData);
                 if (type === "organization") {
-                  axios.put("http://54.180.115.206:8000/api/organization", newRow).then(function (response) {
+                  axios.put("http://3.34.125.15:8000/api/organization", newRow).then(function (response) {
                     console.log(response);
                     console.log("Send Data: Update Row", newRow);
                   });
                 }
                 if (type === "cloud") {
                   axios
-                    .put("http://54.180.115.206:8000/api/cloud", {
+                    .put("http://3.34.125.15:8000/api/cloud", {
                       cloudId: oldRow.cloudId,
                       cloudName: newRow.cloudName,
                       accessKey: newRow.accessKey,
@@ -123,13 +123,13 @@ const TableMaterial = ({ columns, cdata, title, type }) => {
                 updatedData.splice(selectedRow.tableData.id, 1);
                 setTableData(updatedData);
                 if (type === "organization") {
-                  axios.delete("http://54.180.115.206:8000/api/organization", { data: { userArn: selectedRow.userArn } }).then(function (response) {
+                  axios.delete("http://3.34.125.15:8000/api/organization", { data: { userArn: selectedRow.userArn } }).then(function (response) {
                     console.log(response);
                     console.log("Send Data: Delete Row", { userArn: selectedRow.userArn });
                   });
                 }
                 if (type === "cloud") {
-                  axios.delete("http://54.180.115.206:8000/api/cloud", { data: { cloudId: selectedRow.cloudId } }).then(function (response) {
+                  axios.delete("http://3.34.125.15:8000/api/cloud", { data: { cloudId: selectedRow.cloudId } }).then(function (response) {
                     console.log(response);
                     console.log("Send Data: Delete Row", { cloudId: selectedRow.cloudId });
                   });

@@ -39,7 +39,7 @@ const ScanningSummary = ({ report_id }) => {
     scanResultTable: [],
   });
   const fetchData = async () => {
-    const response = await axios.get(`http://54.180.115.206:8000/api/scan/report/summary?report_id=${report_id}`);
+    const response = await axios.get(`http://3.34.125.15:8000/api/scan/report/summary?report_id=${report_id}`);
     setSummaryData(response.data.summaryList);
     console.log("response", response);
     console.log("summaryData", summaryData);
@@ -81,10 +81,10 @@ const ScanningSummary = ({ report_id }) => {
   // ];
 
   const colors = {
-    "Risky Permission": "   #b7d6da",
-    "Normal Permission": "   #C3B8B5",
-    "Risky Config": "   #b7d6da",
-    "Normal Config": "   #C3B8B5",
+    "Risky IAM Resources": "   #b7d6da",
+    "Normal IAM Resources": "   #C3B8B5",
+    "Risky Config Criteria": "   #b7d6da",
+    "Normal Config Criteria": "   #C3B8B5",
   };
   const getColor = (pie) => colors[pie.id];
 
@@ -361,13 +361,13 @@ const ScanningSummary = ({ report_id }) => {
             <MyResponsivePie
               data={[
                 {
-                  id: "Risky Permission",
+                  id: "Risky IAM Resources",
                   label: "Risky",
                   value: summaryData.permissionHalfGraph.riskyCount,
                   color: "hsl(143, 70%, 50%)",
                 },
                 {
-                  id: "Normal Permission",
+                  id: "Normal IAM Resources",
                   label: "Normal",
                   value: summaryData.permissionHalfGraph.normalCount,
                   color: "#FFFFFF",
@@ -401,13 +401,13 @@ const ScanningSummary = ({ report_id }) => {
             <MyResponsivePie
               data={[
                 {
-                  id: "Risky Config",
+                  id: "Risky Config Criteria",
                   label: "Risky",
                   value: summaryData.configHalfGraph.riskyCount,
                   color: "# FF0000",
                 },
                 {
-                  id: "Normal Config",
+                  id: "Normal Config Criteria",
                   label: "Normal",
                   value: summaryData.configHalfGraph.normalCount,
                   color: "#FFFFFF",

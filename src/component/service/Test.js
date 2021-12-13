@@ -11,7 +11,7 @@ import TableMaterial from "../module/TableMaterial";
 function Test() {
   const [users, setUsers] = useState([]);
   const fetchUsers = async () => {
-    const responseAddGroup = await axios.get("http://54.180.115.206:8000/api/monitoring/log");
+    const responseAddGroup = await axios.get("http://3.34.125.15:8000/api/monitoring/log");
     setUsers(responseAddGroup.data.users);
     console.log("responseAddGroup", responseAddGroup.data.users);
     console.log("users", users);

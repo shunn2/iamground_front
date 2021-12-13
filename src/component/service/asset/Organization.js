@@ -9,7 +9,7 @@ import axios from "axios";
 function Organization() {
   const [organizationData, setOrganizationData] = useState([]);
   const fetchOrganizationData = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/api/organization");
+    const response = await axios.get("http://3.34.125.15:8000/api/organization");
     setOrganizationData(response.data.organizationList);
     console.log("responseData", response);
     console.log("OrganizationData", organizationData);
@@ -90,10 +90,10 @@ function Organization() {
       setColDef(heads);
       fileData.splice(0, 1);
       setData(convertToJson(headers, fileData));
-
       convertToJson(headers, fileData).map((v, i) => {
+        console.log(v);
         axios
-          .post("http://54.180.115.206:8000/api/organization", {
+          .post("http://3.34.125.15:8000/api/organization", {
             userArn: v.userArn,
             cloudId: v.cloudId,
             criteria: v.permissionGroup,
@@ -113,7 +113,7 @@ function Organization() {
             });
           });
       });
-      window.location.reload();
+      // window.location.reload();
     };
     if (file) {
       if (getExtention(file)) {

@@ -9,7 +9,7 @@ import axios from "axios";
 const ModalGroup = ({ modalOpen, setmodalOpen }) => {
   const [users, setUsers] = useState([]);
   const fetchUsers = async () => {
-    const responseAddGroup = await axios.get("http://54.180.115.206:8000/api/monitoring/log");
+    const responseAddGroup = await axios.get("http://3.34.125.15:8000/api/monitoring/log");
     setUsers(responseAddGroup.data.users);
     console.log("responseAddGroup", responseAddGroup.data.users);
     console.log("users", users);
@@ -27,7 +27,7 @@ const ModalGroup = ({ modalOpen, setmodalOpen }) => {
       }
     }
     axios
-      .post("http://54.180.115.206:8000/api/monitoring/log/bookmark", {
+      .post("http://3.34.125.15:8000/api/monitoring/log/bookmark", {
         bookmarkGroupName: newName,
         memberList: newBookmark,
       })

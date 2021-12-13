@@ -23,7 +23,7 @@ function Topbar() {
       // () =>{
       // {ToastsStore.success("Toast Test")
       async () => {
-      const response = await axios.get("http://54.180.115.206:8000/api/monitoring/toast");
+      const response = await axios.get("http://3.34.125.15:8000/api/monitoring/toast");
       
       if (response.data.toastList.length === 0) {
         // console.log("No Data");

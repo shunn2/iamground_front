@@ -16,7 +16,7 @@ function LogIn() {
 
   const onClickLogin = () => {
     axios
-      .post("http://54.180.115.206:8000/api/login", {
+      .post("http://3.34.125.15:8000/api/login", {
         email: userId,
         password: userPw,
       })
@@ -30,7 +30,7 @@ function LogIn() {
 
   // useEffect(() => {
   //   axios
-  //     .post("http://54.180.115.206:8000/mock/login")
+  //     .post("http://3.34.125.15:8000/mock/login")
   //     .then((res) => console.log(res))
   //     .catch();
   // }, []);

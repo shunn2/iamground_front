@@ -11,7 +11,7 @@ import axios from "axios";
 const MonitoringUser = () => {
   const [users, setUsers] = useState([]);
   const fetchUsers = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/api/monitoring/log");
+    const response = await axios.get("http://3.34.125.15:8000/api/monitoring/log");
     setUsers(response.data.users);
     console.log("response", response.data.users);
     console.log("users", users);
@@ -22,7 +22,7 @@ const MonitoringUser = () => {
 
   const [bookmarks, setBookmarks] = useState([]);
   const fetchBookmarks = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/api/monitoring/log/bookmark");
+    const response = await axios.get("http://3.34.125.15:8000/api/monitoring/log/bookmark");
     setBookmarks(response.data.bookmarkList);
     console.log("response", response.data.bookmarkList);
     console.log("bookmarks", bookmarks);

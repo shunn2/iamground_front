@@ -44,7 +44,7 @@ const ModalConfig = ({ modalOpen, setmodalOpen, Id }) => {
   const [recommend, setRecommend] = useState(JSON.parse(Id.recommand));
   // const [infoData, setInfoData] = useState([]);
   // const fetchData = async () => {
-  //   const response = await axios.get("http://54.180.115.206:8000/mock/scan/report", { params: { info_id: Id } });
+  //   const response = await axios.get("http://3.34.125.15:8000/mock/scan/report", { params: { info_id: Id } });
   //   setInfoData(response);
   // };
   // useEffect(() => {

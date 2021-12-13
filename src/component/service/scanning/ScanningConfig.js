@@ -12,7 +12,7 @@ function ScanningConfig({ report_id }) {
   };
   const [tableData, setTableData] = useState([]);
   const fetchData = async () => {
-    const response = await axios.get(`http://54.180.115.206:8000/api/scan/report/config?report_id=${report_id}`);
+    const response = await axios.get(`http://3.34.125.15:8000/api/scan/report/config?report_id=${report_id}`);
     setTableData(response.data.configList);
     console.log("ConfigResponse", response);
   };
@@ -24,7 +24,7 @@ function ScanningConfig({ report_id }) {
   });
   const patchMarking = (infoId, marking) => {
     axios
-      .patch("http://54.180.115.206:8000/api/scan/report", {
+      .patch("http://3.34.125.15:8000/api/scan/report", {
         infoId: infoId,
         mark: marking,
       })

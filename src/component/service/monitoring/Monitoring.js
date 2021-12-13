@@ -10,7 +10,7 @@ function Monitoring() {
   const [filteredLog, setFilteredLog] = useState([]);
   const [checked, setChecked] = useState(true);
   const fetchLogs = async () => {
-    const response = await axios.get("http://54.180.115.206:8000/api/monitoring/iam");
+    const response = await axios.get("http://3.34.125.15:8000/api/monitoring/iam");
     setLogs(response.data.iamLogs);
 
     console.log("response", response);
