@@ -203,7 +203,7 @@ const ModalVisual = ({ modalOpen, setmodalOpen, resource }) => {
           </div>
         </div>
         <div style={{ width: "100%", height: "600px", paddingTop: "100px" }}>
-          <HorizontalFlow resource={relation} subject={subject} resourceName={ModalData.resourceName} />
+          <HorizontalFlow resource={relation} subject={subject} resourceName={ModalData.resourceName} resourceArn={ModalData.resourceArn} />
         </div>
       </div>
     );
