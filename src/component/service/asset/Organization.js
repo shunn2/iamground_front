@@ -113,7 +113,7 @@ function Organization() {
             });
           });
       });
-      // window.location.reload();
+      window.location.reload();
     };
     if (file) {
       if (getExtention(file)) {
