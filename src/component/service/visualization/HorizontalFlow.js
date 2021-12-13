@@ -15,24 +15,6 @@ const onNodeContextMenu = (event, node) => {
   console.log("context menu:", node);
 };
 
-{
-  /* <span style={{ fontWeight: "bold" }}>
-            <CircleIcon style={{ color: "#FED658" }} />
-            선택
-          </span>
-          <span style={{ fontWeight: "bold" }}>
-            <CircleIcon style={{ color: "#C098CE" }} />
-            그룹
-          </span>
-          <span style={{ fontWeight: "bold" }}>
-            <CircleIcon style={{ color: "#E9B7C3" }} />
-            유저
-          </span>
-          <span style={{ fontWeight: "bold" }}>
-            <CircleIcon style={{ color: "#5265B3" }} />
-            정책
-          </span> */
-}
 const edgeTypes = {
   custom: CustomEdge,
 };
@@ -63,7 +45,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       type: "default",
       className: "dark-node",
       data: { label: <div style={{ textAlign: "center", fontSize: "18px", fontWeight: "bold" }}>{resourceName}</div> },
-      position: { x: subject === "user" ? 200 : 600, y: 150 },
+      position: { x: subject === "user" ? 200 : 600, y: 200 },
       style: { width: String(resourceName).length * 11, height: 30, border: "5px solid #FED658" },
     },
   ];
@@ -72,7 +54,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setPolicy(
         resource.policy.map((v, i) => {
           return {
-            id: v.target,
+            id: v.targetArn,
             sourcePosition: "right",
             targetPosition: "left",
             data: {
@@ -89,7 +71,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
                 </div>
               ),
             },
-            position: { x: 1000, y: (300 / resource.policy.length - 1) * i },
+            position: { x: 1000, y: (500 / (resource.policy.length + 1)) * (i + 1) },
             style: { width: String(v.target).length * 11, height: 40, border: "3px solid #5265B3" },
           };
         })
@@ -97,11 +79,11 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setGroup(
         resource.group.map((v, i) => {
           return {
-            id: v.target,
+            id: v.targetArn,
             sourcePosition: "left",
             targetPosition: "right",
             data: { label: <span style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.target}</span> },
-            position: { x: 600, y: (300 / resource.policy.length - 1) * (i + 1) },
+            position: { x: 600, y: (500 / (resource.group.length + 1)) * (i + 1) },
             style: { width: String(v.target).length * 11, height: 30, border: "3px solid #C098CE" },
           };
         })
@@ -109,10 +91,10 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setPolicyConnect(
         resource.policy.map((v, i) => {
           return {
-            id: v.source + "to" + v.target,
-            source: v.source,
+            id: v.source + "to" + v.targetArn,
+            source: v.sourceArn,
             type: "default",
-            target: v.target,
+            target: v.targetArn,
             style: { stroke: v.lineColor === 1 ? "#000000" : v.lineColor === 2 ? "#0001F7" : "#F7003E" },
           };
         })
@@ -120,10 +102,10 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setGroupConnect(
         resource.group.map((v, i) => {
           return {
-            id: v.source + "to" + v.target,
+            id: v.source + "to" + v.targetArn,
             source: v.source,
             type: "default",
-            target: v.target,
+            target: v.targetArn,
             style: { stroke: v.lineColor === 1 ? "#000000" : v.lineColor === 2 ? "#0001F7" : "#F7003E" },
           };
         })
@@ -132,11 +114,11 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setUser(
         resource.user.map((v, i) => {
           return {
-            id: v.target,
+            id: v.targetArn,
             sourcePosition: "left",
             targetPosition: "right",
             data: { label: <span style={{ textAlign: "center", fontSize: "20px", fontWeight: "bold" }}>{v.target}</span> },
-            position: { x: 200, y: (300 / resource.policy.length - 1) * (i + 1) },
+            position: { x: 200, y: (500 / (resource.user.length + 1)) * (i + 1) },
             style: { width: String(v.target).length * 11, height: 30, border: "3px solid #E9B7C3" },
           };
         })
@@ -144,7 +126,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setPolicy(
         resource.policy.map((v, i) => {
           return {
-            id: v.target,
+            id: v.targetArn,
             sourcePosition: "right",
             targetPosition: "left",
             data: {
@@ -161,7 +143,7 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
                 </div>
               ),
             },
-            position: { x: 1000, y: (300 / resource.policy.length - 1) * (i + 1) },
+            position: { x: 1000, y: (500 / (resource.policy.length + 1)) * (i + 1) },
             style: { width: String(v.target).length * 11, height: 40, border: "3px solid #5265B3" },
           };
         })
@@ -169,10 +151,10 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setUserConnect(
         resource.user.map((v, i) => {
           return {
-            id: v.source + "to" + v.target,
+            id: v.source + "to" + v.targetArn,
             source: v.source,
             type: "default",
-            target: v.target,
+            target: v.targetArn,
             style: { stroke: v.lineColor === 1 ? "#000000" : v.lineColor === 2 ? "#0001F7" : "#F7003E" },
           };
         })
@@ -180,10 +162,10 @@ const HorizontalFlow = ({ resource, subject, resourceName }) => {
       setPolicyConnect(
         resource.policy.map((v, i) => {
           return {
-            id: v.source + "to" + v.target,
+            id: v.source + "to" + v.targetArn,
             source: v.source,
             type: "default",
-            target: v.target,
+            target: v.targetArn,
             style: { stroke: v.lineColor === 1 ? "#000000" : v.lineColor === 2 ? "#0001F7" : "#F7003E" },
           };
         })

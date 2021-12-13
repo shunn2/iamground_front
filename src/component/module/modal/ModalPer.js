@@ -200,14 +200,16 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
       </>
     );
   }
-  const [detail, setDetail] = useState(String(JSON.parse(Id.reasonDetail)).split(","));
-  useEffect(() => {
-    for (let i = 0; i < detail.length; i++) {
-      if (i > 0) {
+  const detail = String(JSON.parse(Id.reasonDetail)).split(".");
+
+  for (let i = 0; i < detail.length; i++) {
+    if (i > 0) {
+      if (detail[i][1] === ",") {
+        let temp = detail[i].slice(2, detail[i].length);
+        detail[i] = temp;
       }
     }
-  }, [detail]);
-  console.log("detail", detail);
+  }
   return (
     <div>
       <Modal open={modalOpen} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">

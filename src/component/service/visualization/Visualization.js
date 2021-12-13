@@ -110,6 +110,8 @@ const Visualization = () => {
   const [tab, setTab] = useState(0);
   const handleTabClick = (event, tabNumber) => {
     setTab(tabNumber);
+    setElements([]);
+    setNoGroup([]);
   };
 
   const [orgChecked, setOrgChecked] = useState(false);
@@ -120,7 +122,6 @@ const Visualization = () => {
   const [scanChecked, setScanChecked] = useState(false);
   const scanHandleChange = (event) => {
     setScanChecked(event.target.checked);
-    console.log(scanChecked);
     setElements([]);
   };
   const [awsChecked, setAwsChecked] = useState(true);
@@ -136,16 +137,11 @@ const Visualization = () => {
   };
   useEffect(() => {
     fetchVisualData();
-    console.log("visual", visualData);
   }, []);
-  useEffect(() => {
-    console.log("visual", visualData);
-  }, [visualData]);
   const [yesgroup1, setyesgroup1] = useState([]);
   const reArrayUser = () => {
     for (let j = 0; j < visualData[tab].user.length; j++) {
       if (targetGroup.includes(visualData[tab].user[j].sourceArn) === true) {
-        console.log(visualData[tab].user[j]);
         setyesgroup1((prev) => [...prev, visualData[tab].user[j]]);
       } else {
         setNoGroup((prev) => [...prev, visualData[tab].user[j]]);
@@ -162,8 +158,6 @@ const Visualization = () => {
     for (let k = 0; k < targetGroup.length; k++) {
       for (let l = 0; l < yesgroup1.length; l++) {
         if (targetGroup[k] === yesgroup1[l].sourceArn) {
-          console.log(l);
-          console.log(yesgroup1[l].sourceArn);
           setYesGroup((prev) => [...prev, yesgroup1[l]]);
         }
       }
@@ -185,7 +179,6 @@ const Visualization = () => {
     );
   }, [visualData]);
   useEffect(() => {
-    console.log(targetGroup);
     reArrayUser();
     setElements([]);
   }, [targetGroup, tab]);
@@ -212,7 +205,7 @@ const Visualization = () => {
             label: (
               <div>
                 <VisRoot />
-                CLOUD
+                <div>{visualData[tab].cloudName}</div>
               </div>
             ),
           },
@@ -246,7 +239,6 @@ const Visualization = () => {
           ]
         : []
     );
-    console.log(awsChecked);
     setelementAws(
       awsChecked === true
         ? visualData[tab].root.map((v, i) => {
@@ -380,13 +372,13 @@ const Visualization = () => {
           style:
             scanChecked === true
               ? v.warningStatusInfo === "0001"
-                ? { border: "5px solid #FA95EC", width: 40, height: 60 }
+                ? { border: "5px solid #644090", backgroundColor: "#AFB0C8", width: 40, height: 60 }
                 : v.warningStatusInfo === "0010"
-                ? { border: "5px solid #F4ABA1", width: 40, height: 60 }
+                ? { border: "5px solid #E1771A", backgroundColor: "#F4BA9E", width: 40, height: 60 }
                 : v.warningStatusInfo === "0011"
-                ? { border: "5px solid #FFFD91", width: 40, height: 60 }
-                : { border: "1px solid #3B434D", width: 40, height: 60 }
-              : { border: "1px solid #3B434D", width: 40, height: 60 },
+                ? { border: "5px solid #F7003E", backgroundColor: "#FBDDDB", width: 40, height: 60 }
+                : { border: "3px solid #3B434D", width: 40, height: 60 }
+              : { border: "3px solid #3B434D", width: 40, height: 60 },
           data: {
             label: (
               <div>
@@ -540,13 +532,13 @@ const Visualization = () => {
             </div>
             <div style={{ paddingLeft: "65px" }}>
               <div>
-                <CircleIcon style={{ color: "#FA95EC" }} /> <strong style={{ verticalAlign: "super" }}>잘못된 구성</strong>
+                <CircleIcon style={{ color: "#644090" }} /> <strong style={{ verticalAlign: "super" }}>잘못된 구성</strong>
               </div>
               <div>
-                <CircleIcon style={{ color: "#F4ABA1" }} /> <strong style={{ verticalAlign: "super" }}>권한 분리</strong>
+                <CircleIcon style={{ color: "#E1771A" }} /> <strong style={{ verticalAlign: "super" }}>권한 분리</strong>
               </div>
               <div>
-                <CircleIcon style={{ color: "#FFFD91" }} /> <strong style={{ verticalAlign: "super" }}>둘 다 해당</strong>
+                <CircleIcon style={{ color: "#F7003E" }} /> <strong style={{ verticalAlign: "super" }}>둘 다 해당</strong>
               </div>
             </div>
           </VisualizationNav>
