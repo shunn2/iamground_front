@@ -26,13 +26,13 @@ function Topbar() {
       const response = await axios.get("http://54.180.115.206:8000/api/monitoring/toast");
       
       if (response.data.toastList.length === 0) {
-        console.log("No Data");
+        // console.log("No Data");
       }
       else {
         console.log("Response", response);
         const message = response.data.toastList;
         message.map((v,i) =>{
-          ToastsStore.success(`${v.resourceName}에 ${v.reasonCategory[0]}외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
+          ToastsStore.success(`${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
         })
         
         if (curNotificationCount.current === 0) {
@@ -41,10 +41,10 @@ function Topbar() {
           // curNotificationList.current[0] = `${message[0].resourceName}에 ${message[0].reasonCategory[0]} 발생`;
           message.map((v,i) => {
             if(i === 0){
-              curNotificationList.current[0] = `${v.resourceName}에 ${v.reasonCategory[0]}외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`;
+              curNotificationList.current[0] = `${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`;
             }
             else
-              curNotificationList.current.push(`${v.resourceName}에 ${v.reasonCategory[0]}외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
+              curNotificationList.current.push(`${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
           })
           setNotificationList(curNotificationList.current);
         }
@@ -52,7 +52,7 @@ function Topbar() {
           curNotificationCount.current += 1;
           setNotificationCount(curNotificationCount.current);
           message.map((v,i) => {
-            curNotificationList.current.push(`${v.resourceName}에 ${v.reasonCategory[0]}외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
+            curNotificationList.current.push(`${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
           })
           setNotificationList(curNotificationList.current);
         }

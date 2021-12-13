@@ -34,6 +34,7 @@ function Scanning() {
       })
       .then(function (response) {
         console.log("Scan Request Response", response);
+        window.location.reload();
       });
   };
 
@@ -113,10 +114,10 @@ function Scanning() {
           gdata={recommandations.map((v, i) => {
             return {
               id: v.name,
-              data: v.recommandCountList.map((data, index) => {
+              data: v.recommandCountList.map((v, index) => {
                 return {
-                  x: moment(data.date).format("YYYY/MM/DD HH:MM"),
-                  y: data.value,
+                  x: moment(v.date).format("YYYY/MM/DD HH:mm:ss"),
+                  y: v.value,
                 };
               }),
             };
@@ -138,7 +139,7 @@ function Scanning() {
           cdata={accounts.map((v, i) => {
             return {
               clouds: v.name,
-              last_scanned: v.lastScan === "" ? "No Report" : moment(v.lastScan).format("YYYY/MM/DD HH:MM"),
+              last_scanned: v.lastScan === "" ? "No Report" : moment(v.lastScan).format("YYYY/MM/DD HH:mm:ss"),
               per: v.permissionCount,
               config: v.configCount,
               scan: v.status === 1 ? "비활성화" : v.status === 2 ? <button onClick={() => StartScan(v.cloudId)}>스캔 하기</button> : v.status === 3 ? <button disabled>스캔중</button> : "",
