@@ -1,8 +1,6 @@
-import React, { useState, useMemo } from "react";
-// import DatePicker from "react-datepicker";
+import React, { useEffect, useState, useMemo } from "react";
 import Select from "react-select";
 import styled from "styled-components";
-// import "react-datepicker/dist/react-datepicker.css";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
@@ -12,6 +10,7 @@ import MobileTimePicker from "@mui/lab/MobileTimePicker";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import Box from "@mui/material/Box";
 import { createTheme } from "@mui/material/styles";
+import axios from "axios";
 
 const SettingDiv = styled.div`
   display: flex;
@@ -78,14 +77,25 @@ const customTheme = createTheme({
 });
 
 function BusinessTime() {
-  const [startTime, setStartTime] = useState(new Date("Sun Dec 05 2021 09:00:00 GMT+0900 (한국 표준시)"));
-  const [endTime, setEndTime] = useState(new Date("Sun Dec 05 2021 18:00:00 GMT+0900 (한국 표준시)"));
+  const [startTime, setStartTime] = useState("09:00");
+  const [endTime, setEndTime] = useState("18:00");
+  const fetchBusinessTimeData = async () => {
+    const response = await axios.get("http://3.34.125.15:8000/api/setting");
+    console.log(response);
+    setStartTime(response.data.settingData.businessTimeData.startTime);
+    setEndTime(response.data.settingData.businessTimeData.endTime);
+    console.log("responsebusinessTimeData", response);
+  };
+  useEffect(() => {
+    fetchBusinessTimeData();
+  }, []);
+
   const [Time, setTime] = useState({ start: "", end: "" });
   const onTimeClick = () => {
-    // console.log(startTime);
-    // console.log(endTime);
-    console.log(startTime.toTimeString().substr(0, 5));
-    console.log(endTime.toTimeString().substr(0, 5));
+    axios.put("http://3.34.125.15:8000/api/setting", { startTime: startTime.substring(5, 10), endTime: endTime.substring(5, 10) }).then(function (response) {
+      console.log(response);
+      console.log("Send Data: ", { startTime: startTime.substring(5, 10), endTime: endTime.substring(5, 10) });
+    });
   };
 
   return (
@@ -109,7 +119,8 @@ function BusinessTime() {
                   label="start time"
                   value={startTime}
                   onChange={(newValue) => {
-                    setStartTime(newValue);
+                    setStartTime("2021 " + newValue.toTimeString().substr(0, 5));
+                    // console.log(newValue.toTimeString().substr(0, 5));
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
@@ -119,7 +130,7 @@ function BusinessTime() {
                   label="end time"
                   value={endTime}
                   onChange={(newValue) => {
-                    setEndTime(newValue);
+                    setEndTime("2021 " + newValue.toTimeString().substr(0, 5));
                   }}
                   renderInput={(params) => <TextField {...params} />}
                 />
@@ -135,7 +146,7 @@ function BusinessTime() {
         <div>
           <div style={{ fontSize: "18px", color: "white", paddingTop: "15px", paddingBottom: "15px", textAlign: "center", width: "30%", backgroundColor: "#3B434D", borderRadius: "10px" }}>
             <span style={{ fontWeight: "bolder", paddingRight: "15px" }}>현재 업무 시간 | </span>
-            {startTime.toTimeString().substr(0, 5)} ~ {endTime.toTimeString().substr(0, 5)}
+            {startTime.substring(5, 10)} ~ {endTime.substring(5, 10)}
           </div>
         </div>
       </SettingDiv>
@@ -143,42 +154,36 @@ function BusinessTime() {
   );
 }
 function NotificationSetting() {
-  const options = useMemo(
-    () => [
-      { value: "policy1", label: "policy1" },
-      { value: "policy2", label: "policy2" },
-      { value: "policy3", label: "policy3" },
-      { value: "policy4", label: "policy4" },
-    ],
-    []
-  );
-  const options2 = ["policy1", "policy2", "policy3", "policy4"];
+  const [expirationDateData, setExpirationDateData] = useState([]);
   const [endDate, setEndDate] = useState(new Date());
+  const fetchExpirationDateData = async () => {
+    const response = await axios.get("http://3.34.125.15:8000/api/setting");
+    setExpirationDateData(response.data.settingData.expirationDateData);
+    setEndDate(response.data.settingData.expirationDateData.endDate);
+    console.log("responseExpirationDateData", response);
+  };
+  useEffect(() => {
+    fetchExpirationDateData();
+  }, []);
+
   const [resource, setResource] = useState("");
-  const [text, setText] = useState("");
-  const [notification, setNotificaton] = useState([]);
   const onChange = (event) => {
+    console.log(event);
     setResource(event.value);
   };
-  const onSubmit = (event) => {
-    event.preventDefault();
-    setNotificaton((prev) => [
-      ...prev,
-      {
-        resource: { resource },
-        date: { endDate },
-        text: { text },
-      },
-    ]);
-    console.log(notification);
+  const putExpiration = () => {
+    axios.put("http://3.34.125.15:8000/api/notification", { resourceArn: resource, expireDate: endDate }).then(function (response) {
+      console.log(response);
+      console.log("Send Data: ", { resourceArn: resource, expireDate: endDate });
+    });
   };
   const customStyles = {
     control: (base) => ({
       ...base,
       width: 254,
-      height: 20,
+      height: 54,
       minHeight: 35,
-      marginTop: 11,
+      marginTop: 5,
       fontSize: 16,
       textAlign: "center",
     }),
@@ -187,12 +192,22 @@ function NotificationSetting() {
     <SettingDiv>
       <SettingTitle>Setting Expiration Date</SettingTitle>
       <div style={{ paddingTop: "15px" }}>
-        <div style={{ paddingTop: "10px", paddingBottom: "10px", justifyContent: "space-between", width: "40%" }}>
-          <SettingForm onSubmit={onSubmit}>
+        <div style={{ paddingTop: "10px", paddingBottom: "10px", justifyContent: "space-between", width: "30%" }}>
+          <SettingForm>
             <div>
-              <Select options={options} isSearchable onChange={onChange} styles={customStyles} />
+              <Select
+                options={expirationDateData.map((v, i) => {
+                  return {
+                    value: v.resourceArn,
+                    label: v.name,
+                  };
+                })}
+                isSearchable
+                onChange={onChange}
+                styles={customStyles}
+              />
             </div>
-            <div style={{ backgroundColor: "white", margin: "12px", height: "fit-content", width: "254px" }}>
+            <div style={{ backgroundColor: "white", margin: "5px", height: "fit-content", width: "40%" }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <Stack spacing={3}>
                   <DateTimePicker
@@ -205,30 +220,12 @@ function NotificationSetting() {
                 </Stack>
               </LocalizationProvider>
             </div>
-          </SettingForm>
-          <div style={{ paddingTop: "20px", display: "flex", flexDirection: "row", width: "76%" }}>
-            {/* <Box
-              component="form"
-              sx={{
-                "& > :not(style)": { m: 1, width: "25ch" },
-              }}
-              noValidate
-              autoComplete="off"
-            > */}
-            <TextField
-              id="standard-basic"
-              label="Message"
-              variant="standard"
-              fullWidth="true"
-              onChange={(newtext) => {
-                setText(newtext);
-              }}
-            />
-            {/* </Box> */}
-            <div style={{ paddingLeft: "20px" }}>
-              <input type="submit" style={{ height: "52px", width: "50px", backgroundColor: "#3B434D", color: "white", borderRadius: "5px" }} />
+            <div style={{ paddingLeft: "5px" }}>
+              <button onClick={() => putExpiration()} style={{ height: "52px", width: "50px", backgroundColor: "#3B434D", color: "white", borderRadius: "5px", marginTop: "5px" }}>
+                저장
+              </button>
             </div>
-          </div>
+          </SettingForm>
         </div>
       </div>
     </SettingDiv>

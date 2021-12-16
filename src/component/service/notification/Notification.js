@@ -15,45 +15,44 @@ function a11yProps(index) {
 }
 
 function Notification() {
-  //   const [notificationList, setNotificationList] = useState([]);
-  //   const fetchNotificationList = async () => {
-  //     const response = await axios.get("http://3.34.125.15:8000/api/notification");
-  //     setNotificationList(response.data.notificationList);
-  //     console.log("responseNotification", response);
-  //   };
-  //   useEffect(() => {
-  //     fetchNotificationList();
-  //   }, []);
+  const [notificationList, setNotificationList] = useState([]);
+  const fetchNotificationList = async () => {
+    const response = await axios.get("http://3.34.125.15:8000/api/notification");
+    setNotificationList(response.data.notificationList);
+    console.log("responseNotification", response);
+  };
+  useEffect(() => {
+    fetchNotificationList();
+  }, []);
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   const column = [
-    { title: "Time", field: "time" },
+    { title: "Expire Date", field: "expire date" },
     { title: "Object", field: "object" },
     { title: "arn", field: "arn" },
     { title: "Message", field: "message" },
-    { title: "Marking", field: "marking" },
   ];
-  const currentAlarm = [
-    {
-      time: "IAMGROUND",
-      object: "Sat Nov 20 2021 02:47:47",
-      arn: "활성화",
-      message: "리소스 만료 예정",
-      marking: <input type="checkbox" />,
-    },
-  ];
-  const futureAlarm = [
-    {
-      time: "IAMGROUND",
-      object: "Sat Nov 20 2021 02:47:47",
-      arn: "활성화",
-      message: "리소스 만료 예정",
-      marking: <input type="checkbox" />,
-    },
-  ];
+  // const currentAlarm = [
+  //   {
+  //     time: "IAMGROUND",
+  //     object: "Sat Nov 20 2021 02:47:47",
+  //     arn: "활성화",
+  //     message: "리소스 만료 예정",
+  //     marking: <input type="checkbox" />,
+  //   },
+  // ];
+  // const futureAlarm = [
+  //   {
+  //     time: "IAMGROUND",
+  //     object: "Sat Nov 20 2021 02:47:47",
+  //     arn: "활성화",
+  //     message: "리소스 만료 예정",
+  //     marking: <input type="checkbox" />,
+  //   },
+  // ];
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -62,8 +61,8 @@ function Notification() {
           <Tab label="예정 알림" {...a11yProps(1)} />
         </Tabs>
       </Box>
-      {value === 0 && <TableMaterial columns={column} cdata={currentAlarm} title="현재 알림 목록" type="notification" />}
-      {value === 1 && <TableMaterial columns={column} cdata={futureAlarm} title="예정 알림 목록" type="notification" />}
+      {value === 0 && <TableMaterial columns={column} cdata={notificationList.currentAlarm} title="현재 알림 목록" type="notification" />}
+      {value === 1 && <TableMaterial columns={column} cdata={notificationList.futureAlarm} title="예정 알림 목록" type="notification" />}
     </Box>
   );
 }

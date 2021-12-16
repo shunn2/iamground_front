@@ -109,9 +109,26 @@ const Visualization = () => {
 
   const [tab, setTab] = useState(0);
   const handleTabClick = (event, tabNumber) => {
-    setTab(tabNumber);
+    console.log("userr", elementUser);
+    console.log("lengthh", visualData[tab].user.length);
     setElements([]);
+    setTab(tabNumber);
     setNoGroup([]);
+    setyesgroup1([]);
+    setYesGroup([]);
+    setNoGroup([]);
+    setUserElement([]);
+    setNoOrgGroup([]);
+    setelementAws([]);
+    setelementOrg([]);
+    setelementUser([]);
+    setelementKey([]);
+    console.log("targetd", targetGroup);
+    console.log("yes", yesGroup);
+    console.log("yes1", yesgroup1);
+    console.log("nooo", noGroup);
+    console.log("uselkj", userElement);
+    console.log("elementss", elements);
   };
 
   const [orgChecked, setOrgChecked] = useState(false);
@@ -140,6 +157,10 @@ const Visualization = () => {
   }, []);
   const [yesgroup1, setyesgroup1] = useState([]);
   const reArrayUser = () => {
+    setyesgroup1([]);
+    setNoGroup([]);
+    setNoOrgGroup([]);
+    setElements([]);
     for (let j = 0; j < visualData[tab].user.length; j++) {
       if (targetGroup.includes(visualData[tab].user[j].sourceArn) === true) {
         setyesgroup1((prev) => [...prev, visualData[tab].user[j]]);
@@ -155,6 +176,7 @@ const Visualization = () => {
     }
   };
   const reArrayUser1 = () => {
+    setYesGroup([]);
     for (let k = 0; k < targetGroup.length; k++) {
       for (let l = 0; l < yesgroup1.length; l++) {
         if (targetGroup[k] === yesgroup1[l].sourceArn) {
@@ -165,7 +187,7 @@ const Visualization = () => {
   };
   useEffect(() => {
     reArrayUser1();
-  }, [targetGroup, yesgroup1]);
+  }, [targetGroup, yesgroup1, tab]);
   useEffect(() => {
     setTargetGroup(
       visualData[tab].awsGroup.map((v, i) => {
@@ -177,12 +199,13 @@ const Visualization = () => {
         return v.targetArn;
       })
     );
-  }, [visualData]);
+  }, [visualData, tab]);
   useEffect(() => {
     reArrayUser();
     setElements([]);
   }, [targetGroup, tab]);
   const makeUserElement = async () => {
+    setUserElement([]);
     await setUserElement((userElement) => [...userElement, ...yesGroup]);
     setUserElement((userElement) => [...userElement, ...noGroup]);
   };
@@ -387,7 +410,7 @@ const Visualization = () => {
             ),
           },
           position: {
-            x: (1300 / (visualData[tab].user.length - 1)) * (i + 1) - 50,
+            x: (1300 / (visualData[tab].user.length - 1)) * i,
             y: 460,
           },
         };
@@ -409,7 +432,7 @@ const Visualization = () => {
               ),
             },
             position: {
-              x: (1300 / (visualData[tab].user.length - 1)) * (i + 1),
+              x: (1300 / (visualData[tab].user.length - 1)) * i,
               y: 650,
             },
           };
@@ -462,10 +485,9 @@ const Visualization = () => {
 
   useEffect(() => {
     setUniqueElements(_.uniqBy(elements, "id"));
+    console.log("uniqueeee", uniqueElements);
   }, [elements]);
-  useEffect(() => {
-    setElements([]);
-  }, []);
+
   const [resource, setResource] = useState(null);
   const openModal = () => {
     setmodalOpen(true);
