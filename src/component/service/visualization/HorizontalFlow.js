@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import ReactFlow, { removeElements, addEdge } from "react-flow-renderer";
 import CustomEdge from "./CustomEdge";
 import _, { keyBy } from "lodash";
@@ -189,8 +188,8 @@ const HorizontalFlow = ({ resource, subject, resourceName, resourceArn }) => {
   // const [elements, setElements] = useState(abcdElements);
   const onElementsRemove = (elementsToRemove) => setElements((els) => removeElements(elementsToRemove, els));
   const onConnect = (params) => setElements((els) => addEdge(params, els));
-  const onElementClick = async (event, element) => {
-    <a target="_blank" href="/scan" />;
+  const onElementClick = (event, element) => {
+    window.location.href = "/scan";
   };
   const changeClassName = () => {
     setElements((elms) =>
