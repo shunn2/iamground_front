@@ -116,7 +116,6 @@ const Visualization = () => {
     setNoGroup([]);
     setyesgroup1([]);
     setYesGroup([]);
-    setNoGroup([]);
     setUserElement([]);
     setNoOrgGroup([]);
     setelementAws([]);
@@ -201,6 +200,8 @@ const Visualization = () => {
     );
   }, [visualData, tab]);
   useEffect(() => {
+    setNoGroup([]);
+    setNoOrgGroup([]);
     reArrayUser();
     setElements([]);
   }, [targetGroup, tab]);
