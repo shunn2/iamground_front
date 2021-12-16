@@ -104,14 +104,10 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
       const policyName = Object.keys(recommend);
       return (
         <>
-          <div style={{ display: "flex", flexDirection: "row", backgroundColor: "#D6D6D6" }}>
-            <PolicyRecommend style={{ borderRight: "3px solid black" }}>{policyName[value]}</PolicyRecommend>
-            <PolicyRecommend>추천</PolicyRecommend>
-          </div>
           {recommend[policyName[value]].hasOwnProperty("action_method") ? (
             recommend[policyName[value]].action_method.map((v, i) => {
               return (
-                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", height: "70%", padding: "15px" }}>
+                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", height: "100%", padding: "15px", border: "1px solid black" }}>
                   <div style={{ fontSize: "25px", paddingBottom: "80px" }}>{recommend[policyName[value]].relation}</div>
                   <div>
                     <a target="_blank" href={v.url}>
@@ -122,21 +118,27 @@ const ModalPer = ({ modalOpen, setmodalOpen, Id }) => {
               );
             })
           ) : (
-            <div style={{ display: "flex", flexDirection: "row", border: "2px solid black", borderCollapse: "collpase" }}>
-              <div style={{ width: "50%", borderCollapse: "collapse", borderRight: "2px solid black" }}>
-                <pre style={{ fontSize: "16px" }}>{JSON.stringify(recommend[policyName[value]].origin, null, 2)}</pre>
+            <>
+              <div style={{ display: "flex", flexDirection: "row", backgroundColor: "#D6D6D6" }}>
+                <PolicyRecommend style={{ borderRight: "3px solid black" }}>{policyName[value]}</PolicyRecommend>
+                <PolicyRecommend>추천</PolicyRecommend>
               </div>
-              <div style={{ width: "50%", borderCollapse: "collapse", borderLeft: "2px solid blakc" }}>
-                <pre style={{ fontSize: "16px" }}>{JSON.stringify(recommend[policyName[value]].new, null, 2)}</pre>
+              <div style={{ display: "flex", flexDirection: "row", border: "2px solid black", borderCollapse: "collpase" }}>
+                <div style={{ width: "50%", borderCollapse: "collapse", borderRight: "2px solid black" }}>
+                  <pre style={{ fontSize: "16px" }}>{JSON.stringify(recommend[policyName[value]].origin, null, 2)}</pre>
+                </div>
+                <div style={{ width: "50%", borderCollapse: "collapse", borderLeft: "2px solid blakc" }}>
+                  <pre style={{ fontSize: "16px" }}>{JSON.stringify(recommend[policyName[value]].new, null, 2)}</pre>
+                </div>
               </div>
-            </div>
+            </>
           )}
         </>
       );
     } else {
       return recommend.action_method.map((v, i) => {
         return (
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "70%", padding: "15px" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start", height: "100%", padding: "15px", border: "1px solid black" }}>
             <div style={{ fontSize: "30px", paddingBottom: "50px" }}>
               {v.item}
               <div>

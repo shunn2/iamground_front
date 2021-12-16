@@ -17,11 +17,16 @@ function Topbar() {
   const [notificationCount, setNotificationCount] = useState(0);
   const curNotificationCount = useRef(0);
 
+  const fetchNotificationList = async () => {
+    const response = await axios.get("http://3.34.125.15:8000/api/notification/message");
+    setNotificationList(response.data.messageList);
+    setNotificationCount(response.data.messageList.length);
+    console.log("response Noti List", response);
+  };
+
   useEffect(() => {
-    // const interval =
+    fetchNotificationList();
     setInterval(
-      // () =>{
-      // {ToastsStore.success("Toast Test")
       async () => {
       const response = await axios.get("http://3.34.125.15:8000/api/monitoring/toast");
       
@@ -29,72 +34,52 @@ function Topbar() {
         // console.log("No Data");
       }
       else {
-        console.log("Response", response);
+        console.log("response Toast List", response);
         const message = response.data.toastList;
         message.map((v,i) =>{
           ToastsStore.success(`${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
         })
-        
-        if (curNotificationCount.current === 0) {
-          curNotificationCount.current += 1;
-          setNotificationCount(curNotificationCount.current);
-          // curNotificationList.current[0] = `${message[0].resourceName}에 ${message[0].reasonCategory[0]} 발생`;
-          message.map((v,i) => {
-            if(i === 0){
-              curNotificationList.current[0] = `${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`;
-            }
-            else
-              curNotificationList.current.push(`${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
-          })
-          setNotificationList(curNotificationList.current);
-        }
-        else{
-          curNotificationCount.current += 1;
-          setNotificationCount(curNotificationCount.current);
-          message.map((v,i) => {
-            curNotificationList.current.push(`${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
-          })
-          setNotificationList(curNotificationList.current);
-        }
-
+        fetchNotificationList();
+        // if (curNotificationCount.current === 0) {
+        //   curNotificationCount.current += 1;
+        //   setNotificationCount(curNotificationCount.current);
+        //   message.map((v,i) => {
+        //     if(i === 0){
+        //       curNotificationList.current[0] = `${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`;
+        //     }
+        //     else
+        //       curNotificationList.current.push(`${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
+        //   })
+        //   setNotificationList(curNotificationList.current);
+        // }
+        // else{
+        //   curNotificationCount.current += 1;
+        //   setNotificationCount(curNotificationCount.current);
+        //   message.map((v,i) => {
+        //     curNotificationList.current.push(`${v.resourceName}에 ${v.reasonCategory[0]} 외 ${v.reasonCategory.length - 1}개 위험 요소를 포함한 위험 로그 발생`);
+        //   })
+        //   setNotificationList(curNotificationList.current);
+        // }
       }
     },
     5000);
   },[]);
 
-  // const [notificationList, setNotificationList] = useState(["미확인 알림 없음"]);
-  // const [notificationCount, setNotificationCount] = useState(0);
   const [notificationListOpen, setNotificationListOpen] = useState(false);
 
-  // const AddNotification = (message) => {
-  //   if (notificationCount === 0) {
-  //     setNotificationCount(1);
-  //     setNotificationList([message])
-  //   }
-  //   else {
-  //     setNotificationCount(notificationCount + 1);
-  //      notificationList.push(message);
-  //   setNotificationList(notificationList);
-  //   }
-  // }
-
-  const ResetNotificationList = () => {
+  const ResetNotificationList = async() => {
+    console.log("reset list");
     if (notificationListOpen) {
-      curNotificationList.current = ["미확인 알림 없음"];
-      setNotificationList(curNotificationList.current);
-      curNotificationCount.current = 0;
-      setNotificationCount(curNotificationCount.current);
+      for (let i = 0; i<notificationList.length; i++) {
+        await axios.delete("http://3.34.125.15:8000/api/notification/message", {data:{notificationId:notificationList[i].notificationId}}).then(function (response) {
+          console.log(response);
+          console.log("Send Data: Delete Noti", {notificationId:notificationList[i].notificationId});
+        });
+      }
     }
     setNotificationListOpen(!notificationListOpen);
+    fetchNotificationList();
   };
-
-  // const ResetNotificationList = () => {
-  //   if (notificationListOpen) {
-  //     setNotificationList(["미확인 알림 없음"]);
-  //     setNotificationCount(0);
-  //   }
-  //   setNotificationListOpen(!notificationListOpen);
-  // };
 
   const notiList = () => {
     return (
@@ -114,7 +99,9 @@ function Topbar() {
           }}
         >
           {notificationList.map((v, i) => {
-            return <div style={{ color: "#77788D", fontSize: "18px", padding: "5px", margin: "5px", backgroundColor: "#FBF8E3", borderRadius: "5px" }}>{v}</div>;
+            return <div style={{ color: "#77788D", fontSize: "18px", padding: "5px", margin: "5px", backgroundColor: "#FBF8E3", borderRadius: "5px" }}>
+              {v.resourceName}에 {JSON.parse(v.reasonCategory)[0]} 외 {JSON.parse(v.reasonCategory).length - 1}개 위험 요소를 포함한 위험 로그 발생
+              </div>;
           })}
         </div>
       </>

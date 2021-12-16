@@ -56,7 +56,9 @@ function Scanning() {
     <ResponsiveLine
       data={gdata}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+      // xScale={{ type: "time", format: "%YYYY/%MM/%DD %HH:%mm" }}
       xScale={{ type: "point" }}
+      // xFormat="time:%YYYY/%MM/%DD %HH:%mm"
       yScale={{
         type: "linear",
         min: "auto",
@@ -125,17 +127,22 @@ function Scanning() {
       <h1 style={{ color: "#787878", margin: "0px 0px 10px 0px", fontSize: "26px", height: "35px" }}>Scanning</h1>
       <div style={{ height: "45%", width: "100%", backgroundColor: "white", border: "1px solid #D6D6D6" }}>
         <MyResponsiveLine
-          gdata={recommandations.map((v, i) => {
-            return {
-              id: v.name,
-              data: v.recommandCountList.map((d, index) => {
-                return {
-                  x: moment(d.date).format("YYYY/MM/DD HH:mm"),
-                  y: d.value,
-                };
-              }),
-            };
-          })}
+          gdata={
+            recommandations.map((v, i) => {
+              return {
+                id: v.name,
+                data: v.recommandCountList.map((d, index) => {
+                  return {
+                    x: moment(d.date).format("YY/MM/DD"),
+                    y: d.value,
+                  };
+                }),
+              };
+            })
+            // .sort(function (a, b) {
+            //   return a.data.x < b.data.x ? -1 : a.data.x > b.data.x ? 1 : 0;
+            // })
+          }
         />
       </div>
       <div></div>
