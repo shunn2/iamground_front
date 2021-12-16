@@ -109,8 +109,6 @@ const Visualization = () => {
 
   const [tab, setTab] = useState(0);
   const handleTabClick = (event, tabNumber) => {
-    console.log("userr", elementUser);
-    console.log("lengthh", visualData[tab].user.length);
     setElements([]);
     setTab(tabNumber);
     setNoGroup([]);
@@ -122,12 +120,6 @@ const Visualization = () => {
     setelementOrg([]);
     setelementUser([]);
     setelementKey([]);
-    console.log("targetd", targetGroup);
-    console.log("yes", yesGroup);
-    console.log("yes1", yesgroup1);
-    console.log("nooo", noGroup);
-    console.log("uselkj", userElement);
-    console.log("elementss", elements);
   };
 
   const [orgChecked, setOrgChecked] = useState(false);
@@ -148,7 +140,6 @@ const Visualization = () => {
   const fetchVisualData = async () => {
     await axios.get("http://3.34.125.15:8000/api/visualization").then((res) => {
       setVisualData(res.data.infoByCloud);
-      console.log("res", res);
     });
   };
   useEffect(() => {
@@ -486,7 +477,6 @@ const Visualization = () => {
 
   useEffect(() => {
     setUniqueElements(_.uniqBy(elements, "id"));
-    console.log("uniqueeee", uniqueElements);
   }, [elements]);
 
   const [resource, setResource] = useState(null);
@@ -495,7 +485,6 @@ const Visualization = () => {
   };
   const onElementClick = async (event, element) => {
     event.preventDefault();
-    console.log("click", element);
     await setResource(element.id);
     if (String(element.id).substr(0, 3) !== "arn") {
       setmodalOpen(false);
@@ -576,21 +565,3 @@ const Visualization = () => {
 };
 
 export default Visualization;
-// // //https://webkid.io/blog/react-flow-node-based-graph-library/
-// // import React, { useState, useEffect } from "react";
-// // import axios from "axios";
-// // const Visualization = () => {
-// //   const [visualData, setVisualData] = useState([]);
-// //   const fetchVisualData = async () => {
-// //     const response = await axios.get("http://3.34.125.15:8000/api/visualization");
-// //     setVisualData(response);
-// //     console.log("visual", response);
-// //     console.log("visualdata", visualData);
-// //   };
-// //   useEffect(() => {
-// //     fetchVisualData();
-// //   }, []);
-// //   return <div>hi</div>;
-// // };
-
-// // export default Visualization;
