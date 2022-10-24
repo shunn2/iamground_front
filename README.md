@@ -19,7 +19,7 @@ Organization Github: https://github.com/IAMGround-Team <br/>
 
 - IAM 보안 사고 예방 가능
 - 비정상 행위 탐지 및 2차 사고 예방
-- 보안 인력이 부
+- 보안 인력이 부재한 스타트업에 도움
 
 ### 🤔 경험 & 고민
 
