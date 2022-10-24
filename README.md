@@ -36,7 +36,8 @@ Organization Github: https://github.com/IAMGround-Team <br/>
 - 서비스 최종 배포
 - Best of the Best 10기 최종 프로젝트 제출
 
-**더 살펴 보기**
+**발표 자료**
+### [IAMGROUND_최종 발표.pdf](https://github.com/shunn2/iamground_front/files/9849958/IAMGROUND_.pdf)
 
 # 📝서비스 개발
 
