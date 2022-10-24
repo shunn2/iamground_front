@@ -1,8 +1,7 @@
 # IAMGROUND
 
-Github: https://github.com/IAMGround-Team
-Organization Github: https://github.com/IAMGround-Team
-기간: 2021년 8월 31일 → 2021년 12월 31일
+Organization Github: https://github.com/IAMGround-Team <br/>
+기간: 2021년 8월 31일 → 2021년 12월 31일 <br/>
 속성: node.js, react.js, redux, styled-component
 
 ### 🎨 **프로젝트 개발 배경**
